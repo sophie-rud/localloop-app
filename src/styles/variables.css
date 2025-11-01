@@ -1,0 +1,11 @@
+:root {
+    --color-dark-blue: rgb(21, 70, 84);
+    --color-green: rgb(128, 237, 153);
+    --color-off-white: rgb(244, 241, 222);
+
+    --font-family-base: 'Nunito', sans-serif;
+    --font-size-base: 1rem;
+
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
