@@ -1,0 +1,66 @@
+.step-presentation {
+    border: var(--color-green) solid;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.step-header {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-green);
+    color: var(--color-off-white);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-bottom: 0.5rem;
+}
+
+.step-presentation-photo {
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.step-title {
+    width: 100%;
+    background-color: var(--color-green);
+    color: var(--color-dark-blue);
+    text-align: center;
+    /*padding: 10px 0;*/
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0.3rem 0;
+}
+
+.step-content {
+    padding: 0 1rem;
+}
+
+.step-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+    gap: 0.5rem;
+}
+
+.info {
+    display: flex;
+    /*flex-direction: row;*/
+    align-items: center;
+    gap: 2rem;
+    margin: 0.25rem 0;
+    height: 1.5rem;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-dark-blue);
+    margin-bottom: auto;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-off-white);
+    margin-top: 1rem;
+}
