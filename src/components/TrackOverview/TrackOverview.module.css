@@ -1,0 +1,27 @@
+.track-overview {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-off-white);
+    border-radius: 15px;
+    overflow: hidden;
+    height: 120px;
+}
+
+.track-overview-photo {
+    width: 40%;
+    object-fit: cover;
+}
+
+.track-overview-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: start;
+    padding: 0.5rem;
+    font-size: var(--font-size-small);
+    line-height: 1rem;
+}
+
+.overview-title {
+    font-size: var(--font-size-base);
+}
