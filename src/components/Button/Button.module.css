@@ -1,4 +1,4 @@
-.blue-btn, .green-btn {
+.blue-btn, .green-btn, .small-blue-btn, .small-green-btn {
     flex: 1;
     width: 100%;
     padding: 0.5rem 3rem;
@@ -11,14 +11,21 @@
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.blue-btn {
+.blue-btn, .small-blue-btn {
     background-color: var(--color-dark-blue);
     color: var(--color-off-white);
 }
 
-.green-btn {
+.green-btn, .small-green-btn {
     background-color: var(--color-green);
     color: var(--color-dark-blue);
+}
+
+.small-blue-btn, .small-green-btn {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 2rem;
+    margin-bottom: 0.2rem;
 }
 
 .blue-btn:hover, .green-btn:hover {

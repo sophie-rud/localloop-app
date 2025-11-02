@@ -1,11 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
 :root {
     --color-dark-blue: rgb(21, 70, 84);
     --color-green: rgb(128, 237, 153);
     --color-off-white: rgb(244, 241, 222);
 
-    --font-family-base: 'Nunito', sans-serif;
+    --color-dark-blue-70: rgba(21, 70, 84, 0.7);
+
+    --font-family: 'Nunito', sans-serif;
     --font-size-base: 1rem;
+    --font-size-small: 0.8rem;
 
     --radius: 8px;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow: 0 2px 8px rgba(21, 70, 84, 0.1);
+
+    color-scheme: light dark;
 }
