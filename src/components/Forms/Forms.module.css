@@ -1,0 +1,69 @@
+.login-form, .signup-form {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    /*display: block;*/
+    /*width: 100%;*/
+    /*text-align: start;*/
+    font-size: var(--font-size-small);
+}
+
+.common-input,
+.common-textarea,
+.common-select-input,
+.common-file-input {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 1.2rem;
+    border: 2px solid var(--color-dark-blue);
+    border-radius: 5px;
+    font-size: var(--font-size-base);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--color-dark-blue-70);
+}
+
+.common-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.common-select-input {
+    display: block;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.common-file-input {
+    display: inline-block;
+    padding: 10px 20px;
+    color: var(--color-dark-blue);
+    cursor: pointer;
+    text-align: start;
+    font-size: var(--font-size-small);
+    transition: all 0.3s;
+    /*display: none;*/
+}
+
+.common-checkbox {
+    margin-left: 1rem;
+    margin-bottom: 1.6rem;
+}
+
+.common-input:hover, .common-textarea:hover, .common-select-input:hover,.common-file-input:hover {
+    border-color: var(--color-green);
+    color: var(--color-dark-blue);
+}
+
+.common-input:focus, .common-textarea:focus, .common-select-input:focus, .common-file-input:focus {
+    border-color: var(--color-green);
+    box-shadow: var(--shadow);
+}
