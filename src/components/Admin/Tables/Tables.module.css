@@ -1,0 +1,73 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+thead {
+    background: var(--color-dark-blue);
+    color: var(--color-off-white);
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 10px;
+    font-size: 1rem;
+}
+
+tbody tr:nth-child(even) {
+    background: var(--color-off-white);
+}
+
+/* Images profil */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Boutons */
+.btn {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* Responsive - version cartes sur petit écran */
+@media (max-width: 700px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        background: white;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        padding: 10px;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #555;
+    }
+}
