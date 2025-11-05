@@ -1,0 +1,5 @@
+.minimal-header {
+    display: flex;
+    align-items: start;
+    padding: 2rem;
+}
