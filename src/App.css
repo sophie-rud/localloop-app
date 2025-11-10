@@ -7,6 +7,10 @@
   min-height: 100vh;
 }
 
+body {
+    padding-bottom: 70px;
+}
+
 main {
     flex: 1;
     width: 90%;

@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-    padding-bottom: 70px;
+    /*padding-bottom: 70px;*/
     color: var(--color-dark-blue);
     line-height: 1.5;
     font-weight: 400;
