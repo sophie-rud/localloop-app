@@ -79,7 +79,7 @@
 }
 
 .icon {
-    font-size: var(--font-size-small);
+    width: var(--font-size-small);
 }
 
 .sidebar-footer {

@@ -1,0 +1,17 @@
+.main-admin {
+    flex: 1;
+    padding-left: 260px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+p, h1, h2, h3, h4 {
+    color: var(--color-dark-blue);
+}

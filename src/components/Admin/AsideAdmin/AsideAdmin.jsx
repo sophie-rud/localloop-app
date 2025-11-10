@@ -25,10 +25,7 @@ function AsideAdmin() {
             <div className={classes['sidebar-menu']}>
                 <h2 className={classes['sidebar-subtitle']}>Mon profil</h2>
                 <NavLink to="" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
-                    Mes infos
-                </NavLink>
-                <NavLink to="" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
-                    Mes parcours
+                    Mes infos & mes parcours
                 </NavLink>
             </div>
 
