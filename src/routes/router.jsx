@@ -1,6 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter, Outlet} from "react-router-dom";
 import App from "../App.jsx";
 import MinimalLayout from "../layouts/MinimalLayout/MinimalLayout.jsx";
+import Home from "../pages/Home/Home.jsx";
+import LoginPage from "../pages/LoginPage/LoginPage.jsx";
+import SignupPage from "../pages/SignupPage/SignupPage.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
+import TracksPage from "../pages/Tracks/TracksPage/TracksPage.jsx";
+import OneTrackDetailsPage from "../pages/Tracks/OneTrackDetailsPage/OneTrackDetailsPage.jsx";
+import TrackStepPage from "../pages/Tracks/TrackStepPage/TrackStepPage.jsx";
+import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
+import FavoriteTracksPage from "../pages/User/FavoriteTracksPage/FavoriteTracksPage.jsx";
+import MyTracksPage from "../pages/User/MyTracksPage/MyTracksPage.jsx";
+import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
+import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
+import CreateTrackPage from "../pages/User/CreateTrackPage/CreateTrackPage.jsx";
+import EditTrackPage from "../pages/User/EditTrackPage/EditTrackPage.jsx";
+import CreateStepPage from "../pages/Steps/CreateStepPage/CreateStepPage.jsx";
+import EditStepPage from "../pages/Steps/EditStepPage/EditStepPage.jsx";
+import UsersDashboardPage from "../pages/Admin/UsersDashboardPage/UsersDashboardPage.jsx";
+import TracksDashboardPage from "../pages/Admin/TracksDashboardPage/TracksDashboardPage.jsx";
+import StepsDashboardPage from "../pages/Admin/StepsDashboardPage/StepsDashboardPage.jsx";
+import PlacesDashboardPage from "../pages/Admin/PlacesDashboardPage/PlacesDashboardPage.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -8,11 +28,11 @@ export const router = createBrowserRouter ([
         children: [
             {
                 path: "login",
-                element: <Login/>
+                element: <LoginPage/>
             },
             {
                 path: "signup",
-                element: <SignUp/>
+                element: <SignupPage/>
             },
         ]
     },
@@ -28,32 +48,27 @@ export const router = createBrowserRouter ([
             },
             {
                 path: "tracks",
-                element: (
-                    <Track />
-                ),
-                children: [
-                    {
-                        index: true,
-                        element: (<TracksPage />)
-                    },
-                    {
-                        path: ":trackId",
-                        element: (<TrackDetailsPage />),
-                        children: [
-                            {
-                                path: "step/:stepId",
-                                element: (<TrackStepPage />),
-                            }
-                        ]
-                    },
-                ]
+                element: (<TracksPage/>)
             },
+            {
+                path: "tracks/:trackId",
+                element: (<OneTrackDetailsPage/>)
+            },
+            {
+                path: "tracks/:trackId/step/:stepId",
+                element: (<TrackStepPage/>),
+            },
+            // TODO: Map Page
+            // {
+            //     path: "map",
+            //     element: (<MapPage/>),
+            // },
             {
                 path: "user",
                 element: (
-                    <PrivateRoute>
+                    // <PrivateRoute>
                         <Outlet />
-                    </PrivateRoute>
+                    // </PrivateRoute>
                 ),
                 children: [
                     {
@@ -73,6 +88,14 @@ export const router = createBrowserRouter ([
                         element: (<EditTrackPage />),
                     },
                     {
+                        path: "tracks/:trackId/step/create",
+                        element: (<CreateStepPage />),
+                    },
+                    {
+                        path: "tracks/step/edit/:stepId",
+                        element: (<EditStepPage />),
+                    },
+                    {
                         path: "tracks/myTracks",
                         element: (<MyTracksPage />),
                     },
@@ -83,9 +106,9 @@ export const router = createBrowserRouter ([
     {
         path: "admin/",
         element: (
-            <PrivateRoute>
+            // <PrivateRoute>
                 <AdminLayout/>
-            </PrivateRoute>
+            // </PrivateRoute>
         ),
         children: [
             {
@@ -107,16 +130,6 @@ export const router = createBrowserRouter ([
             {
                 path: "places",
                 element: (<PlacesDashboardPage />),
-                children: [
-                    {
-                        path: "create",
-                        element: (<CreatePlacePage />),
-                    },
-                    {
-                        path: "edit/:placeId",
-                        element: (<EditPlacePage />),
-                    },
-                ]
             },
         ]
     }
