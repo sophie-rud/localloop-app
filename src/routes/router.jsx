@@ -21,6 +21,7 @@ import UsersDashboardPage from "../pages/Admin/UsersDashboardPage/UsersDashboard
 import TracksDashboardPage from "../pages/Admin/TracksDashboardPage/TracksDashboardPage.jsx";
 import StepsDashboardPage from "../pages/Admin/StepsDashboardPage/StepsDashboardPage.jsx";
 import PlacesDashboardPage from "../pages/Admin/PlacesDashboardPage/PlacesDashboardPage.jsx";
+import MapPage from "../pages/Map/MapPage.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -58,11 +59,10 @@ export const router = createBrowserRouter ([
                 path: "tracks/:trackId/step/:stepId",
                 element: (<TrackStepPage/>),
             },
-            // TODO: Map Page
-            // {
-            //     path: "map",
-            //     element: (<MapPage/>),
-            // },
+            {
+                path: "map",
+                element: (<MapPage/>),
+            },
             {
                 path: "user",
                 element: (
