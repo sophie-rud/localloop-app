@@ -1,0 +1,210 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ali",
+      "email": "alice.dupont@gmail.com",
+      "avatar": "https://i.pravatar.cc/150?img=5",
+      "created_at": "2025-10-01T09:30:00"
+    },
+    {
+      "id": 2,
+      "username": "lily.stadt68",
+      "email": "lily.stadt@gmail.com",
+      "avatar": "https://i.pravatar.cc/150?img=12",
+      "created_at": "2025-09-15T14:20:00"
+    }
+  ],
+  "role": [
+    {
+      "id": 1,
+      "name_role": "User"
+    },
+    {
+      "id": 2,
+      "name_role": "Admin"
+    }
+  ],
+  "themes": [
+    {
+      "id": 1,
+      "name_theme": "Nature",
+      "icon_theme": "🌿"
+    },
+    {
+      "id": 2,
+      "name_theme": "Urbain",
+      "icon_theme": "🏙️"
+    },
+    {
+      "id": 3,
+      "name_theme": "Culture",
+      "icon_theme": "🎨"
+    },
+    {
+      "id": 4,
+      "name_theme": "Sport",
+      "icon_theme": "🏃‍♂️"
+    },
+    {
+      "id": 5,
+      "name_theme": "Gastronomie",
+      "icon_theme": "🍽️"
+    },
+    {
+      "id": 6,
+      "name_theme": "Histoire",
+      "icon_theme": "🏰"
+    }
+  ],
+  "tracks": [
+    {
+      "id": 1,
+      "userId": 1,
+      "theme_id": 3,
+      "title_track": "Balade au cœur de Colmar",
+      "photo_track": "https://picsum.photos/800/600?random=11",
+      "duration": "3h30",
+      "distance": "5 km",
+      "difficulty": "Facile",
+      "presentation": "Une balade pittoresque à travers les canaux et les maisons à colombages de Colmar.",
+      "is_published": true,
+      "created_at": "2025-11-05T10:00:00",
+      "updated_at": "2025-11-06T15:00:00"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "theme_id": 6,
+      "title_track": "Strasbourg historique et gourmand",
+      "photo_track": "https://picsum.photos/800/600?random=11",
+      "duration": "4h",
+      "distance": "6 km",
+      "difficulty": "Moyen",
+      "presentation": "Découvrez l’histoire et la gastronomie de Strasbourg, entre cathédrale, quartiers médiévaux et marchés.",
+      "is_published": true,
+      "created_at": "2025-11-08T09:00:00",
+      "updated_at": "2025-11-09T18:00:00"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "theme_id": 1,
+      "title_track": "Promenade verte le long de la Lauch",
+      "photo_track": "https://picsum.photos/800/600?random=11",
+      "duration": "2h30",
+      "distance": "4 km",
+      "difficulty": "Facile",
+      "presentation": "Une promenade paisible le long de la rivière Lauch à Colmar, entre verdure et patrimoine local.",
+      "is_published": true,
+      "created_at": "2025-11-10T09:00:00",
+      "updated_at": "2025-11-10T11:30:00"
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "theme_id": 4,
+      "title_track": "Strasbourg à vélo",
+      "photo_track": "https://picsum.photos/800/600?random=24",
+      "duration": "2h",
+      "distance": "10 km",
+      "difficulty": "Sportif",
+      "presentation": "Un parcours à vélo qui longe les quais et les parcs de Strasbourg pour découvrir la ville autrement.",
+      "is_published": false,
+      "created_at": "2025-11-11T08:00:00",
+      "updated_at": "2025-11-11T09:15:00"
+    }
+  ],
+  "places": [
+    {
+      "id": 1,
+      "name_place": "Pont Saint-Pierre",
+      "city": "Colmar",
+      "description": "Petit pont pittoresque enjambant le canal Lauch, emblématique du quartier de la Petite Venise.",
+      "photo_place": "https://picsum.photos/800/600?random=51",
+      "latitude": 48.0793,
+      "longitude": 7.3582
+    },
+    {
+      "id": 2,
+      "name_place": "Musée Unterlinden",
+      "city": "Colmar",
+      "description": "Ancien couvent transformé en musée, célèbre pour le retable d'Issenheim.",
+      "photo_place": "https://picsum.photos/800/600?random=52",
+      "latitude": 48.0790,
+      "longitude": 7.3580
+    },
+    {
+      "id": 3,
+      "name_place": "Cathédrale Notre-Dame de Strasbourg",
+      "city": "Strasbourg",
+      "description": "Monument gothique emblématique de la ville.",
+      "photo_place": "https://picsum.photos/800/600?random=53",
+      "latitude": 48.5819,
+      "longitude": 7.7509
+    },
+    {
+      "id": 4,
+      "name_place": "Pont des Tanneurs",
+      "city": "Strasbourg",
+      "description": "Pont historique situé dans le quartier de la Petite France, offrant une vue sur les maisons à colombages et les canaux.",
+      "photo_place": "https://picsum.photos/800/600?random=54",
+      "latitude": 48.5831,
+      "longitude": 7.7508
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "trackId": 1,
+      "placeId": 1,
+      "name_step": "Découverte de la Petite Venise",
+      "photo_step": "https://picsum.photos/800/600?random=31",
+      "presentation": "Balade le long des canaux colorés.",
+      "anecdote": "Surnommée Petite Venise depuis le XIXe siècle.",
+      "step_order": 1
+    },
+    {
+      "id": 2,
+      "trackId": 1,
+      "placeId": 2,
+      "name_step": "Visite du Musée Unterlinden",
+      "photo_step": "https://picsum.photos/800/600?random=32",
+      "presentation": "Découvrez les œuvres médiévales et le retable d'Issenheim.",
+      "anecdote": "Le musée était autrefois un couvent dominicain.",
+      "step_order": 2
+    },
+    {
+      "id": 3,
+      "trackId": 2,
+      "placeId": 3,
+      "name_step": "Cathédrale de Strasbourg",
+      "photo_step": "https://picsum.photos/800/600?random=41",
+      "presentation": "Admirez la flèche gothique et les vitraux colorés.",
+      "anecdote": "Sa flèche a été la plus haute du monde jusqu'au XIXe siècle.",
+      "step_order": 1
+    },
+    {
+      "id": 4,
+      "trackId": 2,
+      "placeId": 4,
+      "name_step": "Promenade dans La Petite France",
+      "photo_step": "https://picsum.photos/800/600?random=42",
+      "presentation": "Quartier médiéval pittoresque le long des canaux.",
+      "anecdote": "Autrefois quartier des tanneurs, pêcheurs et meuniers.",
+      "step_order": 2
+    }
+  ],
+  "department": [
+    {
+      "id": 1,
+      "name_department": "Bas-Rhin",
+      "code_department": "67"
+    },
+    {
+      "id": 2,
+      "name_department": "Haut-Rhin",
+      "code_department": "68"
+    }
+  ]
+}
