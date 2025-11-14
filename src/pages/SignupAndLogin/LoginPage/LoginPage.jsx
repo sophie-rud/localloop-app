@@ -1,5 +1,6 @@
-import LoginForm from "../../components/Forms/LoginForm/LoginForm.jsx";
-import classes from './LoginPage.module.css'
+import LoginForm from "../../../components/Forms/LoginForm/LoginForm.jsx";
+import classes from '../SignupAndLoginPage.module.css';
+import { Link } from 'react-router-dom';
 
 function LoginPage() {
     return (
@@ -9,7 +10,9 @@ function LoginPage() {
             <p>Explorer ce qui se cache autour de vous</p>
             <div>
                 <LoginForm />
-                <a href="">Créer un compte</a>
+                <Link to="/signup">
+                    <span>Créer un compte</span>
+                </Link>
             </div>
         </main>
     )

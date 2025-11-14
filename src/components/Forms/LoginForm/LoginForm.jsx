@@ -2,6 +2,7 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 function LoginForm({ onSubmit }) {
     const [email, setEmail] = useState('');
@@ -32,7 +33,9 @@ function LoginForm({ onSubmit }) {
                 className={formClasses['common-input']}
                 required
             />
-            <p><a href="">Mot de passe oublié</a></p>
+            <Link to="">
+                <p>Mot de passe oublié</p>
+            </Link>
             <Button type="submit" className={'blue-btn'}>Connexion</Button>
         </form>
     );
