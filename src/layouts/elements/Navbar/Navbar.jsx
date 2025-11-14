@@ -7,29 +7,26 @@ function Navbar() {
     return (
         <nav className={classes.navbar}>
             <ul className={classes['nav-items']}>
-                <li className={classes['nav-items li']}>
-                    <NavLink to="/">
+                <li className={classes['nav-item']}>
+                    <NavLink to="/map">
                         <Map className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
-                <li className={classes['nav-items li']}>
-                    <NavLink to="/">
+                <li className={classes['nav-item']}>
+                    <NavLink to="/tracks">
                         <Grid2x2 className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
-                <li className={classes['nav-items li']}>
+                <li className={classes['nav-item']}>
                     <NavLink to="/">
                         <Heart className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
-                <li className={classes['nav-items li']}>
-                    <NavLink to="/">
+                <li className={classes['nav-item']}>
+                    <NavLink to="/user/profile">
                         <CircleUserRound className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
-                {/*<li className={classes['nav-links li']}>*/}
-                {/*    {isLogin && <NavLink to="/profil">Profil</NavLink>}*/}
-                {/*</li>*/}
             </ul>
         </nav>
     )

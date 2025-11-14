@@ -6,7 +6,7 @@
     height: 60px;
     background-color: var(--color-dark-blue);
     /*border-top: 1px solid var(--color-off-white);*/
-    z-index: 10;
+    z-index: 1000;
 }
 
 .nav-items {
@@ -19,7 +19,7 @@
     box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
 }
 
-.nav-items li {
+.nav-item {
     color: var(--color-off-white);
     text-decoration: none;
     width: 24px;

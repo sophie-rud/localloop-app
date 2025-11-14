@@ -84,13 +84,10 @@
 
 .sidebar-footer {
     text-align: center;
-    font-size: var(--font-size-small);
-    opacity: 0.8;
     margin-top: auto;
-    display: flex;
-    gap: 1rem;
 }
 
-.sidebar-footer p {
-    color: var(--color-off-white);
+.logo {
+    width: 8rem;
+    margin: auto;
 }
