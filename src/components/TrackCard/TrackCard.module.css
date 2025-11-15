@@ -1,10 +1,14 @@
 .track-card {
-    /*width: 35vw;*/
+    width: 50vw;
     background-color: var(--color-off-white);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     color: var(--color-dark-blue);
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
 }
 
 .track-card-photo {
@@ -14,7 +18,7 @@
 }
 
 .card-content {
-    padding: 0 20px 20px;
+    padding: 0 0.7rem 0.7rem;
 }
 
 .card-title {
@@ -54,4 +58,18 @@
     height: 1rem;
     color: var(--color-dark-blue);
     margin-bottom: auto;
+}
+
+/* tablette */
+@media (min-width: 600px) {
+    .track-card {
+        width: 30vw;
+    }
+}
+
+/* desktop */
+@media (min-width: 1200px) {
+    .track-card {
+        width: 21vw;
+    }
 }
