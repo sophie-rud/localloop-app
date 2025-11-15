@@ -1,6 +1,6 @@
-import TrackCard from "../../../components/TrackCard/TrackCard.jsx";
 import FilterBar from "../../../components/FilterBar/FilterBar.jsx";
 import {useState} from "react";
+import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 
 function TracksPage() {
     const [filters, setFilters] = useState({
@@ -27,7 +27,7 @@ function TracksPage() {
                 <FilterBar filters={filters} setFilters={setFilters} />
             </div>
             <div>
-                <TrackCard />
+                <TracksList></TracksList>
             </div>
         {/*          <div className="tracks-list">
         {filteredTracks.length > 0 ? (
