@@ -3,17 +3,21 @@ import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 
 /**
- * @param {Array} positions - [lat, lng]
+ * @param {Array} positions - [latitude, longitude]
  */
 function FitBounds({ positions }) {
     const map = useMap();
 
     useEffect(() => {
-        if (!positions || positions.length === 0) return;
+        if (!map || !positions || positions.length === 0) return;
 
-        const bounds = L.latLngBounds(positions);
-        map.fitBounds(bounds, { padding: [50, 50] });
-    }, [positions, map]);
+        if (positions.length === 1) {
+            map.setView(positions[0], 13);
+        } else {
+            const bounds = L.latLngBounds(positions);
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+    }, [map, positions]);
 
     return null;
 }

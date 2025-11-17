@@ -1,4 +1,5 @@
 import MapSearch from '../../components/Map/MapSearch/MapSearch.jsx'
+import classes from "../Tracks/OneTrackDetailsPage/OneTrackDetailsPage.module.css";
 
 function MapPage() {
     return (
@@ -6,9 +7,9 @@ function MapPage() {
             <h1>LocalLoop</h1>
             <h2>Explorer ce qui se cache autour de vous</h2>
             <p>Partagez vos coins secrets, découvrez ceux des autres !</p>
-            <div>
+            <section className={classes['map-search-section']} >
                 <MapSearch />
-            </div>
+            </section>
         </main>
     )
 }
