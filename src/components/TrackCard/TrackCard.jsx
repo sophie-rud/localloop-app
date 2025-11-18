@@ -10,16 +10,16 @@ function TrackCard({track}) {
             <div className={classes['track-card-photo']}>
                 <img src={track.photo} alt={track.title} className={classes['image']} />
             </div>
+            <h3 className={classes['card-title']}>{track.title}</h3>
             <div className={classes['card-content']}>
-                <h3 className={classes['card-title']}>{track.title}</h3>
                 <div className={classes['info-location']}>
-                    {/*<p>{track.step.placeId.city}</p>*/}
-                    {/*<p>{track.step.placeId.code}</p>*/}
+                    <p>{track.steps?.[0]?.place?.city}</p>
+                    <p>{track.steps?.[0]?.place?.department?.code}</p>
                 </div>
                 <div className={classes['card-infos']}>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> {} </div>
-                        <p> <strong> {track.theme?.name} </strong> </p>
+                        <p> <strong> {track.theme?.name || "inconnu"} </strong> </p>
                     </div><div className={classes['info']}>
                         <div className={classes['icon']}> <Route /> </div>
                         <p> Distance : <strong> {track.distance} </strong> </p>

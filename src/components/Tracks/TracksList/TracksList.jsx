@@ -1,11 +1,14 @@
 import TrackCard from "../../TrackCard/TrackCard.jsx";
-import useFetch from "../../../hooks/use-fetch.jsx";
 import {useEffect} from "react";
 import classes from "./TracksList.module.css"
+import useTracksStore from "../../../stores/useTracksStore.jsx";
+import useFetchTracks from "../../../hooks/use-fetch-tracks.jsx";
+import {Link} from "react-router-dom";
 
 function TracksList() {
 
-    const {result: tracks, request} = useFetch("http://localhost:3000/tracks");
+    const {tracks} = useTracksStore();
+    const {request} = useFetchTracks();
 
     useEffect(() => {
         request()
@@ -15,7 +18,9 @@ function TracksList() {
     return(
         <div className={classes['tracks-list']}>
             {tracks && tracks.map(track => (
-                <TrackCard track={track} key={track.id} />
+                <Link to={`/tracks/${Number(track.id)}`} key={Number(track.id)}>
+                    <TrackCard track={track} />
+                </Link>
             ))}
         </div>
     )
