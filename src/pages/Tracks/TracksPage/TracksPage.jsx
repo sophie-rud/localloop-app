@@ -1,6 +1,7 @@
 import FilterBar from "../../../components/FilterBar/FilterBar.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
+import useTracksStore from "../../../stores/useTracksStore.jsx";
 
 function TracksPage() {
     const [filters, setFilters] = useState({
@@ -9,7 +10,6 @@ function TracksPage() {
         distance: "",
         theme: ""
     });
-
     // Filtrer les parcours selon les filtres activés
     // const filteredTracks = TracksData.filter(tracks => {
     //     return (

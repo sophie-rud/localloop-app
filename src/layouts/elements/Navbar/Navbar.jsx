@@ -18,7 +18,7 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li className={classes['nav-item']}>
-                    <NavLink to="/">
+                    <NavLink to="/user/tracks/favorites">
                         <Heart className={classes['nav-icon']}/>
                     </NavLink>
                 </li>

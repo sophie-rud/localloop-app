@@ -1,26 +1,35 @@
 import { create } from "zustand";
+import * as request from "../services/request";
+import withStoreLoading from "../services/withStoreLoadingService.jsx";
 
 const useTracksStore = create((set, get) => {
     return {
         tracks: [],
         selectedTrack: null,
-        setSelectedTrack: (track) => set({ selectedTrack: track }),
-        setTracks: (tracks) => set({ tracks }),
         loading: false,
         error: null,
-        addTrack: (newTrack) => set((state) => ({
-                tracks: [...state.tracks, newTrack]
-        })),
-        removeTrack: (id) => set((state) => ({
-                tracks: state.tracks.filter((track) => track.id !== id)
-        })),
-        editTrack: (updatedTrack) => set((state) => ({
-            tracks: state.tracks.map((track) =>
-                track.id === updatedTrack.id ? updatedTrack : track
-            ),
-        })),
+        setSelectedTrack: (track) => set({ selectedTrack: track }),
+        setTracks: (tracks) => set({ tracks }),
+        loadTracks: () => withStoreLoading(set, async () => {
+            const tracks = await request.getRequest("/tracks");
+            set({ tracks });
+        }),
+        addTrack: (track) => withStoreLoading(set, async () => {
+            const newTrack = await request.createItem("/tracks", track);
+            set((state) => ({ tracks: [...state.tracks, newTrack] }));
+        }),
+        removeTrack: (id) => withStoreLoading(set, async () => {
+            await request.deleteItem(`/tracks/${id}`);
+            set((state) => ({ tracks: state.tracks.filter(t => t.id !== id) }));
+        }),
+        editTrack: (track) => withStoreLoading(set, async () => {
+            const updatedTrack = await request.updateItem(`/tracks/${track.id}`, track);
+            set((state) => ({
+                tracks: state.tracks.map(t => t.id === updatedTrack.id ? updatedTrack : t),
+            }));
+        }),
         getTrackById: (id) => {
-            return get().find((track) => track.id === id) || null;
+            return get().tracks.find((track) => track.id === id) || null;
         },
     }
 })
