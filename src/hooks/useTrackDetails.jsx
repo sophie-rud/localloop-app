@@ -11,18 +11,18 @@ function useTrackDetails(trackId) {
 
         async function loadTrackDetails() {
             setLoading(true);
+            setError(null);
+
             try {
                 const trackSteps = await getRequest(`/steps?track_id=${trackId}`);
-                const placeIds = trackSteps.map(s => s.place_id);
-                const places = await Promise.all(placeIds.map(id => getRequest(`/places/${id}`)));
+                const places = await Promise.all(
+                    trackSteps.map(s => getRequest(`/places/${s.place_id}`))
+                );
 
-                const enrichedSteps = trackSteps.map(step => {
-                    const place = places.find(p => Number(p.id) === Number(step.place_id));
-                    return {
-                        ...step,
-                        place,
-                    };
-                });
+                const enrichedSteps = trackSteps.map(step => ({
+                    ...step,
+                    place: places.find(p => Number(p.id) === Number(step.place_id)),
+                }));
 
                 setSteps(enrichedSteps);
             } catch (err) {
