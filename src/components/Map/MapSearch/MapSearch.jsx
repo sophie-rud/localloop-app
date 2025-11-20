@@ -4,18 +4,32 @@ import L from 'leaflet';
 import blackMarker from '../../../assets/icons/marker-icon-2x-black.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import useFetchTracks from "../../../hooks/use-fetch-tracks.jsx";
 import {useEffect} from "react";
-import classes from "../Map.module.css";
+import {Link} from "react-router-dom";
+import mapClasses from "../Map.module.css";
+import classes from "./MapSearch.module.css"
+import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
+import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
+import enrichTracks from "../../../utils/enrichTracks.jsx";
 
 function MapSearch() {
-
-    const {tracks} = useTracksStore();
-    const {request} = useFetchTracks();
+    const { tracks, loadTracks, setSelectedTrack, selectedTrack, loading: tracksLoading } = useTracksStore();
+    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
+    const { themes, departments, loading: refLoading } = useReferenceData();
 
     useEffect(() => {
-        request()
-    }, [])
+        loadTracks();
+    }, [loadTracks]);
+
+    const loading = tracksLoading || stepsLoading || refLoading;
+    if (loading) return <p>Chargement…</p>;
+
+    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
+        return <p>Pas de données disponibles</p>;
+    }
+
+    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
+
 
     const blackIcon = new L.Icon({
         iconUrl: blackMarker,
@@ -26,21 +40,28 @@ function MapSearch() {
         shadowSize: [41, 41]
     });
 
+
     return (
-        <MapContainer center={[48.08, 7.36]} zoom={12} scrollWheelZoom style={{ height: "50vh" }} className={classes['map-container']}>
+        <MapContainer center={[48.30, 7.60]} zoom={8.3} scrollWheelZoom style={{ height: "50vh" }} className={mapClasses['map-container']}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {tracks.map((track) => {
-                const startingPoint = track.steps?.[0];
-                const place = startingPoint?.place;
-                if(!place) return null;
+            {enrichedTracks.map((track) => {
+                if (!track.positions) return null;
 
                 return (
-                    <Marker position={[Number(place.latitude), Number(place.longitude)]} key={track.id} icon={blackIcon}>
-                        <Popup>
-                            <TrackOverview track={track} />
+                    <Marker position={[track.positions.lat, track.positions.lng]}
+                            key={track.id}
+                            icon={blackIcon}
+                            eventHandlers={{
+                                click: () => setSelectedTrack(track),
+                            }}
+                    >
+                        <Popup className={classes['custom-popup']}>
+                            <Link to={`/tracks/${track.id}`} className={classes['view-track-link']} >
+                                <TrackOverview track={selectedTrack} key={track.id}/>
+                            </Link>
                         </Popup>
                     </Marker>
                 );

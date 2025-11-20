@@ -10,8 +10,6 @@ function MapTrackView({steps}) {
         .map((step) => [step.place.latitude, step.place.longitude])
         .filter(pos => pos[0] != null && pos[1] != null);
 
-    console.log(steps.places);
-
     if (positions.length === 0) return null;
     return (
         <MapContainer center={[48.08, 7.36]} zoom={12} scrollWheelZoom={false} className={classes['map-container']}>
