@@ -1,7 +1,7 @@
 import { Route, History, Triangle } from 'lucide-react';
 import classes from './TrackCard.module.css';
 
-function TrackCard({track}) {
+function TrackCard({ track }) {
 
     if (!track) return null;
 

@@ -2,50 +2,36 @@ import TrackCard from "../../TrackCard/TrackCard.jsx";
 import {useEffect} from "react";
 import classes from "./TracksList.module.css"
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import useFetchTracks from "../../../hooks/use-fetch-tracks.jsx";
 import {Link} from "react-router-dom";
-import useTracksForDisplay from "../../../hooks/useTrack.jsx";
 import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
+import enrichTracks from "../../../utils/enrichTracks.jsx";
+import Button from "../../Button/Button.jsx";
 
 function TracksList() {
-
-    // const {
-    //     tracks,
-    //     getAllTracks,
-    //     loading,
-    //     error,
-    // } = useTracksStore();
-    //
-    // useEffect(() => {
-    //     getAllTracks();
-    // }, [getAllTracks]);
-    //
-    // if (loading) return <p>Chargement des parcours...</p>;
-    // if (error) return <p>Erreur : {error}</p>;
-
-    const { tracks, loadTracks, loading: tracksLoading, error: tracksError } = useTracksStore();
-    const { themes, departments, loading: refLoading, error: refError } = useReferenceData();
-    const { steps, places, loading: stepsLoading, error: stepsError } = useStepsAndPlaces();
+    const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
+    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
+    const { themes, departments, loading: refLoading } = useReferenceData();
 
     useEffect(() => {
         loadTracks();
     }, [loadTracks]);
 
-    const loading = tracksLoading || refLoading || stepsLoading;
-    const error = tracksError || refError || stepsError;
+    const loading = tracksLoading || stepsLoading || refLoading;
+    if (loading) return <p>Chargement…</p>;
 
-    const enrichedTracks = useTracksForDisplay(tracks, themes, steps, places, departments);
+    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
+        return <p>Pas de données disponibles</p>;
+    }
 
-    if (loading) return <p>Chargement...</p>;
-    if (error) return <p>Erreur : {error}</p>;
+    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
 
     return(
         <div className={classes['tracks-list']}>
             {enrichedTracks && enrichedTracks.map(track => (
-                <Link to={`/tracks/${track.id}`} key={track.id}>
-                    <TrackCard track={track} />
-                </Link>
+                    <Link to={`/tracks/${track.id}`} key={track.id} className={classes['view-track-link']}>
+                        <TrackCard  track={track} />
+                    </Link>
             ))}
         </div>
     )

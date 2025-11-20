@@ -3,32 +3,19 @@ import StepOverview from "../../../components/StepOverview/StepOverview.jsx";
 import MapTrackView from "../../../components/Map/MapTrackView/MapTrackView.jsx";
 import {useParams, Link} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import useFetchTracks from "../../../hooks/use-fetch-tracks.jsx";
 import {useEffect} from "react";
 import classes from "./OneTrackDetailsPage.module.css"
 import useTrackDetails from "../../../hooks/useTrackDetails.jsx";
 
 function OneTrackDetailsPage() {
-    //
-    const { trackId } = useParams();
-    const id = Number(trackId);
+    const { id } = useParams();
+    const trackId = Number(id);
     const {tracks, selectedTrack, setSelectedTrack} = useTracksStore()
 
     useEffect(() => {
-        const track = tracks.find(t => Number(t.id) === id) || null;
+        const track = tracks.find(t => Number(t.id) === Number(trackId)) || null;
         setSelectedTrack(track);
-    }, [id, tracks, setSelectedTrack]);
-
-    // const {request, loading, error} = useFetchTracks();
-    //
-    // useEffect(() => {
-    //     const loadTrack = async () => {
-    //         if (tracks.length === 0) await request();
-    //         const track = tracks.find(t => Number(t.id) === Number(trackId));
-    //         setSelectedTrack(track || null);
-    //     };
-    //     loadTrack();
-    // }, [tracks, trackId]);
+    }, [trackId, tracks, setSelectedTrack]);
 
     const { steps, loading, error } = useTrackDetails(selectedTrack?.id);
 
@@ -46,7 +33,7 @@ function OneTrackDetailsPage() {
             </section>
             <section className={classes['track-steps-section']}>
                 {steps && steps.map(step =>(
-                    <Link to={`/tracks/${selectedTrack.id}/step/${step.id}`} key={selectedTrack.id}>
+                    <Link to={`/tracks/${selectedTrack.id}/steps/${step.id}`} key={step.id}>
                         <StepOverview key={step.id} step={step} />
                     </Link>
                 )) }
