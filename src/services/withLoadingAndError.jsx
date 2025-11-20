@@ -1,4 +1,4 @@
-async function withStoreLoading(setState, asyncFunction) {
+async function withLoadingAndError(setState, asyncFunction) {
     setState({loading: true, error: null});
     try {
         await asyncFunction();
@@ -9,4 +9,4 @@ async function withStoreLoading(setState, asyncFunction) {
     }
 }
 
-export default withStoreLoading;
+export default withLoadingAndError;

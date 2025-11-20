@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import * as request from "../services/request";
-import withStoreLoading from "../services/withStoreLoadingService.jsx";
+import { getRequest, postRequest, putRequest, deleteRequest } from "../services/request";
+import withLoadingAndError from "../services/withLoadingAndError.jsx";
 
 const useTracksStore = create((set, get) => {
     return {
@@ -10,20 +10,20 @@ const useTracksStore = create((set, get) => {
         error: null,
         setSelectedTrack: (track) => set({ selectedTrack: track }),
         setTracks: (tracks) => set({ tracks }),
-        loadTracks: () => withStoreLoading(set, async () => {
-            const tracks = await request.getRequest("/tracks");
+        loadTracks: () => withLoadingAndError(set, async () => {
+            const tracks = await getRequest("/tracks");
             set({ tracks });
         }),
-        addTrack: (track) => withStoreLoading(set, async () => {
-            const newTrack = await request.createItem("/tracks", track);
+        addTrack: (track) => withLoadingAndError(set, async () => {
+            const newTrack = await postRequest("/tracks", track);
             set((state) => ({ tracks: [...state.tracks, newTrack] }));
         }),
-        removeTrack: (id) => withStoreLoading(set, async () => {
-            await request.deleteItem(`/tracks/${id}`);
+        removeTrack: (id) => withLoadingAndError(set, async () => {
+            await deleteRequest(`/tracks/${id}`);
             set((state) => ({ tracks: state.tracks.filter(t => t.id !== id) }));
         }),
-        editTrack: (track) => withStoreLoading(set, async () => {
-            const updatedTrack = await request.updateItem(`/tracks/${track.id}`, track);
+        editTrack: (track) => withLoadingAndError(set, async () => {
+            const updatedTrack = await putRequest(`/tracks/${track.id}`, track);
             set((state) => ({
                 tracks: state.tracks.map(t => t.id === updatedTrack.id ? updatedTrack : t),
             }));
