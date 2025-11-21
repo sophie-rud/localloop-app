@@ -18,12 +18,12 @@ function Navbar() {
                     </NavLink>
                 </li>
                 <li className={classes['nav-item']}>
-                    <NavLink to="/user/tracks/favorites">
+                    <NavLink to="/user/:id/tracks/favorites">
                         <Heart className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
                 <li className={classes['nav-item']}>
-                    <NavLink to="/user/profile">
+                    <NavLink to="/user/:id/profile">
                         <CircleUserRound className={classes['nav-icon']}/>
                     </NavLink>
                 </li>

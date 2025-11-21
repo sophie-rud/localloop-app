@@ -9,12 +9,12 @@ import TracksPage from "../pages/Tracks/TracksPage/TracksPage.jsx";
 import OneTrackDetailsPage from "../pages/Tracks/OneTrackDetailsPage/OneTrackDetailsPage.jsx";
 import OneStepDetailsPage from "../pages/Steps/OneStepDetailsPage/OneStepDetailsPage.jsx";
 import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
-import FavoriteTracksPage from "../pages/User/FavoriteTracksPage/FavoriteTracksPage.jsx";
-import MyTracksPage from "../pages/User/MyTracksPage/MyTracksPage.jsx";
+import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
+import MyTracksPage from "../pages/Tracks/MyTracksPage/MyTracksPage.jsx";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
 import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
-import CreateTrackPage from "../pages/User/CreateTrackPage/CreateTrackPage.jsx";
-import EditTrackPage from "../pages/User/EditTrackPage/EditTrackPage.jsx";
+import CreateTrackPage from "../pages/Tracks/CreateTrackPage/CreateTrackPage.jsx";
+import EditTrackPage from "../pages/Tracks/EditTrackPage/EditTrackPage.jsx";
 import CreateStepPage from "../pages/Steps/CreateStepPage/CreateStepPage.jsx";
 import EditStepPage from "../pages/Steps/EditStepPage/EditStepPage.jsx";
 import UsersDashboardPage from "../pages/Admin/UsersDashboardPage/UsersDashboardPage.jsx";
@@ -63,7 +63,7 @@ export const router = createBrowserRouter ([
                 element: (<MapPage/>),
             },
             {
-                path: "user",
+                path: "user/:id",
                 element: (
                     // <PrivateRoute>
                         <Outlet />
