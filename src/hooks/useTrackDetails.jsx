@@ -7,7 +7,11 @@ function useTrackDetails(trackId) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (!trackId) return;
+        if (!trackId) {
+            setSteps([]);
+            setLoading(false);
+            return;
+        }
 
         async function loadTrackDetails() {
             setLoading(true);
@@ -15,8 +19,9 @@ function useTrackDetails(trackId) {
 
             try {
                 const trackSteps = await getRequest(`/steps?track_id=${trackId}`);
+                const validSteps = trackSteps.filter(s => s.place_id !== null);
                 const places = await Promise.all(
-                    trackSteps.map(s => getRequest(`/places/${s.place_id}`))
+                    validSteps.map(s => getRequest(`/places/${s.place_id}`))
                 );
 
                 const enrichedSteps = trackSteps.map(step => ({

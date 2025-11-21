@@ -9,6 +9,7 @@ function enrichTracks(tracks = [], { steps = [], places = [], departments = [], 
         return {
             ...track,
             theme,
+            place,
             department,
             positions: place ? { lat: Number(place.latitude), lng: Number(place.longitude) } : null,
         };
