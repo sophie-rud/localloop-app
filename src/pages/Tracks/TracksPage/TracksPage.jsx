@@ -2,14 +2,35 @@ import FilterBar from "../../../components/FilterBar/FilterBar.jsx";
 import {useEffect, useState} from "react";
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
+import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
+import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
+import enrichTracks from "../../../utils/enrichTracks.jsx";
 
 function TracksPage() {
-    const [filters, setFilters] = useState({
-        difficulty: "",
-        duration: "",
-        distance: "",
-        theme: ""
-    });
+
+    const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
+    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
+    const { themes, departments, loading: refLoading } = useReferenceData();
+
+    useEffect(() => {
+        loadTracks();
+    }, [loadTracks]);
+
+    // const loading = tracksLoading || stepsLoading || refLoading;
+    // if (loading) return <p>Chargement…</p>;
+    //
+    // if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
+    //     return <p>Pas de données disponibles</p>;
+    // }
+
+    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
+
+    // const [filters, setFilters] = useState({
+    //     difficulty: "",
+    //     duration: "",
+    //     distance: "",
+    //     theme: ""
+    // });
     // Filtrer les parcours selon les filtres activés
     // const filteredTracks = TracksData.filter(tracks => {
     //     return (
@@ -24,11 +45,17 @@ function TracksPage() {
         <main>
             <h1>Les Parcours</h1>
             <div>
-                <FilterBar filters={filters} setFilters={setFilters} />
+                {/*<FilterBar filters={filters} setFilters={setFilters} />*/}
             </div>
-            <div>
-                <TracksList></TracksList>
-            </div>
+            <section>
+                {themes.map(theme => (
+                    <div>
+                        <h2>{theme.name}</h2>
+                        <TracksList tracks={enrichedTracks.filter(track => parseInt(track.theme_id) === parseInt(theme.id))}></TracksList>
+                    </div>
+            ))}
+            </section>
+
         {/*          <div className="tracks-list">
         {filteredTracks.length > 0 ? (
           filteredTracks.map(tracks => (

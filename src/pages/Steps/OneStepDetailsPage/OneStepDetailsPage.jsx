@@ -1,6 +1,6 @@
 import StepPresentation from "../../../components/StepPresentation/StepPresentation.jsx";
 
-function TrackStepPage() {
+function OneStepDetailsPage() {
     return (
         <main>
             <StepPresentation>
@@ -10,4 +10,4 @@ function TrackStepPage() {
     )
 }
 
-export default TrackStepPage;
+export default OneStepDetailsPage;

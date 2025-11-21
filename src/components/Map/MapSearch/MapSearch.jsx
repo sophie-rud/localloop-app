@@ -4,32 +4,12 @@ import L from 'leaflet';
 import blackMarker from '../../../assets/icons/marker-icon-2x-black.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useEffect} from "react";
 import {Link} from "react-router-dom";
 import mapClasses from "../Map.module.css";
 import classes from "./MapSearch.module.css"
-import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
-import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
-import enrichTracks from "../../../utils/enrichTracks.jsx";
 
-function MapSearch() {
-    const { tracks, loadTracks, setSelectedTrack, selectedTrack, loading: tracksLoading } = useTracksStore();
-    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
-    const { themes, departments, loading: refLoading } = useReferenceData();
-
-    useEffect(() => {
-        loadTracks();
-    }, [loadTracks]);
-
-    const loading = tracksLoading || stepsLoading || refLoading;
-    if (loading) return <p>Chargement…</p>;
-
-    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
-        return <p>Pas de données disponibles</p>;
-    }
-
-    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
-
+function MapSearch({tracks}) {
+    const {selectedTrack, setSelectedTrack} = useTracksStore();
 
     const blackIcon = new L.Icon({
         iconUrl: blackMarker,
@@ -47,7 +27,7 @@ function MapSearch() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {enrichedTracks.map((track) => {
+            {tracks.map((track) => {
                 if (!track.positions) return null;
 
                 return (
