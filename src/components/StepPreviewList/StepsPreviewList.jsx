@@ -15,6 +15,7 @@ return (
                         <Button className={classes["step-btn"]}>▲</Button>
                         <Button className={classes["step-btn"]}>▼</Button>
                     </div>
+
                 </div>
                 <div className={classes["step-actions"]}>
                     <Button type='button' className={'small-green-btn'}>Modifier</Button>

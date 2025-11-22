@@ -31,7 +31,15 @@ const useTracksStore = create((set, get) => {
         getTrackById: (id) => {
             return get().tracks.find((track) => track.id === id) || null;
         },
-        // CRUD on Steps
+        // STEPS
+        steps: [],
+        loadSteps: () => withLoadingAndError(set, async () => {
+            const steps = await getRequest("/steps");
+            set({ steps });
+        }),
+        getStepsByTrack: (id) => {
+            return get().steps.filter((step) => step.track_id === id);
+        },
         addStep: async (trackId, stepData) => withLoadingAndError(set, async () => {
             const newStep = await postRequest(`/steps`, {
                 ...stepData,
