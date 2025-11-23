@@ -1,28 +1,20 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
-import classes from "./TrackForm.module.css";
-import StepsPreviewList from "../../StepPreviewList/StepsPreviewList.jsx";
 import {useEffect, useState} from "react";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useNavigate} from "react-router-dom";
-import useTrackDetails from "../../../hooks/useTrackDetails.jsx";
+import StepsManager from "../../Steps/StepsManager/StepsManager.jsx";
 
 function TrackForm() {
     // const trackSteps = [
     //     { id: 1, title: "Place des Dominicains" },
     //     { id: 2, title: "Marché couvert" },
     // ];
+    // const { steps } = useStepsAndPlaces();
 
     const [checked, setChecked] = useState(false);
     const {selectedTrack} = useTracksStore();
     const addTrack = useTracksStore((state) => state.addTrack);
     const editTrack = useTracksStore((state) => state.editTrack);
-
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate(`/user/:id/tracks/:trackId/steps/create`);
-    }
 
     const [photo, setPhoto] = useState('');
     const [title, setTitle] = useState('');
@@ -54,8 +46,6 @@ function TrackForm() {
             await addTrack(track);
         }
     }
-
-    const { steps } = useTrackDetails(selectedTrack?.id);
 
     useEffect(() => {
         if (selectedTrack) {
@@ -169,15 +159,12 @@ function TrackForm() {
                 onChange={(e) => setChecked(e.target.checked)}
             />
 
-            {steps?.length > 0 && (
-                <section className={classes["steps-section"]}>
-                <h3 className={classes['steps-title']}>Étapes du parcours</h3>
-                < StepsPreviewList steps={steps} />
-            </section>
-            )}
+            <StepsManager
+                trackId={selectedTrack?.id}
+            />
 
-            <Button type="button" onClick={handleClick} className={'green-btn'}>+ Ajouter une étape</Button>
             <Button type="submit" className={'blue-btn'}>Valider mon parcours</Button>
+
         </form>
     );
 }

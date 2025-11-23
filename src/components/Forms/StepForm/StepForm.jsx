@@ -1,63 +1,49 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
 import {useEffect, useState} from "react";
-import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useNavigate} from "react-router-dom";
 
-function StepForm({ selectedStep }) {
+function StepForm({ step, trackId, onCancel, onSave }) {
 
-    const addStep = useTracksStore((state) => state.addStep);
-    const editStep = useTracksStore((state) => state.editStep);
-    const navigate = useNavigate();
-
-    const [photoStep, setPhotoStep] = useState('');
-    const [titleStep, setTitleStep] = useState('');
     const [placeId, setPlaceId] = useState('');
-    const [description, setDescription] = useState('');
+    const [photoStep, setPhotoStep] = useState('');
+    const [name, setName] = useState('');
+    const [anecdote, setAnecdote] = useState('');
     const [advice, setAdvice] = useState('');
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
-        const step = {
-            placeId,
-            photoStep,
-            titleStep,
-            description,
-            advice,
-        };
-
-        if(selectedStep) {
-            await editStep({ ...selectedStep, ...step });
-        }
-        else {
-            await addStep(step);
-        }
-        navigate(-1);
-    }
-
     useEffect(() => {
-        if (selectedStep) {
-            setPlaceId(selectedStep.placeId);
-            setPhotoStep(selectedStep.photo);
-            setTitleStep(selectedStep.title);
-            setDescription(selectedStep.description);
-            setAdvice(selectedStep.advice);
+        if (step) {
+            setPlaceId(step.placeId);
+            setPhotoStep(step.photo);
+            setName(step.name);
+            setAnecdote(step.anecdote);
+            setAdvice(step.advice);
         }
-    }, [selectedStep]);
+    }, [step]);
 
     const handleInputChange = (setter) => (e) => {
         setter(e.target.value);
     };
 
+    const handleSave = () => {
+
+        const data = {
+            trackId,
+            placeId,
+            photoStep,
+            name,
+            anecdote,
+            advice,
+        };
+        onSave(data)
+    }
+
     return (
-        <form onSubmit={submitHandler} className={formClasses['step-form']}>
+        <div className={formClasses['step-form']}>
+            <h3>{step ? "Modifier l’étape" : "Nouvelle étape"}</h3>
 
             <label htmlFor="placeId">Lieu</label>
             <select id="placeId"
                     className={formClasses['common-select-input']}
-                    value={placeId}
-                    onChange={handleInputChange(setPlaceId)}
                     >
                 <option value="">Sélectionner un lieu</option>
                 <option value="1">Place des Dominicains</option>
@@ -69,7 +55,8 @@ function StepForm({ selectedStep }) {
                 Photo
             </label>
             <input
-                type="file"
+                // type="file"
+                type="text"
                 id="photoStep"
                 placeholder="photo"
                 className={formClasses['common-file-input']}
@@ -77,26 +64,26 @@ function StepForm({ selectedStep }) {
                 onChange={handleInputChange(setPhotoStep)}
             />
 
-            <label htmlFor="titleStep">Titre de l'étape</label>
+            <label htmlFor="name">Titre de l'étape</label>
             <input
                 type="text"
-                id="titleStep"
-                placeholder="Titre"
+                id="name"
+                placeholder="Nom de l'étape"
                 className={formClasses['common-input']}
-                value={titleStep}
-                onChange={handleInputChange(setTitleStep)}
+                value={name}
+                onChange={handleInputChange(setName)}
             />
 
-            <label htmlFor="description">Description</label>
+            <label htmlFor="anecdote">Anecdote</label>
             <textarea
-                id="description"
-                placeholder="Description"
+                id="anecdote"
+                placeholder="Anecdote"
                 className={formClasses['common-textarea']}
-                value={description}
-                onChange={handleInputChange(setDescription)}
+                value={anecdote}
+                onChange={handleInputChange(setAnecdote)}
             />
 
-            <label htmlFor="advice">Anecdote</label>
+            <label htmlFor="advice">Conseil</label>
             <textarea
                 id="advice"
                 placeholder="Conseil"
@@ -105,8 +92,9 @@ function StepForm({ selectedStep }) {
                 onChange={handleInputChange(setAdvice)}
             />
 
-            <Button type="submit" className={'blue-btn'}>Enregistrer mon étape</Button>
-        </form>
+            <Button type="button" className={'blue-btn'} onClick={handleSave} >Enregistrer mon étape</Button>
+            <Button type="button" className={'green-btn'} onClick={onCancel}>Annuler</Button>
+        </div>
     );
 }
 

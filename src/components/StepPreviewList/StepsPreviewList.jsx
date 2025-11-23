@@ -1,8 +1,11 @@
 import React from "react";
 import classes from "./StepsPreviewList.module.css";
 import Button from "../Button/Button.jsx";
+import useTracksStore from "../../stores/useTracksStore.jsx";
 
-function StepsPreviewList({ steps }) {
+function StepsPreviewList({ steps, onEdit }) {
+
+    const { removeStep } = useTracksStore();
 
 return (
     <ul className={classes["steps-preview-list"]}>
@@ -10,7 +13,7 @@ return (
             <li key={step.id || index} className={classes["li-step-item"]}>
                 <div className={classes["step-item"]}>
                     <span className={classes["step-number"]}>{index + 1}</span>
-                    <p className={classes["step-title"]}>{step.title}</p>
+                    <p className={classes["step-title"]}>{step.name}</p>
                     <div className={classes["order-actions"]}>
                         <Button className={classes["step-btn"]}>▲</Button>
                         <Button className={classes["step-btn"]}>▼</Button>
@@ -18,8 +21,8 @@ return (
 
                 </div>
                 <div className={classes["step-actions"]}>
-                    <Button type='button' className={'small-green-btn'}>Modifier</Button>
-                    <Button type='submit' className={'small-blue-btn'}>Supprimer</Button>
+                    <Button type='button' className={'small-green-btn'} onClick={() => onEdit(step)} >Modifier</Button>
+                    <Button type='submit' className={'small-blue-btn'} onClick={() => removeStep(step.id)} >Supprimer</Button>
                 </div>
             </li>
         ))}
