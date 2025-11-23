@@ -10,7 +10,6 @@ import OneTrackDetailsPage from "../pages/Tracks/OneTrackDetailsPage/OneTrackDet
 import OneStepDetailsPage from "../pages/Steps/OneStepDetailsPage/OneStepDetailsPage.jsx";
 import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
 import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
-import MyTracksPage from "../pages/Tracks/MyTracksPage/MyTracksPage.jsx";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
 import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
 import CreateTrackPage from "../pages/Tracks/CreateTrackPage/CreateTrackPage.jsx";
@@ -21,6 +20,8 @@ import UsersDashboardPage from "../pages/Admin/UsersDashboardPage/UsersDashboard
 import TracksDashboardPage from "../pages/Admin/TracksDashboardPage/TracksDashboardPage.jsx";
 import PlacesDashboardPage from "../pages/Admin/PlacesDashboardPage/PlacesDashboardPage.jsx";
 import MapPage from "../pages/Map/MapPage.jsx";
+import PlacesPage from "../pages/Places/PlacesPage/PlacesPage.jsx";
+import CreateOrEditPlacePage from "../pages/Places/CreateOrEditPlacePage/CreateOrEditPlacePage.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -94,16 +95,12 @@ export const router = createBrowserRouter ([
                         path: "tracks/:trackId/steps/:stepId/edit",
                         element: (<EditStepPage />),
                     },
-                    {
-                        path: "tracks/myTracks",
-                        element: (<MyTracksPage />),
-                    },
                 ]
             },
         ]
     },
     {
-        path: "admin/",
+        path: "admin/:id",
         element: (
             // <PrivateRoute>
                 <AdminLayout/>
@@ -115,16 +112,28 @@ export const router = createBrowserRouter ([
                 element: (<AdminProfilePage />),
             },
             {
-                path: "users",
+                path: "usersDashboard",
                 element: (<UsersDashboardPage />),
             },
             {
-                path: "tracks",
+                path: "tracksDashboard",
                 element: (<TracksDashboardPage />),
             },
             {
-                path: "places",
+                path: "placesDashboard",
                 element: (<PlacesDashboardPage />),
+            },
+            {
+                path: "places",
+                element: (<PlacesPage />),
+            },
+            {
+                path: "places/create",
+                element: (<CreateOrEditPlacePage />),
+            },
+            {
+                path: "places/:placeId/edit",
+                element: (<CreateOrEditPlacePage />),
             },
         ]
     }
