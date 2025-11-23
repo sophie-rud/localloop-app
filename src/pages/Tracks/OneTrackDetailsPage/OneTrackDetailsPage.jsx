@@ -13,7 +13,7 @@ function OneTrackDetailsPage() {
     const {tracks, selectedTrack, setSelectedTrack} = useTracksStore()
 
     useEffect(() => {
-        const track = tracks.find(t => Number(t.id) === Number(trackId)) || null;
+        const track = tracks.find(t => Number(t.id) === trackId) || null;
         setSelectedTrack(track);
     }, [trackId, tracks, setSelectedTrack]);
 
@@ -29,7 +29,7 @@ function OneTrackDetailsPage() {
                 <TrackPresentation track={selectedTrack} />
             </section>
             <section className={classes['map-track-section']}>
-                <MapTrackView steps={steps}></MapTrackView>
+                {steps && <MapTrackView steps={steps}></MapTrackView>}
             </section>
             <section className={classes['track-steps-section']}>
                 {steps && steps.map(step =>(

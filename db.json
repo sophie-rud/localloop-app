@@ -6,9 +6,10 @@
       "email": "alice.dupont@gmail.com",
       "password": "password",
       "avatar": "https://i.pravatar.cc/150?img=5",
-      "is_blocked": false,
+      "is_active": true,
       "created_at": "2025-10-01T09:30:00",
-      "updated_at": "2025-10-01T09:30:00"
+      "updated_at": "2025-10-01T09:30:00",
+      "role_id": 2
     },
     {
       "id": 2,
@@ -16,9 +17,10 @@
       "email": "lily.stadt@gmail.com",
       "password": "password",
       "avatar": "https://i.pravatar.cc/150?img=12",
-      "is_blocked": false,
+      "is_active": true,
       "created_at": "2025-09-15T14:20:00",
-      "updated_at": "2025-09-15T14:20:00"
+      "updated_at": "2025-09-15T14:20:00",
+      "role_id": 1
     }
   ],
   "role": [
@@ -133,6 +135,20 @@
       "is_published": true,
       "created_at": "2025-11-15T08:30:00",
       "updated_at": "2025-11-15T09:00:00"
+    },
+    {
+      "id": 13,
+      "user_id": 2,
+      "theme_id": 1,
+      "title": "testAutour du Lac Blanc et Rocher Hans",
+      "photo": "https://picsum.photos/800/600?random=140",
+      "duration": "3h30",
+      "distance": "6.5 km",
+      "difficulty": "Intermédiaire",
+      "presentation": "Une boucle autour du Lac Blanc avec un passage panoramique au Rocher Hans.",
+      "is_published": true,
+      "created_at": "2025-11-15T08:30:00",
+      "updated_at": "2025-11-15T09:00:00"
     }
   ],
   "places": [
@@ -154,8 +170,8 @@
       "city": "Colmar",
       "description": "Ancien couvent transformé en musée, célèbre pour le retable d'Issenheim.",
       "photo": "https://picsum.photos/800/600?random=52",
-      "latitude": 48.0790,
-      "longitude": 7.3580,
+      "latitude": 48.079,
+      "longitude": 7.358,
       "created_at": "2025-11-10T09:00:00",
       "updated_at": "2025-11-10T11:30:00",
       "department_id": 2
@@ -227,7 +243,7 @@
       "description": "Petit refuge en lisière de forêt, idéal pour une première pause.",
       "photo": "https://picsum.photos/800/600?random=130",
       "latitude": 48.2052,
-      "longitude": 7.3010,
+      "longitude": 7.301,
       "created_at": "2025-11-14T10:00:00",
       "updated_at": "2025-11-14T10:00:00",
       "department_id": 2
@@ -238,7 +254,7 @@
       "city": "Ribeauvillé",
       "description": "Point de vue sur les châteaux et la plaine d’Alsace.",
       "photo": "https://picsum.photos/800/600?random=131",
-      "latitude": 48.2070,
+      "latitude": 48.207,
       "longitude": 7.3091,
       "created_at": "2025-11-14T10:15:00",
       "updated_at": "2025-11-14T10:15:00",

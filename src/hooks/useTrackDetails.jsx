@@ -20,14 +20,18 @@ function useTrackDetails(trackId) {
             try {
                 const trackSteps = await getRequest(`/steps?track_id=${trackId}`);
                 const validSteps = trackSteps.filter(s => s.place_id !== null);
+
                 const places = await Promise.all(
                     validSteps.map(s => getRequest(`/places/${s.place_id}`))
                 );
 
-                const enrichedSteps = trackSteps.map(step => ({
-                    ...step,
-                    place: places.find(p => Number(p.id) === Number(step.place_id)),
-                }));
+                const enrichedSteps = trackSteps.map(step => {
+                    const place = places.find(p => Number(p.id) === Number(step.place_id));
+                    return {
+                        ...step,
+                        place: place || null,
+                    }
+                });
 
                 setSteps(enrichedSteps);
             } catch (err) {
