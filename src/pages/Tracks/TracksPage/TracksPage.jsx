@@ -25,52 +25,56 @@ function TracksPage() {
 
     const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
 
-    // const [filters, setFilters] = useState({
-    //     difficulty: "",
-    //     duration: "",
-    //     distance: "",
-    //     theme: ""
-    // });
-    // Filtrer les parcours selon les filtres activés
-    // const filteredTracks = TracksData.filter(tracks => {
-    //     return (
-    //         (filters.difficulty === "" || tracks.difficulty === filters.difficulty) &&
-    //         (filters.duration === "" || tracks.duration === filters.duration) &&
-    //         (filters.distance === "" || tracks.distance === filters.distance) &&
-    //         (filters.theme === "" || tracks.theme === filters.theme)
-    //     );
-    // });
+    const [filters, setFilters] = useState({
+        difficulty: "",
+        duration: "",
+        distance: "",
+        theme_id: ""
+    });
+
+    const filteredTracks = enrichedTracks.filter(track => {
+        // difficulty filter
+        if (filters.difficulty && track.difficulty !== filters.difficulty) {
+            return false;
+        }
+
+        // duration filter
+        if (filters.duration) {
+            const d = track.duration; // durée en minutes
+
+            if (filters.duration === "courte" && d > 60) return false;
+            if (filters.duration === "moyenne" && (d < 60 || d > 180)) return false;
+            if (filters.duration === "longue" && (d < 180 || d > 360)) return false;
+            if (filters.duration === "extralongue" && d < 360) return false;
+        }
+
+        // distance filter
+        if (filters.distance) {
+            const km = Number(track.distance);
+
+            if (filters.distance === "courte" && km > 5) return false;
+            if (filters.distance === "moyenne" && (km < 5 || km > 10)) return false;
+            if (filters.distance === "longue" && (km < 10 || km > 15)) return false;
+            if (filters.distance === "extralongue" && km < 15) return false;
+        }
+
+        return true;
+    });
 
     return (
         <main>
             <h1>Les Parcours</h1>
             <div>
-                {/*<FilterBar filters={filters} setFilters={setFilters} />*/}
+                <FilterBar filters={filters} setFilters={setFilters} themes={themes} />
             </div>
             <section>
                 {themes.map(theme => (
-                    <div>
+                    <div key={theme.id}>
                         <h2>{theme.name}</h2>
-                        <TracksList tracks={enrichedTracks.filter(track => parseInt(track.theme_id) === parseInt(theme.id))}></TracksList>
+                        <TracksList tracks={filteredTracks.filter(track => parseInt(track.theme_id) === parseInt(theme.id))}></TracksList>
                     </div>
             ))}
             </section>
-
-        {/*          <div className="tracks-list">
-        {filteredTracks.length > 0 ? (
-          filteredTracks.map(tracks => (
-            <div key={tracks.id} className="tracks-item">
-              <h3>{tracks.name}</h3>
-              <p>Difficulté: {tracks.difficulty}</p>
-              <p>Durée: {tracks.duration}</p>
-              <p>Distance: {tracks.distance}</p>
-              <p>Thème: {tracks.theme}</p>
-            </div>
-          ))
-        ) : (
-          <p>Aucun parcours ne correspond aux filtres.</p>
-        )}
-      </div>*/}
         </main>
     )
 }
