@@ -17,7 +17,7 @@ function OneTrackDetailsPage() {
         setSelectedTrack(track);
     }, [trackId, tracks, setSelectedTrack]);
 
-    const { steps, loading, error } = useTrackDetails(selectedTrack?.id);
+    const { steps, track, loading, error } = useTrackDetails(selectedTrack?.id);
 
     if (!selectedTrack) return <p>Parcours introuvable</p>;
     if (loading) return <p>Chargement des étapes...</p>;
@@ -26,7 +26,7 @@ function OneTrackDetailsPage() {
     return (
         <main className={classes['one-track-page-main']}>
             <section className={classes['track-presentation-section']}>
-                <TrackPresentation track={selectedTrack} />
+                <TrackPresentation track={track} steps={steps} />
             </section>
             <section className={classes['map-track-section']}>
                 {steps && <MapTrackView steps={steps}></MapTrackView>}

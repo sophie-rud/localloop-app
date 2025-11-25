@@ -3,6 +3,7 @@ import Button from '../../Button/Button.jsx';
 import {useEffect, useState} from "react";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import StepsManager from "../../Steps/StepsManager/StepsManager.jsx";
+import { durationStringToMinutes, minutesToDurationString } from "../../../utils/duration.js";
 
 function TrackForm() {
     // const trackSteps = [
@@ -33,7 +34,7 @@ function TrackForm() {
             title,
             theme,
             distance,
-            duration,
+            duration: durationStringToMinutes(duration),
             difficulty,
             presentation,
             isPublished
@@ -53,7 +54,7 @@ function TrackForm() {
             setTitle(selectedTrack.title);
             setTheme(selectedTrack.theme);
             setDistance(selectedTrack.distance);
-            setDuration(selectedTrack.duration);
+            setDuration(minutesToDurationString(selectedTrack.duration));
             setDifficulty(selectedTrack.difficulty);
             setPresentation(selectedTrack.presentation);
             setIsPublished(selectedTrack.isPublished);
@@ -120,7 +121,7 @@ function TrackForm() {
             <input
                 type="text"
                 id="duration"
-                placeholder="Durée"
+                placeholder="ex: 1:30"
                 className={formClasses['common-input']}
                 value = {duration}
                 onChange={handleInputChange(setDuration)}

@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { getRequest } from "../services/request";
+import useReferenceData from "./useThemesAndDepartmentData.jsx";
 
 function useTrackDetails(trackId) {
     const [steps, setSteps] = useState([]);
+    const [track, setTrack] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { themes, departments } = useReferenceData();
 
     useEffect(() => {
-        if (!trackId) {
+        if (!trackId || departments.length === 0) {
+            setTrack(null);
             setSteps([]);
             setLoading(false);
             return;
@@ -18,6 +22,8 @@ function useTrackDetails(trackId) {
             setError(null);
 
             try {
+                const selectedTrack = await getRequest(`/tracks/${trackId}`);
+
                 const trackSteps = await getRequest(`/steps?track_id=${trackId}`);
                 const validSteps = trackSteps.filter(s => s.place_id !== null);
 
@@ -25,14 +31,22 @@ function useTrackDetails(trackId) {
                     validSteps.map(s => getRequest(`/places/${s.place_id}`))
                 );
 
+                const theme = selectedTrack.theme_id
+                    ? themes.find(t => Number(t.id) === Number(selectedTrack.theme_id))
+                    : null;
+
                 const enrichedSteps = trackSteps.map(step => {
                     const place = places.find(p => Number(p.id) === Number(step.place_id));
+                    const department = place
+                        ? departments.find(d => Number(d.id) === Number(place.department_id))
+                        : null;
                     return {
                         ...step,
-                        place: place || null,
+                        place: place ? { ...place, department } : null
                     }
                 });
 
+                setTrack({ ...selectedTrack, theme });
                 setSteps(enrichedSteps);
             } catch (err) {
                 setError(err.message || err);
@@ -42,9 +56,9 @@ function useTrackDetails(trackId) {
         }
 
         loadTrackDetails();
-    }, [trackId]);
+    }, [trackId, departments, themes]);
 
-    return { steps, loading, error };
+    return { steps, track, loading, error };
 }
 
 export default useTrackDetails;

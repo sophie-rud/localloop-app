@@ -1,6 +1,7 @@
 import { Route, History, Triangle } from 'lucide-react';
 import classes from './TrackCard.module.css';
 import {useNavigate} from "react-router-dom";
+import { minutesToDurationString } from "../../utils/duration.js";
 
 function TrackCard({ track, children }) {
     const navigate = useNavigate();
@@ -27,11 +28,11 @@ function TrackCard({ track, children }) {
                         <p> <strong> {track.theme?.name || "inconnu"} </strong> </p>
                     </div><div className={classes['info']}>
                         <div className={classes['icon']}> <Route /> </div>
-                        <p> Distance : <strong> {track.distance} </strong> </p>
+                        <p> Distance : <strong> {track.distance} km </strong> </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <History /> </div>
-                        <p> Durée : <strong> {track.duration} </strong> </p>
+                        <p> Durée : <strong> {minutesToDurationString(track.duration)} </strong> </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <Triangle /> </div>

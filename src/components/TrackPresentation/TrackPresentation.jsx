@@ -1,8 +1,9 @@
 import { MapPin, Route, History, Triangle } from 'lucide-react';
 import classes from './TrackPresentation.module.css';
 import Button from "../Button/Button.jsx";
+import { minutesToDurationString } from "../../utils/duration.js";
 
-function TrackPresentation({track}) {
+function TrackPresentation({track, steps}) {
 
     if(!track) return null;
 
@@ -15,9 +16,10 @@ function TrackPresentation({track}) {
                 <h3 className={classes['track-title']}>{track.title}</h3>
             </div>
             <div className={classes['track-content']}>
+                <p>{track?.theme?.name}</p>
                 <div className={classes['info']}>
-                    <p>{track.steps?.[0]?.place?.city}</p>
-                    <p>{track.steps?.[0]?.place?.department?.code}</p>
+                    <p>{steps?.[0].place?.city}</p>
+                    <p>{steps?.[0].place?.department?.code}</p>
                 </div>
                 {/*<Button type="button" className={'green-btn'}>*/}
                 {/*    {isFavorite ? '+ Ajouter aux favoris' : 'Dans les favoris'}*/}
@@ -25,15 +27,15 @@ function TrackPresentation({track}) {
                 <div className={classes['track-infos']}>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <MapPin /> </div>
-                        <p> <strong>Point de départ :</strong> {track.steps?.[0].name} </p>
+                        <p> <strong>Point de départ :</strong> {steps?.[0].name} </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <Route /> </div>
-                        <p> <strong>Distance :</strong> {track.distance} </p>
+                        <p> <strong>Distance :</strong> {track.distance} km</p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <History /> </div>
-                        <p> <strong> Durée estimée :</strong> {track.duration} </p>
+                        <p> <strong> Durée estimée :</strong> {minutesToDurationString(track.duration)} </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <Triangle /> </div>
