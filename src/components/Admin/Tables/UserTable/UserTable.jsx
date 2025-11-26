@@ -1,6 +1,6 @@
-import UserTableRow from "../../TableRow/UserTableRow/UserTableRow.jsx";
+import UserRow from "../../TableRow/UserRow/UserRow.jsx";
 
-function UserTable() {
+function UserTable({ users, onEdit, onDelete, onBlock }) {
     return (
         <table>
             <thead>
@@ -9,13 +9,22 @@ function UserTable() {
                 <th>Pseudo</th>
                 <th>Email</th>
                 <th>Rôle</th>
+                <th>Etat</th>
+                <th>Editer</th>
                 <th>Bloquer</th>
                 <th>Supprimer</th>
             </tr>
             </thead>
             <tbody>
-                <UserTableRow></UserTableRow>
-                <UserTableRow></UserTableRow>
+            {users.map((user) => (
+                <UserRow
+                    key={user.id}
+                    user={user}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                    onBlock={onBlock}
+                ></UserRow>
+            ))}
             </tbody>
         </table>
     )
