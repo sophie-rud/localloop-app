@@ -16,21 +16,21 @@ function TracksPage() {
         loadTracks();
     }, [loadTracks]);
 
-    // const loading = tracksLoading || stepsLoading || refLoading;
-    // if (loading) return <p>Chargement…</p>;
-    //
-    // if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
-    //     return <p>Pas de données disponibles</p>;
-    // }
-
-    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
-
     const [filters, setFilters] = useState({
         difficulty: "",
         duration: "",
         distance: "",
         theme_id: ""
     });
+
+    const loading = tracksLoading || stepsLoading || refLoading;
+    if (loading) return <p>Chargement...</p>;
+
+    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
+        return <p>Pas de données disponibles</p>;
+    }
+
+    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
 
     const filteredTracks = enrichedTracks.filter(track => {
         // difficulty filter

@@ -1,11 +1,11 @@
 async function withLoadingAndError(setState, asyncFunction) {
-    setState({loading: true, error: null});
+    setState((state) => ({...state, loading: true, error: null}));
     try {
         await asyncFunction();
     } catch (err) {
-        setState({error: err.message || err});
+        setState((state) => ({...state, error: err.message || err}));
     } finally {
-        setState({loading: false});
+        setState((state) => ({...state, loading: false}));
     }
 }
 

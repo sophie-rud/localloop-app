@@ -11,12 +11,9 @@ function TrackForm() {
     //     { id: 2, title: "Marché couvert" },
     // ];
     // const { steps } = useStepsAndPlaces();
+    const { selectedTrack, addTrack, editTrack, loading, error } = useTracksStore();
 
     const [checked, setChecked] = useState(false);
-    const {selectedTrack} = useTracksStore();
-    const addTrack = useTracksStore((state) => state.addTrack);
-    const editTrack = useTracksStore((state) => state.editTrack);
-
     const [photo, setPhoto] = useState('');
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
@@ -67,6 +64,8 @@ function TrackForm() {
 
     return (
         <form onSubmit={submitHandler} className={formClasses['track-form']}>
+            {loading && <p>Enregistrement...</p>}
+            {error && <p>Erreur {error}</p>}
 
             <label htmlFor="photoTrack" className={formClasses['file-upload-btn']}>
                 Photo

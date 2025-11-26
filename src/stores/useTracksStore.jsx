@@ -17,20 +17,22 @@ const useTracksStore = create((set, get) => {
         addTrack: (track) => withLoadingAndError(set, async () => {
             const newTrack = await postRequest("/tracks", track);
             set((state) => ({ tracks: [...state.tracks, newTrack] }));
+            return newTrack;
         }),
         removeTrack: (id) => withLoadingAndError(set, async () => {
-            await deleteRequest(`/tracks`);
+            await deleteRequest(`/tracks/${id}`);
             set((state) => ({ tracks: state.tracks.filter(t => t.id !== id) }));
         }),
         editTrack: (track) => withLoadingAndError(set, async () => {
-            const updatedTrack = await putRequest(`/tracks`, track);
+            const updatedTrack = await putRequest(`/tracks/${track.id}`, track);
             set((state) => ({
                 tracks: state.tracks.map(t => t.id === updatedTrack.id ? updatedTrack : t),
             }));
+            return updatedTrack;
         }),
-        getTrackById: (id) => {
-            return get().tracks.find((track) => track.id === id) || null;
-        },
+        // getTrackById: (id) => {
+        //     return get().tracks.find((track) => track.id === id) || null;
+        // },
         // STEPS
         steps: [],
         loadStepsForTrack: async (trackId) => {
@@ -56,6 +58,7 @@ const useTracksStore = create((set, get) => {
                         step.id === updatedStep.id ? updatedStep : step
                     )
                 }));
+                return updatedStep;
             }),
         removeStep: async (stepId) =>
             withLoadingAndError(set, async () => {

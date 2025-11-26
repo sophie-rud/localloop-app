@@ -2,10 +2,14 @@ import { MapPin, Route, History, Triangle } from 'lucide-react';
 import classes from './TrackPresentation.module.css';
 import Button from "../Button/Button.jsx";
 import { minutesToDurationString } from "../../utils/duration.js";
+import useTracksStore from "../../stores/useTracksStore.jsx";
 
 function TrackPresentation({track, steps}) {
+    const { loading, error } = useTracksStore();
 
-    if(!track) return null;
+    if (loading) return <p>Chargement des informations...</p>;
+    if (error) return <p>Erreur: {error}</p>;
+    if (!track) return <p>Pas de parcours sélectionné</p>;
 
     return (
         <div className={classes['track-presentation']}>

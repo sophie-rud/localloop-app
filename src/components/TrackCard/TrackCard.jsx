@@ -2,9 +2,15 @@ import { Route, History, Triangle } from 'lucide-react';
 import classes from './TrackCard.module.css';
 import {useNavigate} from "react-router-dom";
 import { minutesToDurationString } from "../../utils/duration.js";
+import useTracksStore from "../../stores/useTracksStore.jsx";
 
 function TrackCard({ track, children }) {
     const navigate = useNavigate();
+    const { loading, error } = useTracksStore();
+
+    if (loading) return <p>Chargement des informations...</p>;
+    if (error) return <p>Erreur: {error}</p>;
+    if (!track) return <p>Pas de parcours trouvé</p>;
 
     return (
         <div className={classes['track-card']}>
