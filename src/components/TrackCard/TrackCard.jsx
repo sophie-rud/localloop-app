@@ -3,8 +3,9 @@ import classes from './TrackCard.module.css';
 import {useNavigate} from "react-router-dom";
 import { minutesToDurationString } from "../../utils/duration.js";
 import useTracksStore from "../../stores/useTracksStore.jsx";
+import Button from "../Button/Button.jsx";
 
-function TrackCard({ track, children }) {
+function TrackCard({ track, onEdit, onDelete }) {
     const navigate = useNavigate();
     const { loading, error } = useTracksStore();
 
@@ -46,7 +47,29 @@ function TrackCard({ track, children }) {
                     </div>
                 </div>
             </div>
-            { children }
+            { (onEdit || onDelete) && (
+                <div className="actions">
+                    { onEdit && (
+                        <Button
+                            type="button"
+                            className="green-btn"
+                            onClick={() => onEdit(track)}
+                        >
+                            Éditer
+                        </Button>
+                    )}
+
+                    { onDelete && (
+                        <Button
+                            type="button"
+                            className="blue-btn"
+                            onClick={() => onDelete(track)}
+                        >
+                            Supprimer
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

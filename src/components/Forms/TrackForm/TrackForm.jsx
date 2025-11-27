@@ -4,16 +4,13 @@ import {useEffect, useState} from "react";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import StepsManager from "../../Steps/StepsManager/StepsManager.jsx";
 import { durationStringToMinutes, minutesToDurationString } from "../../../utils/duration.js";
+import {useNavigate} from "react-router-dom";
 
-function TrackForm() {
-    // const trackSteps = [
-    //     { id: 1, title: "Place des Dominicains" },
-    //     { id: 2, title: "Marché couvert" },
-    // ];
-    // const { steps } = useStepsAndPlaces();
-    const { selectedTrack, addTrack, editTrack, loading, error } = useTracksStore();
+function TrackForm({ onSubmit }) {
 
-    const [checked, setChecked] = useState(false);
+    const { selectedTrack, loading, error } = useTracksStore()
+    const navigate = useNavigate();
+
     const [photo, setPhoto] = useState('');
     const [title, setTitle] = useState('');
     const [theme, setTheme] = useState('');
@@ -22,6 +19,19 @@ function TrackForm() {
     const [difficulty, setDifficulty] = useState('');
     const [presentation, setPresentation] = useState('');
     const [isPublished, setIsPublished] = useState('');
+
+    useEffect(() => {
+        if (selectedTrack) {
+            setPhoto(selectedTrack.photo || "");
+            setTitle(selectedTrack.title || "");
+            setTheme(selectedTrack.theme || "");
+            setDistance(selectedTrack.distance || "");
+            setDuration(minutesToDurationString(selectedTrack.duration) || "");
+            setDifficulty(selectedTrack.difficulty || "");
+            setPresentation(selectedTrack.presentation || "");
+            setIsPublished(selectedTrack.isPublished ?? true);
+        }
+    }, [selectedTrack]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -36,27 +46,8 @@ function TrackForm() {
             presentation,
             isPublished
         };
-
-        if(selectedTrack) {
-            await editTrack({ ...selectedTrack, ...track });
-        }
-        else {
-            await addTrack(track);
-        }
+        onSubmit(track)
     }
-
-    useEffect(() => {
-        if (selectedTrack) {
-            setPhoto(selectedTrack.photo);
-            setTitle(selectedTrack.title);
-            setTheme(selectedTrack.theme);
-            setDistance(selectedTrack.distance);
-            setDuration(minutesToDurationString(selectedTrack.duration));
-            setDifficulty(selectedTrack.difficulty);
-            setPresentation(selectedTrack.presentation);
-            setIsPublished(selectedTrack.isPublished);
-        }
-    }, [selectedTrack]);
 
     const handleInputChange = (setter) => (e) => {
         setter(e.target.value);
@@ -152,11 +143,10 @@ function TrackForm() {
             <input
                 type="checkbox"
                 id="isPublished"
-                name="isPublished"
+                // name="isPublished"
                 className={formClasses['common-checkbox']}
-                checked={checked}
-                value={isPublished}
-                onChange={(e) => setChecked(e.target.checked)}
+                checked={isPublished}
+                onChange={(e) => setIsPublished(e.target.checked)}
             />
 
             <StepsManager
@@ -164,7 +154,7 @@ function TrackForm() {
             />
 
             <Button type="submit" className={'blue-btn'}>Valider mon parcours</Button>
-
+            <Button type="button" onClick={() => navigate(-1)} className={'green-btn'}>Annuler</Button>
         </form>
     );
 }

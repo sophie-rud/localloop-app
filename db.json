@@ -85,7 +85,7 @@
       "distance": 5,
       "difficulty": "Facile",
       "presentation": "Une balade pittoresque à travers les canaux et les maisons à colombages de Colmar.",
-      "is_published": true,
+      "isPublished": true,
       "created_at": "2025-11-05T10:00:00",
       "updated_at": "2025-11-06T15:00:00"
     },
@@ -99,7 +99,7 @@
       "distance": 6,
       "difficulty": "Intermédiaire",
       "presentation": "Découvrez l’histoire et la gastronomie de Strasbourg, entre cathédrale, quartiers médiévaux et marchés.",
-      "is_published": true,
+      "isPublished": true,
       "created_at": "2025-11-08T09:00:00",
       "updated_at": "2025-11-09T18:00:00"
     },
@@ -113,7 +113,7 @@
       "distance": 4,
       "difficulty": "Intermédiaire",
       "presentation": "Une balade nature entre roches, forêt dense et points de vue sur le château de Saint-Ulrich.",
-      "is_published": true,
+      "isPublished": true,
       "created_at": "2025-11-10T09:00:00",
       "updated_at": "2025-11-10T11:30:00"
     },
@@ -127,7 +127,7 @@
       "distance": 10,
       "difficulty": "Sportif",
       "presentation": "Un parcours à vélo qui longe les quais et les parcs de Strasbourg pour découvrir la ville autrement.",
-      "is_published": false,
+      "isPublished": false,
       "created_at": "2025-11-11T08:00:00",
       "updated_at": "2025-11-11T09:15:00"
     },
@@ -141,7 +141,7 @@
       "distance": 6.5,
       "difficulty": "Intermédiaire",
       "presentation": "Une boucle autour du Lac Blanc avec un passage panoramique au Rocher Hans.",
-      "is_published": true,
+      "isPublished": true,
       "created_at": "2025-11-15T08:30:00",
       "updated_at": "2025-11-15T09:00:00"
     },
@@ -155,7 +155,7 @@
       "distance": 6.5,
       "difficulty": "Intermédiaire",
       "presentation": "Une boucle autour du Lac Blanc avec un passage panoramique au Rocher Hans.",
-      "is_published": true,
+      "isPublished": true,
       "created_at": "2025-11-15T08:30:00",
       "updated_at": "2025-11-15T09:00:00"
     }
