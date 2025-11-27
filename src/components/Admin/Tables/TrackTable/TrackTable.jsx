@@ -1,6 +1,15 @@
-import TrackTableRow from "../../TableRow/TrackTableRow/TrackTableRow.jsx";
+import TrackRow from "../../TableRow/TrackRow/TrackRow.jsx";
+import {useEffect} from "react";
+import useTracksStore from "../../../../stores/useTracksStore.jsx";
 
-function TrackTable() {
+function TrackTable({ onEdit, onDelete }) {
+
+    const { tracks, loadTracks } = useTracksStore();
+
+    useEffect(() => {
+        loadTracks();
+    }, [loadTracks]);
+
     return (
         <table>
             <thead>
@@ -17,8 +26,15 @@ function TrackTable() {
             </tr>
             </thead>
             <tbody>
-                <TrackTableRow></TrackTableRow>
-                <TrackTableRow></TrackTableRow>
+            {tracks.map(track => (
+                <TrackRow
+                    key={track.id}
+                    track={track}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                ></TrackRow>
+
+            ))}
             </tbody>
         </table>
     )

@@ -1,45 +1,52 @@
 import { MapPin, Route, History, Triangle } from 'lucide-react';
-import photo from '../../assets/images/image-colmar.jpg';
 import classes from './TrackPresentation.module.css';
+import Button from "../Button/Button.jsx";
+import { minutesToDurationString } from "../../utils/duration.js";
+import useTracksStore from "../../stores/useTracksStore.jsx";
 
-function TrackPresentation() {
-    // {track.photo} {track.title} {city} {department.cp} {starting_point} {track.distance} {track.duration} {track.difficulty} {track.presentation}
+function TrackPresentation({track, steps}) {
+    const { loading, error } = useTracksStore();
+
+    if (loading) return <p>Chargement des informations...</p>;
+    if (error) return <p>Erreur: {error}</p>;
+    if (!track) return <p>Pas de parcours sélectionné</p>;
 
     return (
         <div className={classes['track-presentation']}>
             <div className={classes['track-header']}>
                 <div className={classes['track-presentation-photo']}>
-                    <img src={photo} alt='Colmar' className={classes['image']} />
+                    <img src={track.photo} alt={track.title} className={classes['image']} />
                 </div>
-                <h3 className={classes['track-title']}>Colmar centre-ville</h3>
+                <h3 className={classes['track-title']}>{track.title}</h3>
             </div>
             <div className={classes['track-content']}>
+                <p>{track?.theme?.name}</p>
                 <div className={classes['info']}>
-                    {/*TODO: affichage de la ville SI ville (depuis place ?)*/}
-                    <p>Colmar</p>
-                    <p>68</p>
+                    <p>{steps?.[0].place?.city}</p>
+                    <p>{steps?.[0].place?.department?.code}</p>
                 </div>
-                {/*TODO: Button 'Ajouter aux favoris'*/}
+                {/*<Button type="button" className={'green-btn'}>*/}
+                {/*    {isFavorite ? '+ Ajouter aux favoris' : 'Dans les favoris'}*/}
+                {/*</Button>*/}
                 <div className={classes['track-infos']}>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <MapPin /> </div>
-                        <p> <strong>Point de départ :</strong> parking gare routière </p>
+                        <p> <strong>Point de départ :</strong> {steps?.[0].name} </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <Route /> </div>
-                        <p> <strong>Distance :</strong> 4km </p>
+                        <p> <strong>Distance :</strong> {track.distance} km</p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <History /> </div>
-                        <p> <strong> Durée estimée :</strong> 3h </p>
+                        <p> <strong> Durée estimée :</strong> {minutesToDurationString(track.duration)} </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <Triangle /> </div>
-                        {/*TODO : logique d'affichage de la difficulty*/}
-                        <p>Facile</p>
+                        <p> {track.difficulty} </p>
                     </div>
                 </div>
-                <p className={classes.presentation}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p className={classes.presentation}> {track.presentation} </p>
             </div>
         </div>
     )

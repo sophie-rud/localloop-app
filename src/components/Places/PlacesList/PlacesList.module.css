@@ -1,0 +1,7 @@
+.places-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+}

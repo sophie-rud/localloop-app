@@ -1,14 +1,16 @@
 .track-overview {
     display: flex;
     flex-direction: row;
+    gap: 0.3rem;
     background-color: var(--color-off-white);
     border-radius: 15px;
     overflow: hidden;
-    height: 120px;
+    /*height: 10vh;*/
+    /*width: 10vw;*/
 }
 
 .track-overview-photo {
-    width: 40%;
+    width: 60%;
     object-fit: cover;
 }
 
@@ -19,7 +21,6 @@
     text-align: start;
     padding: 0.5rem;
     font-size: var(--font-size-small);
-    line-height: 1rem;
 }
 
 .overview-title {

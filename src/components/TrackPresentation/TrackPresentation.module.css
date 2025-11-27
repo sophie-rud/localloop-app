@@ -58,9 +58,8 @@
     margin-bottom: auto;
 }
 
-.description {
+.presentation {
     font-size: 1rem;
     line-height: 1.5;
-    color: var(--color-off-white);
     margin-top: 1rem;
 }

@@ -1,4 +1,14 @@
-.map-container {
-    width: 100%;
-    height: 55vh;
+.custom-popup .leaflet-popup-content-wrapper {
+    background-color: var(--color-off-white);
+    padding: 3px;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.custom-popup .leaflet-popup-tip {
+    background: var(--color-off-white);
+}
+
+.custom-popup p {
+    margin: 0;
 }

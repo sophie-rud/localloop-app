@@ -1,21 +1,18 @@
 import TrackCard from "../../TrackCard/TrackCard.jsx";
-import useFetch from "../../../hooks/use-fetch.jsx";
-import {useEffect} from "react";
 import classes from "./TracksList.module.css"
 
-function TracksList() {
-
-    const {result: tracks, request} = useFetch("http://localhost:3000/tracks");
-
-    useEffect(() => {
-        request()
-    }, [])
-
+function TracksList({ tracks, onEdit, onDelete }) {
 
     return(
         <div className={classes['tracks-list']}>
             {tracks && tracks.map(track => (
-                <TrackCard track={track} key={track.id} />
+                <TrackCard
+                    track={track}
+                    key={track.id}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                >
+                </TrackCard>
             ))}
         </div>
     )

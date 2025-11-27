@@ -1,52 +1,7 @@
-// import React from "react";
-// import classes from "./FilterBar.module.css";
-//
-// const FilterBar = ({ filters, setFilters }) => {
-//
-//     const toggleFilter = (category, value) => {
-//         setFilters(prev => ({
-//             ...prev,
-//             [category]: prev[category] === value ? "" : value
-//         }));
-//     };
-//
-//     const filterOptions = {
-//         difficulty: ["Facile", "Moyenne", "Difficile"],
-//         duration: ["<1h", "1-3h", ">3h"],
-//         distance: ["0-5 km", "5-15 km", "15+ km"],
-//         theme: ["Nature", "Culture", "Sport"]
-//     };
-//
-//     return (
-//         <div className={classes['filter-bar']}>
-//             {Object.entries(filterOptions).map(([category, options]) => (
-//                 <div key={category} className={classes['filter-category']}>
-//                     <span className={classes['category-title']}>{category.charAt(0).toUpperCase() + category.slice(1)}:</span>
-//                     <div className={classes.tags}>
-//                         {options.map(option => (
-//                             <button
-//                                 key={option}
-//                                 className={`tag ${filters[category] === option ? "active" : ""}`}
-//                                 onClick={() => toggleFilter(category, option)}
-//                             >
-//                                 {option}
-//                             </button>
-//                         ))}
-//                     </div>
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// };
-//
-// export default FilterBar;
-
-
-
 import React from "react";
 import classes from "./FilterBar.module.css";
 
-const FilterBar = ({ filters, setFilters }) => {
+const FilterBar = ({ filters, setFilters, themes }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
@@ -54,13 +9,15 @@ const FilterBar = ({ filters, setFilters }) => {
 
   return (
     <div className={classes['filter-bar']}>
+
       <div className={classes['filter-item']}>
         <label>Difficulté:</label>
         <select name="difficulty" value={filters.difficulty} onChange={handleChange}>
           <option value="">Toutes</option>
-          <option value="facile">Facile</option>
-          <option value="moyenne">Moyenne</option>
-          <option value="difficile">Difficile</option>
+          <option value="Facile">Facile</option>
+          <option value="Intermédiaire">Intermédiaire</option>
+          <option value="Difficile">Difficile</option>
+          <option value="Sportif">Sportif</option>
         </select>
       </div>
 
@@ -86,15 +43,6 @@ const FilterBar = ({ filters, setFilters }) => {
         </select>
       </div>
 
-      <div className={classes['filter-item']}>
-        <label>Thème:</label>
-        <select name="theme" value={filters.theme} onChange={handleChange}>
-          <option value="">Tous</option>
-          <option value="nature">Nature</option>
-          <option value="ville">Ville</option>
-          <option value="culture">Culture</option>
-        </select>
-      </div>
     </div>
   );
 };

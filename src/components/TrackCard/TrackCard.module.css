@@ -25,6 +25,7 @@
     font-size: 1.3rem;
     font-weight: 700;
     margin: 0.25rem 0 0;
+    text-align: center;
     color: var(--color-dark-blue);
 }
 
