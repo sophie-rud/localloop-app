@@ -12,16 +12,12 @@ import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
 import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
 import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
-import CreateTrackPage from "../pages/Tracks/CreateTrackPage/CreateTrackPage.jsx";
-import EditTrackPage from "../pages/Tracks/EditTrackPage/EditTrackPage.jsx";
-import CreateStepPage from "../pages/Steps/CreateStepPage/CreateStepPage.jsx";
-import EditStepPage from "../pages/Steps/EditStepPage/EditStepPage.jsx";
+import CreateOrEditTrackPage from "../pages/Tracks/CreateTrackPage/CreateOrEditTrackPage.jsx";
 import UsersDashboardPage from "../pages/Admin/UsersDashboardPage/UsersDashboardPage.jsx";
 import TracksDashboardPage from "../pages/Admin/TracksDashboardPage/TracksDashboardPage.jsx";
 import PlacesDashboardPage from "../pages/Admin/PlacesDashboardPage/PlacesDashboardPage.jsx";
 import MapPage from "../pages/Map/MapPage.jsx";
 import PlacesPage from "../pages/Places/PlacesPage/PlacesPage.jsx";
-import CreateOrEditPlacePage from "../pages/Places/CreateOrEditPlacePage/CreateOrEditPlacePage.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -81,19 +77,11 @@ export const router = createBrowserRouter ([
                     },
                     {
                         path: "tracks/create",
-                        element: (<CreateTrackPage />),
+                        element: (<CreateOrEditTrackPage />),
                     },
                     {
                         path: "tracks/:trackId/edit",
-                        element: (<EditTrackPage />),
-                    },
-                    {
-                        path: "tracks/:trackId/steps/create",
-                        element: (<CreateStepPage />),
-                    },
-                    {
-                        path: "tracks/:trackId/steps/:stepId/edit",
-                        element: (<EditStepPage />),
+                        element: (<CreateOrEditTrackPage />),
                     },
                 ]
             },
@@ -120,20 +108,20 @@ export const router = createBrowserRouter ([
                 element: (<TracksDashboardPage />),
             },
             {
+                path: "tracks/create",
+                element: (<CreateOrEditTrackPage />),
+            },
+            {
+                path: "tracks/:TrackId/edit",
+                element: (<CreateOrEditTrackPage />),
+            },
+            {
                 path: "placesDashboard",
                 element: (<PlacesDashboardPage />),
             },
             {
                 path: "places",
                 element: (<PlacesPage />),
-            },
-            {
-                path: "places/create",
-                element: (<CreateOrEditPlacePage />),
-            },
-            {
-                path: "places/:placeId/edit",
-                element: (<CreateOrEditPlacePage />),
             },
         ]
     }
