@@ -1,8 +1,11 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
 import { useEffect, useState } from "react";
+import usePlacesStore from "../../../stores/usePlacesStore.jsx";
 
-function PlaceForm({ selectedPlace, onSubmit, onClose }) {
+function PlaceForm({ onSubmit, onClose }) {
+
+    const { selectedPlace } = usePlacesStore()
 
     const [name, setName] = useState('');
     const [city, setCity] = useState('');
@@ -84,7 +87,7 @@ function PlaceForm({ selectedPlace, onSubmit, onClose }) {
                 // type="file"
                 type="text"
                 id="photo"
-                placeholder="Photo URL"
+                placeholder="Photo"
                 className={formClasses['common-file-input']}
                 value={photo}
                 onChange={handleInputChange(setPhoto)}

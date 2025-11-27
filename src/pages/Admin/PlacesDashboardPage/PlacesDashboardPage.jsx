@@ -55,7 +55,6 @@ function PlacesDashboardPage() {
             {isFormOpen && (
                 <CommonModal onClose={() => setIsFormOpen(false)}>
                     <PlaceForm
-                        selectedPlace={selectedPlace}
                         onSubmit={handleSubmit}
                         onClose={() => setIsFormOpen(false)}
                     />
