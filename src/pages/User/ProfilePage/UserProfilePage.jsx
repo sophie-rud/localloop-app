@@ -1,7 +1,7 @@
 import ProfileCard from "../../../components/ProfileCard/ProfileCard.jsx";
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import Button from "../../../components/Button/Button.jsx";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import {useEffect} from "react";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
@@ -12,34 +12,12 @@ function UserProfilePage() {
     const { tracks, loadTracks, setSelectedTrack, removeTrack } = useTracksStore();
     const { steps, places } = useStepsAndPlaces();
     const { themes, departments} = useReferenceData();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         loadTracks();
     }, [loadTracks]);
-
-    const renderEditButtons = (track) => (
-        <>
-            <Button
-                type="button"
-                className="green-btn"
-                onClick={() => {
-                    handleClickEdit();
-                    setSelectedTrack(track);
-                }}
-            >
-                Editer
-            </Button>
-
-            <Button
-                type="button"
-                className="blue-btn"
-                onClick={() => removeTrack(track.id)}
-            >
-                Supprimer
-            </Button>
-        </>
-    );
 
     // const user = useUserStore(state => state.user);
     //
@@ -49,23 +27,28 @@ function UserProfilePage() {
 
     const userId = 2;
     const publishedTracks = tracks.filter(
-        (track) => track.user_id === userId && track.is_published === true
+        (track) => track.user_id === userId && track.isPublished === true
     );
     const enrichedPublishedTracks = enrichTracks(publishedTracks, { steps, places, departments, themes });
 
     const nonPublishedTracks = tracks.filter(
-        (track) => track.user_id === userId && track.is_published === false
+        (track) => track.user_id === userId && track.isPublished === false
     );
     const enrichedNonPublishedTracks = enrichTracks(nonPublishedTracks, { steps, places, departments, themes });
 
 
-    const handleClickCreate = () => {
-        navigate(`/user/${userId}/tracks/create`)
+    const handleCreate = () => {
+        navigate(`/user/${id}/tracks/create`)
     }
 
-    const handleClickEdit = () => {
-        navigate(`/user/:id/tracks/:trackId/edit`);
-    }
+    const handleEdit = (track) => {
+        setSelectedTrack(track);
+        navigate(`/user/${id}/tracks/${track.id}/edit`);
+    };
+
+    const handleDelete = async (track) => {
+        await removeTrack(track.id);
+    };
 
     return (
         <main>
@@ -73,17 +56,25 @@ function UserProfilePage() {
             <section>
                 <ProfileCard></ProfileCard>
             </section>
-            <Button type="button" onClick={handleClickCreate} className={'green-btn'}>+ Ajouter un parcours</Button>
+            <Button type="button" onClick={handleCreate} className={'green-btn'}>+ Ajouter un parcours</Button>
             <section>
                 <h2>Mes parcours</h2>
                 <div>
                     <h3>Parcours publiés</h3>
-                    <TracksList tracks={enrichedPublishedTracks} renderCardChildren={renderEditButtons} >
-                    </TracksList>
+                    <TracksList
+                        tracks={enrichedPublishedTracks}
+                        onEdit={handleEdit}
+                        onDelete={handleDelete}
+                        >
+                </TracksList>
                 </div>
                 <div>
                     <h3>Parcours non publiés</h3>
-                    <TracksList tracks={enrichedNonPublishedTracks} renderCardChildren={renderEditButtons} >
+                    <TracksList
+                        tracks={enrichedNonPublishedTracks}
+                        onEdit={handleEdit}
+                        onDelete={handleDelete}
+                    >
                     </TracksList>
                 </div>
             </section>

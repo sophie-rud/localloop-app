@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import formClasses from '../Forms.module.css';
 import Button from "../../Button/Button.jsx";
+import useUsersStore from "../../../stores/useUsersStore.jsx";
 
-function UserForm({ data, onSubmit, onClose }) {
+function UserForm({ onSubmit, onClose }) {
+
+    const { selectedUser } = useUsersStore()
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -10,13 +13,13 @@ function UserForm({ data, onSubmit, onClose }) {
     const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
-        if (data) {
-            setUsername(data.username || "");
-            setEmail(data.email || "");
-            setRole(data.role || "user");
-            setIsActive(data.isActive ?? true);
+        if (selectedUser) {
+            setUsername(selectedUser.username || "");
+            setEmail(selectedUser.email || "");
+            setRole(selectedUser.role || "user");
+            setIsActive(selectedUser.isActive ?? true);
         }
-    }, [data]);
+    }, [selectedUser]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

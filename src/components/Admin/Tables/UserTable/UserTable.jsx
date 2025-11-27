@@ -1,6 +1,15 @@
 import UserRow from "../../TableRow/UserRow/UserRow.jsx";
+import useUsersStore from "../../../../stores/useUsersStore.jsx";
+import {useEffect} from "react";
 
-function UserTable({ users, onEdit, onDelete, onBlock }) {
+function UserTable({ onEdit, onDelete, onBlock }) {
+
+    const {users, getUsers } = useUsersStore();
+
+    useEffect(() => {
+        getUsers();
+    }, [getUsers]);
+
     return (
         <table>
             <thead>

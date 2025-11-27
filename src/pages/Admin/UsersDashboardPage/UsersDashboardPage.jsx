@@ -3,18 +3,15 @@ import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
 import Button from "../../../components/Button/Button.jsx";
 import SearchBar from "../../../layouts/elements/SearchBar/SearchBar.jsx";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import UserForm from "../../../components/Forms/UserForm/UserForm.jsx";
 import CommonModal from "../../../components/Modals/CommonModal/CommonModal.jsx";
 
 function UserDashboardPage() {
-    const { users, getUsers, selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
+
+    const { selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
 
     const [isFormOpen, setIsFormOpen] = useState(false);
-
-    useEffect(() => {
-        getUsers();
-    }, [getUsers]);
 
     const openCreateForm = () => {
         setSelectedUser(null);
@@ -57,13 +54,12 @@ function UserDashboardPage() {
                 </Button>
             </div>
             <section>
-                <UserTable users={users} onEdit={openEditForm} onDelete={handleDelete} onBlock={handleToggleBlock} />
+                <UserTable onEdit={openEditForm} onDelete={handleDelete} onBlock={handleToggleBlock} />
             </section>
 
             {isFormOpen && (
                 <CommonModal onClose={() => setIsFormOpen(false)}>
                     <UserForm
-                        data={selectedUser}
                         onSubmit={handleSubmit}
                         onClose={() => setIsFormOpen(false)}
                     />
