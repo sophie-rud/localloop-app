@@ -1,73 +1,82 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Ali",
+      "id": "1",
+      "username": "Ali",
       "email": "alice.dupont@gmail.com",
       "password": "password",
-      "avatar": "https://i.pravatar.cc/150?img=5",
-      "is_active": true,
-      "created_at": "2025-10-01T09:30:00",
-      "updated_at": "2025-10-01T09:30:00",
-      "role_id": 2
+      "avatar": "https://i.pravatar.cc/150?img=11",
+      "isActive": false,
+      "created_at": "2025-09-15T14:20:00",
+      "updated_at": "2025-09-15T14:20:00",
+      "role_id": 1,
+      "updatedAt": "2025-11-26T20:55:49.981Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "lily.stadt68",
       "email": "lily.stadt@gmail.com",
       "password": "password",
       "avatar": "https://i.pravatar.cc/150?img=12",
-      "is_active": true,
+      "isActive": true,
       "created_at": "2025-09-15T14:20:00",
       "updated_at": "2025-09-15T14:20:00",
-      "role_id": 1
+      "role_id": 1,
+      "updatedAt": "2025-11-26T21:01:32.295Z"
+    },
+    {
+      "id": "56fb",
+      "username": "Momo67",
+      "email": "momo@gmail.com",
+      "role": "user",
+      "isActive": true
     }
   ],
   "role": [
     {
-      "id": 1,
+      "id": "1",
       "name": "User"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Admin"
     }
   ],
   "themes": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Nature",
       "icon": "🌿"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Urbain",
       "icon": "🏙️"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Culture",
       "icon": "🎨"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Sport",
       "icon": "🏃‍♂️"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Gastronomie",
       "icon": "🍽️"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Histoire",
       "icon": "🏰"
     }
   ],
   "tracks": [
     {
-      "id": 1,
+      "id": "1",
       "user_id": 1,
       "theme_id": 3,
       "title": "Balade au cœur de Colmar",
@@ -81,7 +90,7 @@
       "updated_at": "2025-11-06T15:00:00"
     },
     {
-      "id": 2,
+      "id": "2",
       "user_id": 2,
       "theme_id": 6,
       "title": "Strasbourg historique et gourmand",
@@ -95,7 +104,7 @@
       "updated_at": "2025-11-09T18:00:00"
     },
     {
-      "id": 3,
+      "id": "3",
       "user_id": 1,
       "theme_id": 1,
       "title": "Sentier des Roches et Forêt de Ribeauvillé",
@@ -109,7 +118,7 @@
       "updated_at": "2025-11-10T11:30:00"
     },
     {
-      "id": 4,
+      "id": "4",
       "user_id": 2,
       "theme_id": 4,
       "title": "Strasbourg à vélo",
@@ -123,7 +132,7 @@
       "updated_at": "2025-11-11T09:15:00"
     },
     {
-      "id": 12,
+      "id": "12",
       "user_id": 2,
       "theme_id": 1,
       "title": "Autour du Lac Blanc et Rocher Hans",
@@ -137,7 +146,7 @@
       "updated_at": "2025-11-15T09:00:00"
     },
     {
-      "id": 13,
+      "id": "13",
       "user_id": 2,
       "theme_id": 1,
       "title": "testAutour du Lac Blanc et Rocher Hans",
@@ -153,7 +162,7 @@
   ],
   "places": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Pont Saint-Pierre",
       "city": "Colmar",
       "description": "Petit pont pittoresque enjambant le canal Lauch, emblématique du quartier de la Petite Venise.",
@@ -165,7 +174,7 @@
       "department_id": 2
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Musée Unterlinden",
       "city": "Colmar",
       "description": "Ancien couvent transformé en musée, célèbre pour le retable d'Issenheim.",
@@ -177,7 +186,7 @@
       "department_id": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Cathédrale Notre-Dame de Strasbourg",
       "city": "Strasbourg",
       "description": "Monument gothique emblématique de la ville.",
@@ -189,7 +198,7 @@
       "department_id": 1
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Pont des Tanneurs",
       "city": "Strasbourg",
       "description": "Pont historique situé dans le quartier de la Petite France, offrant une vue sur les maisons à colombages et les canaux.",
@@ -201,7 +210,7 @@
       "department_id": 1
     },
     {
-      "id": 21,
+      "id": "21",
       "name": "Place du Corbeau",
       "city": "Strasbourg",
       "description": "Point central proche du quai des Bateliers, parfait comme départ à vélo.",
@@ -213,7 +222,7 @@
       "department_id": 1
     },
     {
-      "id": 22,
+      "id": "22",
       "name": "Parc de l'Orangerie",
       "city": "Strasbourg",
       "description": "Grand espace vert traversé par des pistes cyclables tranquilles.",
@@ -225,7 +234,7 @@
       "department_id": 1
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Parking du Taennchel",
       "city": "Ribeauvillé",
       "description": "Parking qui se trouve au bas du village de Thannenkirch, point de départ de plusieurs itinéraires de randonnée.",
@@ -237,7 +246,7 @@
       "department_id": 2
     },
     {
-      "id": 23,
+      "id": "23",
       "name": "Refuge des Trois Tables",
       "city": "Ribeauvillé",
       "description": "Petit refuge en lisière de forêt, idéal pour une première pause.",
@@ -249,7 +258,7 @@
       "department_id": 2
     },
     {
-      "id": 24,
+      "id": "24",
       "name": "Belvédère du Rocher du Coucou",
       "city": "Ribeauvillé",
       "description": "Point de vue sur les châteaux et la plaine d’Alsace.",
@@ -261,7 +270,7 @@
       "department_id": 2
     },
     {
-      "id": 25,
+      "id": "25",
       "name": "Barrage du Lac Blanc",
       "city": "Orbey",
       "description": "Point de départ situé au niveau du barrage du lac.",
@@ -273,7 +282,7 @@
       "department_id": 2
     },
     {
-      "id": 26,
+      "id": "26",
       "name": "Rocher Hans",
       "city": "Orbey",
       "description": "Formation rocheuse emblématique surplombant le lac.",
@@ -287,7 +296,7 @@
   ],
   "steps": [
     {
-      "id": 1,
+      "id": "1",
       "track_id": 1,
       "place_id": 1,
       "name": "Découverte de la Petite Venise",
@@ -299,7 +308,7 @@
       "updated_at": "2025-11-11T10:30:00"
     },
     {
-      "id": 2,
+      "id": "2",
       "track_id": 1,
       "place_id": 2,
       "name": "Visite du Musée Unterlinden",
@@ -311,7 +320,7 @@
       "updated_at": "2025-11-10T11:30:00"
     },
     {
-      "id": 3,
+      "id": "3",
       "track_id": 2,
       "place_id": 3,
       "name": "Cathédrale de Strasbourg",
@@ -323,7 +332,7 @@
       "updated_at": "2025-11-14T19:00:00"
     },
     {
-      "id": 4,
+      "id": "4",
       "track_id": 2,
       "place_id": 4,
       "name": "Promenade dans La Petite France",
@@ -335,7 +344,7 @@
       "updated_at": "2025-11-12T18:30:00"
     },
     {
-      "id": 31,
+      "id": "31",
       "track_id": 4,
       "place_id": 21,
       "name": "Départ depuis la Place du Corbeau",
@@ -347,7 +356,7 @@
       "updated_at": "2025-11-12T18:30:00"
     },
     {
-      "id": 32,
+      "id": "32",
       "track_id": 4,
       "place_id": 22,
       "name": "Pause au Parc de l’Orangerie",
@@ -359,7 +368,7 @@
       "updated_at": "2025-11-12T18:40:00"
     },
     {
-      "id": 5,
+      "id": "5",
       "track_id": 3,
       "place_id": 5,
       "name": "Départ vers le sentier des Roches",
@@ -371,7 +380,7 @@
       "updated_at": "2025-11-12T18:30:00"
     },
     {
-      "id": 33,
+      "id": "33",
       "track_id": 3,
       "place_id": 23,
       "name": "Refuge des Trois Tables",
@@ -383,7 +392,7 @@
       "updated_at": "2025-11-14T11:20:00"
     },
     {
-      "id": 34,
+      "id": "34",
       "track_id": 3,
       "place_id": 24,
       "name": "Belvédère du Rocher du Coucou",
@@ -395,7 +404,7 @@
       "updated_at": "2025-11-14T11:40:00"
     },
     {
-      "id": 35,
+      "id": "35",
       "track_id": 12,
       "place_id": 25,
       "name": "Départ au Barrage du Lac Blanc",
@@ -407,7 +416,7 @@
       "updated_at": "2025-11-15T09:40:00"
     },
     {
-      "id": 36,
+      "id": "36",
       "track_id": 12,
       "place_id": 26,
       "name": "Passage au Rocher Hans",
@@ -421,12 +430,12 @@
   ],
   "departments": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Bas-Rhin",
       "code": "67"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Haut-Rhin",
       "code": "68"
     }

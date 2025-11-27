@@ -1,47 +1,43 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
 import { useEffect, useState } from "react";
-// import useUsersStore from "../../../stores/useUsersStore.jsx";
 
-function PlaceForm() {
+function PlaceForm({ selectedPlace, onSubmit, onClose }) {
 
     const [name, setName] = useState('');
     const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
     const [photo, setPhoto] = useState('');
+    const [department, setDepartment] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
 
-    // const submitHandler = async (e) => {
-    //     e.preventDefault();
-    //
-    //     const place = {
-    //         name,
-    //         city,
-    //         description,
-    //         photo,
-    //         latitude,
-    //         longitude,
-    //     };
-    //
-    //     if(selectedPLace) {
-    //         await editPLace({ ...selectedPLace, ...place });
-    //     }
-    //     else {
-    //         await addPlace(place);
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     if (selectedPlace) {
-    //         setName(selectedPlace.name || '');
-    //         setCity(selectedPlace.city || '');
-    //         setDescription(selectedPlace.description || '');
-    //         setPhoto(selectedPlace.photo || '');
-    //         setLatitude(selectedPlace.latitude || '');
-    //         setLongitude(selectedPlace.longitude || '');
-    //     }
-    // }, [selectedPlace]);
+    useEffect(() => {
+        if (selectedPlace) {
+            setName(selectedPlace.name || '');
+            setCity(selectedPlace.city || '');
+            setDescription(selectedPlace.description || '');
+            setPhoto(selectedPlace.photo || '');
+            setDepartment(selectedPlace.department_id || '');
+            setLatitude(selectedPlace.latitude || '');
+            setLongitude(selectedPlace.longitude || '');
+        }
+    }, [selectedPlace]);
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        const place = {
+            name,
+            city,
+            description,
+            photo,
+            latitude,
+            longitude,
+        };
+        onSubmit(place);
+    }
+
 
     const handleInputChange = (setter) => (e) => {
         setter(e.target.value);
@@ -49,8 +45,8 @@ function PlaceForm() {
 
 
     return (
-        < form className={formClasses['step-form']}>
-            <h3>{place ? "Modifier le lieu" : "Nouveau lieu"}</h3>
+        < form onSubmit={submitHandler} className={formClasses['step-form']}>
+            <h3>{ selectedPlace ? "Modifier le lieu" : "Nouveau lieu"}</h3>
 
             <label htmlFor="name">Nom du lieu</label>
             <input
@@ -94,6 +90,18 @@ function PlaceForm() {
                 onChange={handleInputChange(setPhoto)}
             />
 
+            <label htmlFor="department">Rôle</label>
+            <select
+                id="department"
+                value={department}
+                className={formClasses['common-select-input']}
+                onChange={handleInputChange(setDepartment)}
+            >
+                <option value="">Sélectionner un département</option>
+                <option value="1">Bas-Rhin</option>
+                <option value="2">Haut-Rhin</option>
+            </select>
+
             <label htmlFor="latitude">Latitude</label>
             <input
                 type="text"
@@ -115,6 +123,7 @@ function PlaceForm() {
             />
 
             <Button type="submit" className={'blue-btn'}>Enregistrer mon lieu</Button>
+            {onClose && <Button type="button" onClick={onClose} className={'green-btn'}>Annuler</Button>}
 
         </form>
     );

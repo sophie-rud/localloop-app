@@ -1,6 +1,6 @@
-import PlaceTableRow from "../../TableRow/PlaceTableRow/PlaceTableRow.jsx";
+import PlaceRow from "../../TableRow/PlaceRow/PlaceRow.jsx";
 
-function PlaceTable() {
+function PlaceTable({ places, onEdit, onDelete }) {
     return (
         <table>
             <thead>
@@ -17,8 +17,14 @@ function PlaceTable() {
             </tr>
             </thead>
             <tbody>
-                <PlaceTableRow></PlaceTableRow>
-                <PlaceTableRow></PlaceTableRow>
+            {places.map((place) => (
+                <PlaceRow
+                    key={place.id}
+                    place={place}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                ></PlaceRow>
+            ))}
             </tbody>
         </table>
     )
