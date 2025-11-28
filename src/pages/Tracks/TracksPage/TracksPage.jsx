@@ -5,16 +5,24 @@ import useTracksStore from "../../../stores/useTracksStore.jsx";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
 import enrichTracks from "../../../utils/enrichTracks.jsx";
+import {Outlet, useOutletContext, useSearchParams} from "react-router-dom";
 
 function TracksPage() {
 
     const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
     const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
     const { themes, departments, loading: refLoading } = useReferenceData();
+    const { searchTerm } = useOutletContext();
+    const [params] = useSearchParams();
+    const query = params.get("query");
 
     useEffect(() => {
-        loadTracks();
-    }, [loadTracks]);
+        if (query) {
+            loadTracks(query);
+        } else {
+            loadTracks();
+        }
+    }, [loadTracks, query]);
 
     const [filters, setFilters] = useState({
         difficulty: "",
@@ -32,7 +40,17 @@ function TracksPage() {
 
     const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
 
-    const filteredTracks = enrichedTracks.filter(track => {
+    // SEARCH BAR FILTER
+    const termToSearch = searchTerm?.toLowerCase() || "";
+    const searchBarFilteredTracks = enrichedTracks.filter(track =>
+        track.title.toLowerCase().includes(searchTerm.toLowerCase())||
+        (track.presentation?.toLowerCase().includes(termToSearch)) ||
+        (track.place?.name.toLowerCase().includes(termToSearch)) ||
+        (track.department?.name.toLowerCase().includes(termToSearch))
+    );
+
+    // TRACKS FILTERS
+    const filteredTracks = searchBarFilteredTracks.filter(track => {
         // difficulty filter
         if (filters.difficulty && track.difficulty !== filters.difficulty) {
             return false;
@@ -40,7 +58,7 @@ function TracksPage() {
 
         // duration filter
         if (filters.duration) {
-            const d = track.duration; // durée en minutes
+            const d = track.duration;
 
             if (filters.duration === "courte" && d > 60) return false;
             if (filters.duration === "moyenne" && (d < 60 || d > 180)) return false;

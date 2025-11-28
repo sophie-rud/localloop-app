@@ -3,7 +3,7 @@ import SearchBar from "../SearchBar/SearchBar.jsx";
 import { Link } from 'react-router-dom';
 import logo from "../../../assets/images/logo_localloop.png";
 
-function Header() {
+function Header({ onSearch }) {
     return (
         <header className={classes.header}>
             <Link to="/">
@@ -11,7 +11,10 @@ function Header() {
                     <img src={logo} alt="logo" />
                 </div>
             </Link>
-            <SearchBar className={'search-bar-user'}/>
+            <SearchBar
+                className={'search-bar-user'}
+                onSearch={onSearch}
+            />
         </header>
     )
 }
