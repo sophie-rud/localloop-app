@@ -4,12 +4,11 @@ import MinimalLayout from "../layouts/MinimalLayout/MinimalLayout.jsx";
 import Home from "../pages/Home/Home.jsx";
 import LoginPage from "../pages/SignupAndLogin/LoginPage/LoginPage.jsx";
 import SignupPage from "../pages/SignupAndLogin/SignupPage/SignupPage.jsx";
-import PrivateRoute from "./PrivateRoute.jsx";
 import TracksPage from "../pages/Tracks/TracksPage/TracksPage.jsx";
 import OneTrackDetailsPage from "../pages/Tracks/OneTrackDetailsPage/OneTrackDetailsPage.jsx";
 import OneStepDetailsPage from "../pages/Steps/OneStepDetailsPage/OneStepDetailsPage.jsx";
 import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
-import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
+// import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
 import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
 import CreateOrEditTrackPage from "../pages/Tracks/CreateTrackPage/CreateOrEditTrackPage.jsx";
@@ -18,6 +17,8 @@ import TracksDashboardPage from "../pages/Admin/TracksDashboardPage/TracksDashbo
 import PlacesDashboardPage from "../pages/Admin/PlacesDashboardPage/PlacesDashboardPage.jsx";
 import MapPage from "../pages/Map/MapPage.jsx";
 import PlacesPage from "../pages/Places/PlacesPage/PlacesPage.jsx";
+import AdminRoute from "./AdminRoute.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -36,7 +37,7 @@ export const router = createBrowserRouter ([
     {
         path: "/",
         element: (
-            <App/>
+                <App/>
         ),
         children: [
             {
@@ -62,19 +63,19 @@ export const router = createBrowserRouter ([
             {
                 path: "user/:id",
                 element: (
-                    // <PrivateRoute>
+                    <PrivateRoute>
                         <Outlet />
-                    // </PrivateRoute>
+                    </PrivateRoute>
                 ),
                 children: [
                     {
                         path: "profile",
                         element: (<UserProfilePage />),
                     },
-                    {
-                        path: "tracks/favorites",
-                        element: (<FavoriteTracksPage />),
-                    },
+                    // {
+                    //     path: "tracks/favorites",
+                    //     element: (<FavoriteTracksPage />),
+                    // },
                     {
                         path: "tracks/create",
                         element: (<CreateOrEditTrackPage />),
@@ -90,9 +91,9 @@ export const router = createBrowserRouter ([
     {
         path: "admin/:id",
         element: (
-            // <PrivateRoute>
+            <AdminRoute>
                 <AdminLayout/>
-            // </PrivateRoute>
+            </AdminRoute>
         ),
         children: [
             {

@@ -1,4 +1,4 @@
-.blue-btn, .green-btn, .small-blue-btn, .small-green-btn {
+.blue-btn, .green-btn, .small-blue-btn, .small-green-btn, .logout-button {
     flex: 1;
     width: 100%;
     padding: 0.5rem 3rem;
@@ -11,12 +11,18 @@
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.logout-button {
+    width: 3rem;
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 0;
+}
+
 .blue-btn, .small-blue-btn {
     background-color: var(--color-dark-blue);
     color: var(--color-off-white);
 }
 
-.green-btn, .small-green-btn {
+.green-btn, .small-green-btn, .logout-button {
     background-color: var(--color-green);
     color: var(--color-dark-blue);
 }
@@ -28,7 +34,7 @@
     margin-bottom: 0.2rem;
 }
 
-.blue-btn:hover, .green-btn:hover {
+.blue-btn:hover, .green-btn:hover, .logout-button:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(21, 70, 84, 0.2);
 }
@@ -38,7 +44,7 @@
     color: var(--color-dark-blue);
 }
 
-.green-btn:hover {
+.green-btn:hover, .logout-button:hover {
     background-color: var(--color-dark-blue);
     color: var(--color-green);
 }

@@ -1,20 +1,31 @@
 // import classes from './LoginForm.module.css';
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useContext, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {AuthContext} from "../../../contexts/auth-context.jsx";
 
-function LoginForm({ onSubmit }) {
+function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState("user");
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit({ email, password });
+        login(role);
+        if (role === "admin") {
+            navigate("/admin/dashboard");
+        } else {
+            navigate("/user/2/profile");
+        }
     };
 
     return (
         <form onSubmit={handleSubmit} className={formClasses['login-form']}>
+
+            <label htmlFor="email">Email</label>
             <input
                 type="email"
                 id="email"
@@ -22,8 +33,10 @@ function LoginForm({ onSubmit }) {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Email"
                 className={formClasses['common-input']}
-                required
+                // required
             />
+
+            <label htmlFor="password">Mot de passe</label>
             <input
                 type="password"
                 id="password"
@@ -31,8 +44,19 @@ function LoginForm({ onSubmit }) {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Mot de passe"
                 className={formClasses['common-input']}
-                required
+                // required
             />
+
+            <label htmlFor="role">Role</label>
+            <select
+                value={role}
+                className={formClasses['common-select-input']}
+                onChange={(e) => setRole(e.target.value)}
+            >
+                <option value="user">Utilisateur</option>
+                <option value="admin">Admin</option>
+            </select>
+
             <Link to="">
                 <p>Mot de passe oublié</p>
             </Link>

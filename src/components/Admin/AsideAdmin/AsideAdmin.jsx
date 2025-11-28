@@ -1,10 +1,22 @@
 import classes from './AsideAdmin.module.css';
 import photo from "../../../assets/images/image-colmar.jpg";
-import { Users, Grid2x2, LocateFixed, Eye, ContactRound } from 'lucide-react';
-import {Link, NavLink} from "react-router-dom";
+import {Users, Grid2x2, LocateFixed, Eye, ContactRound, LogOut} from 'lucide-react';
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import logo from "../../../assets/images/logo_localloop_green.png";
+import Button from "../../Button/Button.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../../contexts/auth-context.jsx";
 
 function AsideAdmin() {
+
+    const { isLogin, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
+
     return (
         <aside className={classes['sidebar']}>
             <div className={classes['sidebar-header']}>
@@ -54,6 +66,13 @@ function AsideAdmin() {
             </div>
 
             <div className={classes['sidebar-footer']}>
+                <div>
+                    {isLogin && (
+                        <Button type="button" className={'logout-button'} onClick={handleLogout} title="Se déconnecter">
+                            <LogOut />
+                        </Button>
+                    )}
+                </div>
                 <Link to="/admin/:id/profile">
                     <div className={classes.logo}>
                         <img src={logo} alt="logo" />

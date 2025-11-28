@@ -5,7 +5,11 @@ import {Navigate} from "react-router-dom";
 const PrivateRoute = ({children}) => {
     const {isLogin} = useContext(AuthContext);
 
-    return isLogin ? children : <Navigate to="/login"/>
+    if (isLogin === undefined) {
+        return <p>Chargement...</p>;
+    }
+
+    return isLogin ? children : <Navigate to="/login" />
 }
 
-export default PrivateRoute
+export default PrivateRoute;
