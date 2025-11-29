@@ -71,8 +71,12 @@ input::placeholder, textarea::placeholder {
 /* RESPONSIVE */
 /* Desktop */
 @media (min-width: 1200px) {
-    .form, .login-form, .signup-form, .track-form {
-        max-width: 60%;
+    .form, .track-form {
+        max-width: 70vw;
         margin: auto;
+    }
+
+    .login-form, .signup-form {
+        margin-top: 3rem;
     }
 }

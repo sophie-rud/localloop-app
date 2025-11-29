@@ -28,9 +28,11 @@ function SignupPage() {
 
     return (
         <main className={classes['signup-page']}>
-            <p>Bienvenue sur</p>
-            <h1>LocalLoop !</h1>
-            <p>Explorer ce qui se cache autour de vous</p>
+            <div className='title-block'>
+                <p>Bienvenue sur</p>
+                <h1>LocalLoop !</h1>
+                <p>Explorer ce qui se cache autour de vous</p>
+            </div>
             <div>
                 {loading && <p>Création du compte…</p>}
                 {error && <p style={{ color: "red" }}>{error}</p>}

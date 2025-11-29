@@ -52,7 +52,7 @@ function SignupForm({ onSubmit }) {
                 onChange={(e) => setConfirmedPassword(e.target.value)}
                 required
             />
-            <Button type="submit" className={'blue-btn'}>S'inscrire</Button>
+            <Button type="submit" className={'small-blue-btn'}>S'inscrire</Button>
         </form>
     );
 }

@@ -43,7 +43,7 @@ function PlacesDashboardPage() {
         <main className={adminClasses['main-admin']}>
             <h1>Tableau de bord des lieux</h1>
             <div>
-                <SearchBar></SearchBar>
+                {/*<SearchBar />*/}
                 <Button type="button" className={'green-btn'} onClick={openCreateForm} >
                     + Ajouter un lieu
                 </Button>

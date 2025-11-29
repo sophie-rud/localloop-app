@@ -30,7 +30,7 @@ function TracksDashboardPage() {
         <main className={adminClasses['main-admin']}>
             <h1>Tableau de bord des parcours</h1>
             <div>
-                <SearchBar></SearchBar>
+                {/*<SearchBar />*/}
                 <Button type="button" className={'green-btn'} onClick={handleCreate} >
                     + Ajouter un parcours
                 </Button>
