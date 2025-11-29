@@ -17,6 +17,8 @@ function useTrackDetails(trackId) {
             return;
         }
 
+        if (departments.length === 0 || themes.length === 0) return;
+
         async function loadTrackDetails() {
             setLoading(true);
             setError(null);

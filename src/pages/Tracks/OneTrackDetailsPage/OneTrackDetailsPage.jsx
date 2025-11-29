@@ -10,18 +10,19 @@ import useTrackDetails from "../../../hooks/useTrackDetails.jsx";
 function OneTrackDetailsPage() {
     const { id } = useParams();
     const trackId = Number(id);
-    const {tracks, selectedTrack, setSelectedTrack} = useTracksStore()
+    const {tracks, setSelectedTrack} = useTracksStore()
 
     useEffect(() => {
         const track = tracks.find(t => Number(t.id) === trackId) || null;
         setSelectedTrack(track);
     }, [trackId, tracks, setSelectedTrack]);
 
-    const { steps, track, loading, error } = useTrackDetails(selectedTrack?.id);
+    const { steps, track, loading, error } = useTrackDetails(trackId);
 
-    if (!selectedTrack) return <p>Parcours introuvable</p>;
     if (loading) return <p>Chargement des étapes...</p>;
     if (error) return <p>Erreur : {error}</p>;
+    if (!track) return <p>Parcours introuvable</p>;
+
 
     return (
         <main className={classes['one-track-page-main']}>
@@ -33,7 +34,7 @@ function OneTrackDetailsPage() {
             </section>
             <section className={classes['track-steps-section']}>
                 {steps && steps.map(step =>(
-                    <Link to={`/tracks/${selectedTrack.id}/steps/${step.id}`} key={step.id}>
+                    <Link to={`/tracks/${trackId}/steps/${step.id}`} key={step.id}>
                         <StepOverview key={step.id} step={step} />
                     </Link>
                 )) }

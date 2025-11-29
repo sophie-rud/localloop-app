@@ -30,9 +30,9 @@ const useTracksStore = create((set, get) => {
             }));
             return updatedTrack;
         }),
-        // getTrackById: (id) => {
-        //     return get().tracks.find((track) => track.id === id) || null;
-        // },
+        getTrackById: (id) => {
+            return get().tracks.find((track) => parseInt(track.id) === parseInt(id)) || null;
+        },
         // STEPS
         steps: [],
         loadStepsForTrack: async (trackId) => {
