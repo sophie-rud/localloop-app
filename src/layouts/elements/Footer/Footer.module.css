@@ -13,3 +13,9 @@
     color: var(--color-off-white);
     padding: 1rem 0;
 }
+
+@media screen and (min-width: 700px) {
+    .footer {
+        margin-bottom: 0;
+    }
+}

@@ -31,7 +31,7 @@ function TrackCard({ track, onEdit, onDelete }) {
                 </div>
                 <div className={classes['card-infos']}>
                     <div className={classes['info']}>
-                        <div className={classes['icon']}> {} </div>
+                        <div className={classes['icon']}> {track.theme?.icon} </div>
                         <p> <strong> {track.theme?.name || "inconnu"} </strong> </p>
                     </div><div className={classes['info']}>
                         <div className={classes['icon']}> <Route /> </div>
@@ -48,11 +48,11 @@ function TrackCard({ track, onEdit, onDelete }) {
                 </div>
             </div>
             { (onEdit || onDelete) && (
-                <div className="actions">
+                <div className={classes['actions']}>
                     { onEdit && (
                         <Button
                             type="button"
-                            className="green-btn"
+                            className="small-green-btn"
                             onClick={() => onEdit(track)}
                         >
                             Éditer
@@ -62,7 +62,7 @@ function TrackCard({ track, onEdit, onDelete }) {
                     { onDelete && (
                         <Button
                             type="button"
-                            className="blue-btn"
+                            className="small-blue-btn"
                             onClick={() => onDelete(track)}
                         >
                             Supprimer

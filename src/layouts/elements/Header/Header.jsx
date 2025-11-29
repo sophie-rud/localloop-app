@@ -20,7 +20,7 @@ function Header({ onSearch }) {
     return (
         <header className={classes.header}>
             <Link to="/">
-                <div className={classes.logo}>
+                <div className="logo">
                     <img src={logo} alt="logo" />
                 </div>
             </Link>
@@ -28,10 +28,10 @@ function Header({ onSearch }) {
                 className={'search-bar-user'}
                 onSearch={onSearch}
             />
-            <div>
+            <div className={classes['logout-item']}>
                 {isLogin && (
                     <Button type="button" className={'logout-button'} onClick={handleLogout} title="Se déconnecter">
-                        <LogOut />
+                        <LogOut className={classes['logout-icon']} />
                     </Button>
                 )}
             </div>

@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 function LoginPage() {
     return (
         <main className={classes['login-page']}>
-            <p>Bienvenue sur</p>
-            <h1>LocalLoop !</h1>
-            <p>Explorer ce qui se cache autour de vous</p>
+            <div className='title-block'>
+                <p>Bienvenue sur</p>
+                <h1>LocalLoop !</h1>
+                <p>Explorer ce qui se cache autour de vous</p>
+            </div>
             <div>
                 <LoginForm />
                 <Link to="/signup">

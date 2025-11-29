@@ -31,7 +31,7 @@
 }
 
 .track-content {
-    padding: 0 1rem;
+    padding: 0 1rem 1.5rem;
 }
 
 .track-infos {
@@ -42,11 +42,25 @@
     gap: 0.5rem;
 }
 
-.info {
+.track-infos-header {
     display: flex;
-    /*flex-direction: row;*/
+    justify-content: space-between;
     align-items: center;
     gap: 2rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 0.25rem 0;
+    height: 1.5rem;
+}
+
+.info-location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0.25rem 0;
     height: 1.5rem;
 }
@@ -62,4 +76,39 @@
     font-size: 1rem;
     line-height: 1.5;
     margin-top: 1rem;
+}
+
+/* RESPONSIVE */
+/* Tablette */
+@media (min-width: 640px) {
+    .track-content {
+        padding: 0 2rem 1.5rem;
+    }
+
+    .track-infos-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10rem;
+    }
+
+    .info-location {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        margin-top: auto;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+    .track-content {
+        padding: 0 2rem 1.5rem;
+    }
+
+    .track-presentation {
+        max-width: 60vw;
+        margin: auto;
+    }
 }

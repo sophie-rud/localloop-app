@@ -1,24 +1,15 @@
 import StepsPreviewList from "../../StepPreviewList/StepsPreviewList.jsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import StepModal from "../StepModal/StepModal.jsx";
 import Button from "../../Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import useTrackDetails from "../../../hooks/useTrackDetails.jsx";
+import classes from "./StepsManager.module.css"
 
 function StepsManager({ trackId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
-    // const [steps, setSteps] = useState([]);
     const { loadStepsForTrack, addStep, editStep } = useTracksStore();
-
-    // useEffect(() => {
-    //     if (!trackId) return;
-    //     const fetchSteps = async () => {
-    //         const trackSteps = await loadStepsForTrack(trackId);
-    //         setSteps(trackSteps || []);
-    //     };
-    //     fetchSteps();
-    // }, [trackId]);
 
     const { steps, loading } = useTrackDetails(trackId);
 
@@ -55,8 +46,8 @@ function StepsManager({ trackId }) {
 
 
     return (
-        <div>
-            <Button type="button" onClick={() => openAddModal()} className={'green-btn'}>+ Ajouter une étape</Button>
+        <div className={classes['steps-manager']}>
+            <Button type="button" onClick={() => openAddModal()} className={'small-green-btn'}>+ Ajouter une étape</Button>
 
             <h3>Étapes du parcours</h3>
 

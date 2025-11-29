@@ -14,10 +14,10 @@ function PlaceRow({ place, onEdit, onDelete }) {
             <td data-label="longitude">{place.longitude}</td>
             <td data-label="author">Jean</td>
             <td data-label="edit">
-                <Button type="submit" className={'blue-btn'} onClick={() => onEdit(place)} > <Pen /> </Button>
+                <Button type="submit" className={'small-blue-btn'} onClick={() => onEdit(place)} > <Pen /> </Button>
             </td>
             <td data-label="Supprimer">
-                <Button type="submit" className={'green-btn'} onClick={() => onDelete(place.id)} > <Trash2 /> </Button>
+                <Button type="submit" className={'small-green-btn'} onClick={() => onDelete(place.id)} > <Trash2 /> </Button>
             </td>
         </tr>
     )

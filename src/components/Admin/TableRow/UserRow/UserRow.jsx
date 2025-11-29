@@ -13,13 +13,13 @@ function UserRow({ user, onEdit, onDelete, onBlock }) {
             <td data-label="Rôle">{user.role}</td>
             <td>{user.isActive ? "Actif" : "Bloqué"}</td>
             <td data-label="Editer">
-                <Button type="button" className={'blue-btn'} onClick={() => onEdit(user)} >  <Pen /> </Button>
+                <Button type="button" className={'small-blue-btn'} onClick={() => onEdit(user)} >  <Pen /> </Button>
             </td>
             <td data-label="Bloquer">
-                <Button type="submit" className={'blue-btn'} onClick={() => onBlock(user)} > {user.isActive ? "Bloquer" : <Ban /> } </Button>
+                <Button type="submit" className={'small-blue-btn'} onClick={() => onBlock(user)} > {user.isActive ? "Bloquer" : <Ban /> } </Button>
             </td>
             <td data-label="Supprimer">
-                <Button type="submit" className={'green-btn'} onClick={() => onDelete(user.id)} > <Trash2 /> </Button>
+                <Button type="submit" className={'small-green-btn'} onClick={() => onDelete(user.id)} > <Trash2 /> </Button>
             </td>
         </tr>
     )

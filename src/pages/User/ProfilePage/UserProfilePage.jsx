@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
 import enrichTracks from "../../../utils/enrichTracks.jsx";
+import classes from "./UserProfilePage.module.css"
 
 function UserProfilePage() {
     const { tracks, loadTracks, setSelectedTrack, removeTrack } = useTracksStore();
@@ -18,12 +19,6 @@ function UserProfilePage() {
     useEffect(() => {
         loadTracks();
     }, [loadTracks]);
-
-    // const user = useUserStore(state => state.user);
-    //
-    // const publishedTracks = tracks.filter(
-    //     track => track.user_id === user.id
-    // );
 
     const userId = 2;
     const publishedTracks = tracks.filter(
@@ -54,10 +49,10 @@ function UserProfilePage() {
         <main>
             <h1>Hello lily.stadt68 !</h1>
             <section>
-                <ProfileCard></ProfileCard>
+                <ProfileCard />
             </section>
-            <Button type="button" onClick={handleCreate} className={'green-btn'}>+ Ajouter un parcours</Button>
-            <section>
+            <Button type="button" onClick={handleCreate} className={'green-btn'}>+ Publier un parcours</Button>
+            <section className={classes['my-tracks-section']}>
                 <h2>Mes parcours</h2>
                 <div>
                     <h3>Parcours publiés</h3>
@@ -66,7 +61,7 @@ function UserProfilePage() {
                         onEdit={handleEdit}
                         onDelete={handleDelete}
                         >
-                </TracksList>
+                    </TracksList>
                 </div>
                 <div>
                     <h3>Parcours non publiés</h3>

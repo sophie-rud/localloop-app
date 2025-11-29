@@ -14,10 +14,10 @@ function TrackRow({ track, onEdit, onDelete }) {
             <td data-label="author"> Lily </td>
             <td data-label="update"> {track.updated_at} </td>
             <td data-label="edit">
-                <Button type="submit" className={'blue-btn'} onClick={() => onEdit(track)} > <Pen /> </Button>
+                <Button type="submit" className={'small-blue-btn'} onClick={() => onEdit(track)} > <Pen /> </Button>
             </td>
             <td data-label="Supprimer">
-                <Button type="submit" className={'green-btn'} onClick={() => onDelete(track.id)} > <Trash2 /> </Button>
+                <Button type="submit" className={'small-green-btn'} onClick={() => onDelete(track.id)} > <Trash2 /> </Button>
             </td>
         </tr>
     )

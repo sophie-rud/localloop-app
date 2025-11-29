@@ -48,7 +48,7 @@ function UserDashboardPage() {
         <main className={adminClasses['main-admin']}>
             <h1>Tableau de bord des utilisateurs</h1>
             <div>
-                <SearchBar></SearchBar>
+                {/*<SearchBar />*/}
                 <Button type="button" className={'green-btn'} onClick={openCreateForm} >
                     + Ajouter un utilisateur
                 </Button>

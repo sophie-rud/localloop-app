@@ -7,9 +7,9 @@ function MainLayout({ searchTerm, onSearch }) {
     return (
         <>
             <Header onSearch={onSearch} />
+            <Navbar/>
             <Outlet context={{searchTerm}} />
             <Footer/>
-            <Navbar/>
         </>
     )
 }

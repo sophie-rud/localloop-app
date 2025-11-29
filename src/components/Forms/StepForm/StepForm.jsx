@@ -92,8 +92,8 @@ function StepForm({ step, trackId, onCancel, onSave }) {
                 onChange={handleInputChange(setAdvice)}
             />
 
-            <Button type="button" className={'blue-btn'} onClick={handleSave} >Enregistrer mon étape</Button>
-            <Button type="button" className={'green-btn'} onClick={onCancel}>Annuler</Button>
+            <Button type="button" className={'small-blue-btn'} onClick={handleSave} >Enregistrer mon étape</Button>
+            <Button type="button" className={'small-green-btn'} onClick={onCancel}>Annuler</Button>
         </div>
     );
 }

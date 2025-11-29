@@ -36,3 +36,12 @@
 .user-edit-icon svg {
     width: 100%;
 }
+
+/* RESPONSIVE */
+/* Responsive Desktop */
+@media (min-width: 1024px) {
+    .profile-card {
+        max-width: 60vw;
+        margin: auto;
+    }
+}

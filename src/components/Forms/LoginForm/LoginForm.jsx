@@ -1,4 +1,3 @@
-// import classes from './LoginForm.module.css';
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
 import {useContext, useState} from "react";
@@ -16,7 +15,7 @@ function LoginForm() {
         e.preventDefault();
         login(role);
         if (role === "admin") {
-            navigate("/admin/dashboard");
+            navigate("/admin/1/profile");
         } else {
             navigate("/user/2/profile");
         }
@@ -60,7 +59,7 @@ function LoginForm() {
             <Link to="">
                 <p>Mot de passe oublié</p>
             </Link>
-            <Button type="submit" className={'blue-btn'}>Connexion</Button>
+            <Button type="submit" className={'small-blue-btn'}>Connexion</Button>
         </form>
     );
 }
