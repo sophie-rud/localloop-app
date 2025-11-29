@@ -29,16 +29,18 @@ function OneTrackDetailsPage() {
             <section className={classes['track-presentation-section']}>
                 <TrackPresentation track={track} steps={steps} />
             </section>
-            <section className={classes['map-track-section']}>
-                {steps && <MapTrackView steps={steps}></MapTrackView>}
-            </section>
-            <section className={classes['track-steps-section']}>
-                {steps && steps.map(step =>(
-                    <Link to={`/tracks/${trackId}/steps/${step.id}`} key={step.id}>
-                        <StepOverview key={step.id} step={step} />
-                    </Link>
-                )) }
-            </section>
+            <div className={classes['display-manager']}>
+                <section className={classes['map-track-section']}>
+                    {steps && <MapTrackView steps={steps}></MapTrackView>}
+                </section>
+                <section className={classes['track-steps-section']}>
+                    {steps && steps.map(step =>(
+                        <Link to={`/tracks/${trackId}/steps/${step.id}`} key={step.id}>
+                            <StepOverview key={step.id} step={step} />
+                        </Link>
+                    )) }
+                </section>
+            </div>
         </main>
     )
 }

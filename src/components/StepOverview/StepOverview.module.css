@@ -60,3 +60,12 @@
     align-items: center;
     justify-content: center;
 }
+
+/* RESPONSIVE */
+/* Tablette */
+@media  (min-width: 640px) and (max-width: 1200px) {
+    .step-overview {
+        max-width: 60vw;
+        margin: auto;
+    }
+}

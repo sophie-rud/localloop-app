@@ -9,22 +9,26 @@ function Navbar() {
         <nav className={classes.navbar}>
             <ul className={classes['nav-items']}>
                 <li className={classes['nav-item']}>
-                    <NavLink to="/map">
+                    <NavLink to="/map"
+                             className={({ isActive }) => isActive ? `${classes['nav-link']} ${classes.active}` : classes['nav-link']}>
                         <Map className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
                 <li className={classes['nav-item']}>
-                    <NavLink to="/tracks">
+                    <NavLink to="/tracks"
+                             className={({ isActive }) => isActive ? `${classes['nav-link']} ${classes.active}` : classes['nav-link']}>
                         <Grid2x2 className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
                 <li className={classes['nav-item']}>
-                    <NavLink to={`/user/${id}/tracks/favorites`} >
+                    <NavLink to={`/user/${id}/tracks/favorites`}
+                             className={({ isActive }) => isActive ? `${classes['nav-link']} ${classes.active}` : classes['nav-link']}>
                         <Heart className={classes['nav-icon']}/>
                     </NavLink>
                 </li>
                 <li className={classes['nav-item']}>
-                    <NavLink to={`/user/${id}/profile`}>
+                    <NavLink to={`/user/${id}/profile`}
+                             className={({ isActive }) => isActive ? `${classes['nav-link']} ${classes.active}` : classes['nav-link']}>
                         <CircleUserRound className={classes['nav-icon']}/>
                     </NavLink>
                 </li>

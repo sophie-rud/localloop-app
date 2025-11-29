@@ -24,15 +24,20 @@ function TrackPresentation({track, steps}) {
                 <h3 className={classes['track-title']}>{track.title}</h3>
             </div>
             <div className={classes['track-content']}>
-                <p>{track?.theme?.name}</p>
-                <div className={classes['info']}>
-                    <p>{steps?.[0].place?.city}</p>
-                    <p>{steps?.[0].place?.department?.code}</p>
+                <div className={classes['track-infos-header']}>
+                    <div className={classes['info-location']}>
+                        <p>{steps?.[0].place?.city}</p>
+                        <p>( {steps?.[0].place?.department?.code} )</p>
+                    </div>
+                    <Button type="button" className={'small-green-btn'} onClick={() => toggleFavorite(track.id)} >
+                        {isFavorite ? "Favori" : "+ Ajouter aux favoris"}
+                    </Button>
                 </div>
-                <Button type="button" className={'green-btn'} onClick={() => toggleFavorite(track.id)} >
-                    {isFavorite ? "Favori" : "+ Ajouter aux favoris"}
-                </Button>
                 <div className={classes['track-infos']}>
+                    <div className={classes['info']}>
+                        <div className={classes['icon']}> {track.theme?.icon} </div>
+                        <p>{track?.theme?.name}</p>
+                    </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <MapPin /> </div>
                         <p> <strong>Point de départ :</strong> {steps?.[0].name} </p>

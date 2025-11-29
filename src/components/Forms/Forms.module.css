@@ -67,3 +67,12 @@ input::placeholder, textarea::placeholder {
     border-color: var(--color-green);
     box-shadow: var(--shadow);
 }
+
+/* RESPONSIVE */
+/* Desktop */
+@media (min-width: 1200px) {
+    .form, .login-form, .signup-form, .track-form {
+        max-width: 60%;
+        margin: auto;
+    }
+}

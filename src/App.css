@@ -33,6 +33,10 @@ p, h1, h2, h3, h4 {
     color: var(--color-dark-blue);
 }
 
+p {
+    font-size: var(--font-size-small);
+}
+
 /*TODO*/
 /*.logo {*/
 /*}*/
