@@ -33,6 +33,18 @@ const useUsersStore = create((set, get) => {
         getUserById: (id) => {
             return get().users.find((user) => user.id === id) || null;
         },
+        currentUser: {
+            id: 2,
+            favorites: [],
+        },
+        toggleFavorite: (trackId) => set((state) => ({
+                currentUser: {
+                    ...state.currentUser,
+                    favorites: state.currentUser.favorites?.includes(trackId)
+                        ? state.currentUser.favorites.filter((id) => parseInt(id) !== parseInt(trackId))
+                        : [...(state.currentUser.favorites || []), trackId],
+                },
+        })),
     }
 });
 

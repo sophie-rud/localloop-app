@@ -3,13 +3,17 @@ import classes from './TrackPresentation.module.css';
 import Button from "../Button/Button.jsx";
 import { minutesToDurationString } from "../../utils/duration.js";
 import useTracksStore from "../../stores/useTracksStore.jsx";
+import useUsersStore from "../../stores/useUsersStore.jsx";
 
 function TrackPresentation({track, steps}) {
     const { loading, error } = useTracksStore();
+    const { currentUser, toggleFavorite } = useUsersStore();
 
     if (loading) return <p>Chargement des informations...</p>;
     if (error) return <p>Erreur: {error}</p>;
     if (!track) return <p>Pas de parcours sélectionné</p>;
+
+    const isFavorite = currentUser.favorites?.includes(track.id);
 
     return (
         <div className={classes['track-presentation']}>
@@ -25,9 +29,9 @@ function TrackPresentation({track, steps}) {
                     <p>{steps?.[0].place?.city}</p>
                     <p>{steps?.[0].place?.department?.code}</p>
                 </div>
-                {/*<Button type="button" className={'green-btn'}>*/}
-                {/*    {isFavorite ? '+ Ajouter aux favoris' : 'Dans les favoris'}*/}
-                {/*</Button>*/}
+                <Button type="button" className={'green-btn'} onClick={() => toggleFavorite(track.id)} >
+                    {isFavorite ? "Favori" : "+ Ajouter aux favoris"}
+                </Button>
                 <div className={classes['track-infos']}>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <MapPin /> </div>

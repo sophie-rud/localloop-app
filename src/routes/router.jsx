@@ -8,7 +8,7 @@ import TracksPage from "../pages/Tracks/TracksPage/TracksPage.jsx";
 import OneTrackDetailsPage from "../pages/Tracks/OneTrackDetailsPage/OneTrackDetailsPage.jsx";
 import OneStepDetailsPage from "../pages/Steps/OneStepDetailsPage/OneStepDetailsPage.jsx";
 import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
-// import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
+import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
 import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
 import CreateOrEditTrackPage from "../pages/Tracks/CreateTrackPage/CreateOrEditTrackPage.jsx";
@@ -72,10 +72,10 @@ export const router = createBrowserRouter ([
                         path: "profile",
                         element: (<UserProfilePage />),
                     },
-                    // {
-                    //     path: "tracks/favorites",
-                    //     element: (<FavoriteTracksPage />),
-                    // },
+                    {
+                        path: "tracks/favorites",
+                        element: (<FavoriteTracksPage />),
+                    },
                     {
                         path: "tracks/create",
                         element: (<CreateOrEditTrackPage />),

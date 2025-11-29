@@ -61,6 +61,10 @@
     margin-bottom: auto;
 }
 
+.card-title:hover {
+    color: var(--color-green);
+}
+
 /* tablette */
 @media (min-width: 600px) {
     .track-card {

@@ -6,10 +6,10 @@
     scroll-snap-type: x mandatory;
 }
 
-.view-track-link {
-    display: contents;
-}
+/*.view-track-link {*/
+/*    display: contents;*/
+/*}*/
 
-.view-track-link:hover {
-    cursor: pointer;
-}
+/*.view-track-link:hover {*/
+/*    cursor: pointer;*/
+/*}*/
