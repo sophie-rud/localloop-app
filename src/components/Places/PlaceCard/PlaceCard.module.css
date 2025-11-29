@@ -1,14 +1,14 @@
 .place-card {
-    width: 50vw;
+    /*width: 50vw;*/
     background-color: var(--color-off-white);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    /*border-radius: 20px;*/
+    /*overflow: hidden;*/
     color: var(--color-dark-blue);
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    scroll-snap-align: start;
+    /*flex: 0 0 auto;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    border-radius: 20px;
+    box-shadow: var(--shadow);
 }
 
 .place-card-photo {
@@ -18,7 +18,7 @@
 }
 
 .place-content {
-    padding: 0 0.7rem 0.7rem;
+    padding: 0 1rem 1rem;
 }
 
 .place-title {
@@ -29,7 +29,7 @@
     color: var(--color-dark-blue);
 }
 
-.place-infos {
+.coordinates {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -62,16 +62,16 @@
 }
 
 
-/* tablette */
-@media (min-width: 600px) {
-    .track-card {
-        width: 30vw;
-    }
-}
+/*!* tablette *!*/
+/*@media (min-width: 600px) {*/
+/*    .place-card {*/
+/*        width: 30vw;*/
+/*    }*/
+/*}*/
 
-/* desktop */
-@media (min-width: 1200px) {
-    .track-card {
-        width: 21vw;
-    }
-}
+/*!* desktop *!*/
+/*@media (min-width: 1200px) {*/
+/*    .place-card {*/
+/*        width: 21vw;*/
+/*    }*/
+/*}*/

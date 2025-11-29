@@ -9,11 +9,11 @@ function PlaceCard({ place }) {
                 <img src={place.photo} alt={place.name} className={classes['image']} />
             </div>
 
-            <h3 className={classes['card-title']}>
+            <h3 className={classes['place-title']}>
                 {place.name}
             </h3>
 
-            <div className={classes['card-content']}>
+            <div className={classes['place-content']}>
                 <div className={classes['info-location']}>
                     <MapPin className={classes['icon']} />
                     <p>{place.city}</p>
