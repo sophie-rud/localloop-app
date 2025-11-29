@@ -7,6 +7,7 @@ import useReferenceData from "../../hooks/useThemesAndDepartmentData.jsx";
 import {useEffect} from "react";
 import enrichTracks from "../../utils/enrichTracks.jsx";
 import {useNavigate} from "react-router-dom";
+import classes from "./Home.module.css";
 
 function Home() {
 
@@ -30,7 +31,7 @@ function Home() {
     const enrichedTracks = enrichTracks(tracksToDisplay, { steps, places, departments, themes });
 
     return (
-        <main>
+        <main className={classes['main-home']}>
             <div className='title-block'>
                 <h1>LocalLoop</h1>
                 <h2>Explorer ce qui se cache autour de vous</h2>

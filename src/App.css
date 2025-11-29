@@ -37,8 +37,25 @@ p {
     font-size: var(--font-size-small);
 }
 
-/*TODO*/
-/*.logo {*/
-/*}*/
-/*.logo:hover {*/
-/*}*/
+.logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive tablette et desktop */
+@media screen and (min-width: 700px) {
+    body {
+        padding-bottom: 0;
+    }
+
+    .logo {
+        width: 5rem;
+        height: 5rem;
+    }
+}
