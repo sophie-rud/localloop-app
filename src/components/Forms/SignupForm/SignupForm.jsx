@@ -11,7 +11,7 @@ function SignupForm({ onSubmit }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit({ username, email, password, confirmedPassword });
+        onSubmit({ username, email, password, isActive: true });
     };
 
     return (

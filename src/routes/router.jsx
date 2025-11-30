@@ -110,11 +110,11 @@ export const router = createBrowserRouter ([
             },
             {
                 path: "tracks/create",
-                element: (<CreateOrEditTrackPage />),
+                element: (<CreateOrEditTrackPage isAdminPage={true} />),
             },
             {
-                path: "tracks/:TrackId/edit",
-                element: (<CreateOrEditTrackPage />),
+                path: "tracks/:trackId/edit",
+                element: (<CreateOrEditTrackPage isAdminPage={true} />),
             },
             {
                 path: "placesDashboard",

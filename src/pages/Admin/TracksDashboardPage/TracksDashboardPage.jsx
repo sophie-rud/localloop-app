@@ -2,9 +2,7 @@ import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
 import Button from "../../../components/Button/Button.jsx";
 import SearchBar from "../../../layouts/elements/SearchBar/SearchBar.jsx";
 import TrackTable from "../../../components/Admin/Tables/TrackTable/TrackTable.jsx";
-import TrackRow from "../../../components/Admin/TableRow/TrackRow/TrackRow.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 function TracksDashboardPage() {
@@ -23,7 +21,7 @@ function TracksDashboardPage() {
     };
 
     const handleDelete = async (track) => {
-        await removeTrack(track.id);
+        await removeTrack(track);
     };
 
     return (

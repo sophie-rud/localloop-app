@@ -1,8 +1,10 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../Button/Button.jsx';
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
-function StepForm({ step, trackId, onCancel, onSave }) {
+function StepForm({ step, onCancel, onSave }) {
+    const navigate = useNavigate();
 
     const [placeId, setPlaceId] = useState('');
     const [photoStep, setPhotoStep] = useState('');
@@ -12,7 +14,7 @@ function StepForm({ step, trackId, onCancel, onSave }) {
 
     useEffect(() => {
         if (step) {
-            setPlaceId(step.placeId);
+            setPlaceId(step.place_id);
             setPhotoStep(step.photo);
             setName(step.name);
             setAnecdote(step.anecdote);
@@ -25,17 +27,18 @@ function StepForm({ step, trackId, onCancel, onSave }) {
     };
 
     const handleSave = () => {
-
-        const data = {
-            trackId,
-            placeId,
-            photoStep,
+        const updatedStep = {
+            ...step,
             name,
+            photo: photoStep,
             anecdote,
             advice,
+            place_id: placeId
         };
-        onSave(data)
-    }
+
+        onSave(updatedStep);
+        navigate(-1);
+    };
 
     return (
         <div className={formClasses['step-form']}>

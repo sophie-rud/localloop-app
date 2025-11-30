@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 
 function TrackForm({ onSubmit }) {
 
-    const { selectedTrack, loading, error } = useTracksStore()
+    const { selectedTrack, setSelectedTrack, loading, error } = useTracksStore()
     const navigate = useNavigate();
 
     const [photo, setPhoto] = useState('');
@@ -153,8 +153,19 @@ function TrackForm({ onSubmit }) {
                 trackId={selectedTrack?.id}
             />
 
-            <Button type="submit" className={'blue-btn'}>Valider mon parcours</Button>
-            <Button type="button" onClick={() => navigate(-1)} className={'green-btn'}>Annuler</Button>
+            <Button type="submit"
+                    className={'blue-btn'}
+                    onClick={() => navigate(-1)}
+            >
+                Valider mon parcours
+            </Button>
+            <Button type="button"
+                onClick={() => {
+                setSelectedTrack(null);
+                navigate(-1)
+            }} className={'green-btn'}>
+                Annuler
+            </Button>
         </form>
     );
 }

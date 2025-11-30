@@ -16,8 +16,6 @@ function StepsManager({ trackId }) {
     if (loading) return <p>Chargement...</p>;
     if (!steps) return <p>Aucune étape</p>;
 
-    if (!steps.length) return <p>Aucune étape</p>;
-
     const openAddModal = () => {
         setStepToEdit(null);
         setIsModalOpen(true);
