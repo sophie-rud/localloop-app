@@ -1,0 +1,47 @@
+.profile-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-off-white);
+    border-radius: 15px;
+    height: 120px;
+}
+
+.profile-card-photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.user-infos {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-mail {
+    font-size: var(--font-size-small);
+}
+
+.user-edit-icon {
+    width: 1.1rem;
+    margin-bottom: auto;
+    /*margin-right: 1rem;*/
+}
+
+.user-edit-icon svg {
+    width: 100%;
+}
+
+/* RESPONSIVE */
+/* Responsive Desktop */
+@media (min-width: 1024px) {
+    .profile-card {
+        max-width: 60vw;
+        margin: auto;
+    }
+}

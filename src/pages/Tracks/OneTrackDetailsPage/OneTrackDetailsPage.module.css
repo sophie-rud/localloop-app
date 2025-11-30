@@ -1,0 +1,34 @@
+.one-track-page-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.map-track-section {
+    height: 50vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.track-steps-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.display-manager {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* RESPONSIVE */
+/* Desktop */
+@media (min-width: 1200px) {
+    .display-manager {
+        display: flex;
+        flex-direction: row;
+        gap: 3rem;
+    }
+}

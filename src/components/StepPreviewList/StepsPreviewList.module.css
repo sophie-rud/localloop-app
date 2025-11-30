@@ -1,0 +1,33 @@
+.steps-preview-list {
+    margin-bottom: 2rem;
+}
+
+.li-step-item {
+    width: 100%;
+    background-color: var(--color-off-white);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+}
+
+.step-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.step-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+}

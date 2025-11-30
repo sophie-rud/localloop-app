@@ -1,0 +1,53 @@
+.filter-bar {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background-color: var(--color-dark-blue);
+    color: var(--color-green);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-base);
+}
+
+.filter-item label {
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.filter-item select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--color-green);
+    background-color: var(--color-green);
+    color: var(--color-dark-blue);
+    cursor: pointer;
+}
+
+.filter-item select:hover {
+    border-color: #888;
+}
+
+/* RESPONSIVE */
+/* Responsive Desktop et tablette */
+@media (min-width: 640px) {
+    .filter-bar {
+        padding-left: 3rem;
+        gap: 3rem;
+    }
+
+    .filter-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: var(--font-size-base);
+    }
+}

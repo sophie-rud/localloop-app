@@ -1,0 +1,15 @@
+.tracks-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    scroll-snap-type: x mandatory;
+}
+
+/*.view-track-link {*/
+/*    display: contents;*/
+/*}*/
+
+/*.view-track-link:hover {*/
+/*    cursor: pointer;*/
+/*}*/

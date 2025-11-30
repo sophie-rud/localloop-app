@@ -1,0 +1,429 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "Ali",
+      "email": "alice.dupont@gmail.com",
+      "password": "password",
+      "avatar": "https://i.pravatar.cc/150?img=11",
+      "isActive": false,
+      "created_at": "2025-09-15T14:20:00",
+      "updated_at": "2025-09-15T14:20:00",
+      "role_id": 1,
+      "updatedAt": "2025-11-26T20:55:49.981Z"
+    },
+    {
+      "id": "2",
+      "username": "lily.stadt68",
+      "email": "lily.stadt@gmail.com",
+      "password": "password",
+      "avatar": "https://i.pravatar.cc/150?img=12",
+      "isActive": true,
+      "created_at": "2025-09-15T14:20:00",
+      "updated_at": "2025-09-15T14:20:00",
+      "role_id": 1,
+      "updatedAt": "2025-11-26T21:01:32.295Z"
+    },
+    {
+      "id": "56fb",
+      "username": "Momo67",
+      "email": "momo@gmail.com",
+      "role": "user",
+      "isActive": true
+    }
+  ],
+  "role": [
+    {
+      "id": "1",
+      "name": "User"
+    },
+    {
+      "id": "2",
+      "name": "Admin"
+    }
+  ],
+  "themes": [
+    {
+      "id": "1",
+      "name": "Nature",
+      "icon": "🌿"
+    },
+    {
+      "id": "2",
+      "name": "Urbain",
+      "icon": "🏙️"
+    },
+    {
+      "id": "3",
+      "name": "Culture",
+      "icon": "🎨"
+    },
+    {
+      "id": "4",
+      "name": "Sport",
+      "icon": "🏃‍♂️"
+    },
+    {
+      "id": "5",
+      "name": "Gastronomie",
+      "icon": "🍽️"
+    },
+    {
+      "id": "6",
+      "name": "Histoire",
+      "icon": "🏰"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "1",
+      "user_id": 1,
+      "theme_id": 3,
+      "title": "Balade au cœur de Colmar",
+      "photo": "https://picsum.photos/800/600?random=11",
+      "duration": 210,
+      "distance": 5,
+      "difficulty": "Facile",
+      "presentation": "Une balade pittoresque à travers les canaux et les maisons à colombages de Colmar.",
+      "isPublished": true,
+      "created_at": "2025-11-05T10:00:00",
+      "updated_at": "2025-11-06T15:00:00"
+    },
+    {
+      "id": "2",
+      "user_id": 2,
+      "theme_id": 6,
+      "title": "Strasbourg historique et gourmand",
+      "photo": "https://picsum.photos/800/600?random=12",
+      "duration": 240,
+      "distance": 6,
+      "difficulty": "Intermédiaire",
+      "presentation": "Découvrez l’histoire et la gastronomie de Strasbourg, entre cathédrale, quartiers médiévaux et marchés.",
+      "isPublished": true,
+      "created_at": "2025-11-08T09:00:00",
+      "updated_at": "2025-11-09T18:00:00"
+    },
+    {
+      "id": "3",
+      "user_id": 1,
+      "theme_id": 1,
+      "title": "Sentier des Roches et Forêt de Ribeauvillé",
+      "photo": "https://picsum.photos/800/600?random=13",
+      "duration": 150,
+      "distance": 4,
+      "difficulty": "Intermédiaire",
+      "presentation": "Une balade nature entre roches, forêt dense et points de vue sur le château de Saint-Ulrich.",
+      "isPublished": true,
+      "created_at": "2025-11-10T09:00:00",
+      "updated_at": "2025-11-10T11:30:00"
+    },
+    {
+      "id": "4",
+      "user_id": 2,
+      "theme_id": 4,
+      "title": "Strasbourg à vélo",
+      "photo": "https://picsum.photos/800/600?random=24",
+      "duration": 120,
+      "distance": 10,
+      "difficulty": "Sportif",
+      "presentation": "Un parcours à vélo qui longe les quais et les parcs de Strasbourg pour découvrir la ville autrement.",
+      "isPublished": false,
+      "created_at": "2025-11-11T08:00:00",
+      "updated_at": "2025-11-11T09:15:00"
+    },
+    {
+      "id": "12",
+      "user_id": 2,
+      "theme_id": 1,
+      "title": "Autour du Lac Blanc et Rocher Hans",
+      "photo": "https://picsum.photos/800/600?random=140",
+      "duration": 210,
+      "distance": 6.5,
+      "difficulty": "Intermédiaire",
+      "presentation": "Une boucle autour du Lac Blanc avec un passage panoramique au Rocher Hans.",
+      "isPublished": true,
+      "created_at": "2025-11-15T08:30:00",
+      "updated_at": "2025-11-15T09:00:00"
+    }
+  ],
+  "places": [
+    {
+      "id": "1",
+      "name": "Pont Saint-Pierre",
+      "city": "Colmar",
+      "description": "Petit pont pittoresque enjambant le canal Lauch, emblématique du quartier de la Petite Venise.",
+      "photo": "https://picsum.photos/800/600?random=51",
+      "latitude": 48.0793,
+      "longitude": 7.3582,
+      "created_at": "2025-11-15T09:00:00",
+      "updated_at": "2025-11-15T09:00:00",
+      "department_id": 2
+    },
+    {
+      "id": "2",
+      "name": "Musée Unterlinden",
+      "city": "Colmar",
+      "description": "Ancien couvent transformé en musée, célèbre pour le retable d'Issenheim.",
+      "photo": "https://picsum.photos/800/600?random=52",
+      "latitude": 48.079,
+      "longitude": 7.358,
+      "created_at": "2025-11-10T09:00:00",
+      "updated_at": "2025-11-10T11:30:00",
+      "department_id": 2
+    },
+    {
+      "id": "3",
+      "name": "Cathédrale Notre-Dame de Strasbourg",
+      "city": "Strasbourg",
+      "description": "Monument gothique emblématique de la ville.",
+      "photo": "https://picsum.photos/800/600?random=53",
+      "latitude": 48.5819,
+      "longitude": 7.7509,
+      "created_at": "2025-11-11T08:00:00",
+      "updated_at": "2025-11-13T19:30:00",
+      "department_id": 1
+    },
+    {
+      "id": "4",
+      "name": "Pont des Tanneurs",
+      "city": "Strasbourg",
+      "description": "Pont historique situé dans le quartier de la Petite France, offrant une vue sur les maisons à colombages et les canaux.",
+      "photo": "https://picsum.photos/800/600?random=54",
+      "latitude": 48.5831,
+      "longitude": 7.7508,
+      "created_at": "2025-11-13T11:00:00",
+      "updated_at": "2025-11-13T11:00:00",
+      "department_id": 1
+    },
+    {
+      "id": "21",
+      "name": "Place du Corbeau",
+      "city": "Strasbourg",
+      "description": "Point central proche du quai des Bateliers, parfait comme départ à vélo.",
+      "photo": "https://picsum.photos/800/600?random=125",
+      "latitude": 48.5811,
+      "longitude": 7.7492,
+      "created_at": "2025-11-13T10:00:00",
+      "updated_at": "2025-11-13T10:00:00",
+      "department_id": 1
+    },
+    {
+      "id": "22",
+      "name": "Parc de l'Orangerie",
+      "city": "Strasbourg",
+      "description": "Grand espace vert traversé par des pistes cyclables tranquilles.",
+      "photo": "https://picsum.photos/800/600?random=126",
+      "latitude": 48.5969,
+      "longitude": 7.7716,
+      "created_at": "2025-11-13T10:10:00",
+      "updated_at": "2025-11-13T10:10:00",
+      "department_id": 1
+    },
+    {
+      "id": "5",
+      "name": "Parking du Taennchel",
+      "city": "Ribeauvillé",
+      "description": "Parking qui se trouve au bas du village de Thannenkirch, point de départ de plusieurs itinéraires de randonnée.",
+      "photo": "https://picsum.photos/800/600?random=54",
+      "latitude": 48.2028,
+      "longitude": 7.3005,
+      "created_at": "2025-11-13T11:00:00",
+      "updated_at": "2025-11-13T11:00:00",
+      "department_id": 2
+    },
+    {
+      "id": "23",
+      "name": "Refuge des Trois Tables",
+      "city": "Ribeauvillé",
+      "description": "Petit refuge en lisière de forêt, idéal pour une première pause.",
+      "photo": "https://picsum.photos/800/600?random=130",
+      "latitude": 48.2052,
+      "longitude": 7.301,
+      "created_at": "2025-11-14T10:00:00",
+      "updated_at": "2025-11-14T10:00:00",
+      "department_id": 2
+    },
+    {
+      "id": "24",
+      "name": "Belvédère du Rocher du Coucou",
+      "city": "Ribeauvillé",
+      "description": "Point de vue sur les châteaux et la plaine d’Alsace.",
+      "photo": "https://picsum.photos/800/600?random=131",
+      "latitude": 48.207,
+      "longitude": 7.3091,
+      "created_at": "2025-11-14T10:15:00",
+      "updated_at": "2025-11-14T10:15:00",
+      "department_id": 2
+    },
+    {
+      "id": "25",
+      "name": "Barrage du Lac Blanc",
+      "city": "Orbey",
+      "description": "Point de départ situé au niveau du barrage du lac.",
+      "photo": "https://picsum.photos/800/600?random=141",
+      "latitude": 48.1374,
+      "longitude": 7.1198,
+      "created_at": "2025-11-15T09:10:00",
+      "updated_at": "2025-11-15T09:10:00",
+      "department_id": 2
+    },
+    {
+      "id": "26",
+      "name": "Rocher Hans",
+      "city": "Orbey",
+      "description": "Formation rocheuse emblématique surplombant le lac.",
+      "photo": "https://picsum.photos/800/600?random=142",
+      "latitude": 48.1401,
+      "longitude": 7.1241,
+      "created_at": "2025-11-15T09:20:00",
+      "updated_at": "2025-11-15T09:20:00",
+      "department_id": 2
+    }
+  ],
+  "steps": [
+    {
+      "id": "1",
+      "track_id": 1,
+      "place_id": 1,
+      "name": "Découverte de la Petite Venise",
+      "photo": "https://picsum.photos/800/600?random=31",
+      "advice": "Balade le long des canaux colorés.",
+      "anecdote": "Surnommée Petite Venise depuis le XIXe siècle.",
+      "step_order": 1,
+      "created_at": "2025-11-11T10:30:00",
+      "updated_at": "2025-11-11T10:30:00"
+    },
+    {
+      "id": "2",
+      "track_id": 1,
+      "place_id": 2,
+      "name": "Visite du Musée Unterlinden",
+      "photo": "https://picsum.photos/800/600?random=32",
+      "advice": "Découvrez les œuvres médiévales et le retable d'Issenheim.",
+      "anecdote": "Le musée était autrefois un couvent dominicain.",
+      "step_order": 2,
+      "created_at": "2025-11-10T09:00:00",
+      "updated_at": "2025-11-10T11:30:00"
+    },
+    {
+      "id": "3",
+      "track_id": 2,
+      "place_id": 3,
+      "name": "Cathédrale de Strasbourg",
+      "photo": "https://picsum.photos/800/600?random=41",
+      "advice": "Admirez la flèche gothique et les vitraux colorés.",
+      "anecdote": "Sa flèche a été la plus haute du monde jusqu'au XIXe siècle.",
+      "step_order": 1,
+      "created_at": "2025-11-14T19:00:00",
+      "updated_at": "2025-11-14T19:00:00"
+    },
+    {
+      "id": "4",
+      "track_id": 2,
+      "place_id": 4,
+      "name": "Promenade dans La Petite France",
+      "photo": "https://picsum.photos/800/600?random=42",
+      "advice": "Quartier médiéval pittoresque le long des canaux.",
+      "anecdote": "Autrefois quartier des tanneurs, pêcheurs et meuniers.",
+      "step_order": 2,
+      "created_at": "2025-11-12T11:00:00",
+      "updated_at": "2025-11-12T18:30:00"
+    },
+    {
+      "id": "31",
+      "track_id": 4,
+      "place_id": 21,
+      "name": "Départ depuis la Place du Corbeau",
+      "photo": "https://picsum.photos/800/600?random=127",
+      "advice": "Faire attention aux piétons sur les quais, surtout en journée.",
+      "anecdote": "La place tient son nom d’une ancienne auberge médiévale très réputée.",
+      "step_order": 1,
+      "created_at": "2025-11-12T11:00:00",
+      "updated_at": "2025-11-12T18:30:00"
+    },
+    {
+      "id": "32",
+      "track_id": 4,
+      "place_id": 22,
+      "name": "Pause au Parc de l’Orangerie",
+      "photo": "https://picsum.photos/800/600?random=128",
+      "advice": "Idéal pour prendre quelques photos ou remplir vos gourdes.",
+      "anecdote": "Le parc abrite un arbre planté pour commémorer la visite de Napoléon III.",
+      "step_order": 2,
+      "created_at": "2025-11-12T11:15:00",
+      "updated_at": "2025-11-12T18:40:00"
+    },
+    {
+      "id": "5",
+      "track_id": 3,
+      "place_id": 5,
+      "name": "Départ vers le sentier des Roches",
+      "photo": "https://picsum.photos/800/600?random=42",
+      "advice": "Prévoir de bonnes chaussures ! Plusieurs randonnées partent de ce point, vous pouvez compléter votre excursion avec d'autres parcours.",
+      "anecdote": "",
+      "step_order": 1,
+      "created_at": "2025-11-12T11:00:00",
+      "updated_at": "2025-11-12T18:30:00"
+    },
+    {
+      "id": "33",
+      "track_id": 3,
+      "place_id": 23,
+      "name": "Refuge des Trois Tables",
+      "photo": "https://picsum.photos/800/600?random=132",
+      "advice": "Le sol peut être glissant après la pluie, privilégier des bâtons.",
+      "anecdote": "Le refuge doit son nom à trois anciennes tables en pierre présentes au XIXe siècle.",
+      "step_order": 2,
+      "created_at": "2025-11-14T11:00:00",
+      "updated_at": "2025-11-14T11:20:00"
+    },
+    {
+      "id": "34",
+      "track_id": 3,
+      "place_id": 24,
+      "name": "Belvédère du Rocher du Coucou",
+      "photo": "https://picsum.photos/800/600?random=133",
+      "advice": "Un passage exposé, rester attentif au vent fort.",
+      "anecdote": "On raconte qu’un ermite local imitait les oiseaux pour amuser les randonneurs.",
+      "step_order": 3,
+      "created_at": "2025-11-14T11:30:00",
+      "updated_at": "2025-11-14T11:40:00"
+    },
+    {
+      "id": "35",
+      "track_id": 12,
+      "place_id": 25,
+      "name": "Départ au Barrage du Lac Blanc",
+      "photo": "https://picsum.photos/800/600?random=143",
+      "advice": "Le matin, la brume est dense, attention à la visibilité.",
+      "anecdote": "Une légende locale dit qu’un pêcheur solitaire aurait aperçu un 'poisson blanc géant'.",
+      "step_order": 1,
+      "created_at": "2025-11-15T09:25:00",
+      "updated_at": "2025-11-15T09:40:00"
+    },
+    {
+      "id": "36",
+      "track_id": 12,
+      "place_id": 26,
+      "name": "Passage au Rocher Hans",
+      "photo": "https://picsum.photos/800/600?random=144",
+      "advice": "Vent fort en hauteur, garder les affaires bien sécurisées.",
+      "anecdote": "Un mythe raconte que le Rocher porte le nom d’un géant alsacien facétieux.",
+      "step_order": 2,
+      "created_at": "2025-11-15T09:45:00",
+      "updated_at": "2025-11-15T09:55:00"
+    }
+  ],
+  "departments": [
+    {
+      "id": "1",
+      "name": "Bas-Rhin",
+      "code": "67"
+    },
+    {
+      "id": "2",
+      "name": "Haut-Rhin",
+      "code": "68"
+    }
+  ]
+}

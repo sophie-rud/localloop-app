@@ -1,0 +1,94 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--color-dark-blue);
+    color: var(--color-off-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+    gap: 1rem;
+    padding: 0.8rem 1.5rem;
+    z-index: 100;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.sidebar-title, .sidebar-subtitle {
+    color: var(--color-off-white);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+}
+
+.sidebar-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: var(--font-size-base);
+}
+
+.sidebar-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    margin: auto;
+}
+
+.welcome p {
+    margin: 0;
+    font-size: var(--font-size-small);
+    color: var(--color-off-white);
+}
+
+.welcome span {
+    font-weight: 600;
+}
+
+.sidebar-menu {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: var(--radius);
+    color: var(--color-off-white);
+    font-size: var(--font-size-small);
+    transition: background 0.2s, color 0.2s;
+}
+
+.link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-off-white);
+}
+
+.active {
+    background: var(--color-green);
+    color: var(--color-dark-blue);
+    font-weight: 500;
+}
+
+.icon {
+    width: var(--font-size-small);
+}
+
+.sidebar-footer {
+    text-align: center;
+    margin-top: auto;
+}
+
+.logo {
+    width: 8rem;
+    margin: auto;
+}

@@ -1,0 +1,20 @@
+.minimal-header {
+    display: flex;
+    align-items: start;
+    padding: 0.5rem 1rem 0;
+    background-color: var(--color-green);
+}
+
+.logo {
+    width: 4rem;
+}
+
+@media (min-width: 1024px) {
+    .minimal-header {
+        background-color: white;
+    }
+
+    .logo {
+        width: 6rem;
+    }
+}

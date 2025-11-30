@@ -1,0 +1,78 @@
+.blue-btn, .green-btn, .small-blue-btn, .small-green-btn, .logout-button {
+    flex: 1;
+    width: 100%;
+    padding: 0.5rem 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1.4rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logout-button {
+    width: 3rem;
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 0;
+}
+
+.blue-btn, .small-blue-btn {
+    background-color: var(--color-dark-blue);
+    color: var(--color-off-white);
+}
+
+.green-btn, .small-green-btn, .logout-button {
+    background-color: var(--color-green);
+    color: var(--color-dark-blue);
+}
+
+.small-blue-btn, .small-green-btn {
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    padding: 0.3rem 2rem;
+    margin-bottom: 0.2rem;
+}
+
+.blue-btn:hover, .green-btn:hover, .logout-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(21, 70, 84, 0.2);
+}
+
+.blue-btn:hover {
+    background-color: var(--color-off-white);
+    color: var(--color-dark-blue);
+}
+
+.green-btn:hover, .logout-button:hover {
+    background-color: var(--color-dark-blue);
+    color: var(--color-green);
+}
+
+/* RESPONSIVE */
+/* Responsive tablette */
+@media (min-width: 640px) {
+    .blue-btn,
+    .green-btn {
+        width: 40%;
+        display: block;
+        margin: 0.7rem auto 2rem;
+        border-radius: 10px;
+    }
+}
+
+/* Responsive Desktop */
+@media (min-width: 1024px) {
+    .blue-btn,
+    .green-btn {
+        width: 40%;
+        display: block;
+        margin: 0.7rem auto 1rem;
+        border-radius: 10px;
+    }
+
+    .small-blue-btn, .small-green-btn {
+        font-size: var(--font-size-small);
+    }
+}

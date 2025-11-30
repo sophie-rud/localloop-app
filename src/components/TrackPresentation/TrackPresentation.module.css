@@ -1,0 +1,114 @@
+.track-presentation {
+    border: var(--color-dark-blue) solid;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.track-header {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-dark-blue);
+    color: var(--color-off-white);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-bottom: 0.5rem;
+}
+
+.track-presentation-photo {
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.track-title {
+    width: 100%;
+    background-color: var(--color-dark-blue);
+    color: var(--color-off-white);
+    text-align: center;
+    /*padding: 10px 0;*/
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0.3rem 0;
+}
+
+.track-content {
+    padding: 0 1rem 1.5rem;
+}
+
+.track-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0;
+    gap: 0.5rem;
+}
+
+.track-infos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 0.25rem 0;
+    height: 1.5rem;
+}
+
+.info-location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.25rem 0;
+    height: 1.5rem;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-dark-blue);
+    margin-bottom: auto;
+}
+
+.presentation {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+}
+
+/* RESPONSIVE */
+/* Tablette */
+@media (min-width: 640px) {
+    .track-content {
+        padding: 0 2rem 1.5rem;
+    }
+
+    .track-infos-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10rem;
+    }
+
+    .info-location {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        margin-top: auto;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+    .track-content {
+        padding: 0 2rem 1.5rem;
+    }
+
+    .track-presentation {
+        max-width: 60vw;
+        margin: auto;
+    }
+}

@@ -1,0 +1,10 @@
+.minimal-footer {
+    color: var(--color-dark-blue);
+    width: 100vw;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 4rem;
+    margin-bottom: 60px;
+    text-decoration: none;
+}

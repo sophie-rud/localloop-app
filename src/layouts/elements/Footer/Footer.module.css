@@ -1,0 +1,21 @@
+.footer {
+    background-color: var(--color-dark-blue);
+    width: 100vw;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 4rem;
+    margin-bottom: 60px;
+    border-bottom: 2px solid var(--color-off-white);
+}
+
+.footer ul {
+    color: var(--color-off-white);
+    padding: 1rem 0;
+}
+
+@media screen and (min-width: 700px) {
+    .footer {
+        margin-bottom: 0;
+    }
+}
