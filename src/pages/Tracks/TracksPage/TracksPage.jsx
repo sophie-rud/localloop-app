@@ -5,14 +5,13 @@ import useTracksStore from "../../../stores/useTracksStore.jsx";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
 import enrichTracks from "../../../utils/enrichTracks.jsx";
-import {Outlet, useOutletContext, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
 function TracksPage() {
 
     const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
     const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
     const { themes, departments, loading: refLoading } = useReferenceData();
-    const { searchTerm } = useOutletContext();
     const [params] = useSearchParams();
     const query = params.get("query");
 
@@ -41,13 +40,17 @@ function TracksPage() {
     const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
 
     // SEARCH BAR FILTER
-    const termToSearch = searchTerm?.toLowerCase() || "";
-    const searchBarFilteredTracks = enrichedTracks.filter(track =>
-        track.title.toLowerCase().includes(searchTerm.toLowerCase())||
-        (track.presentation?.toLowerCase().includes(termToSearch)) ||
-        (track.place?.name.toLowerCase().includes(termToSearch)) ||
-        (track.department?.name.toLowerCase().includes(termToSearch))
-    );
+    const searchBarFilteredTracks = enrichedTracks.filter(track => {
+        if (!query) return true;
+        const term = query.toLowerCase();
+        return (
+            track.title.toLowerCase().includes(term) ||
+            track.presentation?.toLowerCase().includes(term) ||
+            track.place?.name.toLowerCase().includes(term) ||
+            track.department?.name.toLowerCase().includes(term)
+        );
+    });
+
 
     // TRACKS FILTERS
     const filteredTracks = searchBarFilteredTracks.filter(track => {
