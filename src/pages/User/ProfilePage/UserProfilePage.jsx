@@ -1,6 +1,6 @@
 import ProfileCard from "../../../components/ProfileCard/ProfileCard.jsx";
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
-import Button from "../../../components/Button/Button.jsx";
+import Button from "../../../components/ui/Button/Button.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import {useEffect} from "react";

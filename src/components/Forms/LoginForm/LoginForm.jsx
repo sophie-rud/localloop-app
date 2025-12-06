@@ -1,5 +1,5 @@
 import formClasses from '../Forms.module.css';
-import Button from '../../Button/Button.jsx';
+import Button from '../../ui/Button/Button.jsx';
 import {useContext, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../../contexts/auth-context.jsx";

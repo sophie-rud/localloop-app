@@ -1,5 +1,5 @@
 import StepForm from "../../Forms/StepForm/StepForm.jsx";
-import classes from "../../Modals/CommonModal/CommonModal.module.css"
+import classes from "../../ui/CommonModal/CommonModal.module.css"
 
 function StepModal({ isOpen, onClose, step, trackId, onSave }) {
     if (!isOpen) return null;

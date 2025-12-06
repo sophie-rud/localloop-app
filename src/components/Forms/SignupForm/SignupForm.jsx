@@ -1,6 +1,6 @@
 // import classes from './SignupForm.module.css';
 import formClasses from '../Forms.module.css';
-import Button from '../../Button/Button.jsx';
+import Button from '../../ui/Button/Button.jsx';
 import {useState} from "react";
 
 function SignupForm({ onSubmit }) {

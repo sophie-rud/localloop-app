@@ -1,10 +1,10 @@
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
-import Button from "../../../components/Button/Button.jsx";
-import SearchBar from "../../../layouts/elements/SearchBar/SearchBar.jsx";
+import Button from "../../../components/ui/Button/Button.jsx";
+import SearchBar from "../../../components/ui/SearchBar/SearchBar.jsx";
 import PlaceTable from "../../../components/Admin/Tables/PlaceTable/PlaceTable.jsx";
 import {useEffect, useState} from "react";
 import usePlacesStore from "../../../stores/usePlacesStore.jsx";
-import CommonModal from "../../../components/Modals/CommonModal/CommonModal.jsx";
+import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 import PlaceForm from "../../../components/Forms/PlaceForm/PlaceForm.jsx";
 
 function PlacesDashboardPage() {

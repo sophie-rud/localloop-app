@@ -8,7 +8,7 @@ import useTracksStore from "../../../stores/useTracksStore.jsx";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
 import {useNavigate, useParams} from "react-router-dom";
-import Button from "../../../components/Button/Button.jsx";
+import Button from "../../../components/ui/Button/Button.jsx";
 
 function AdminProfilePage() {
 

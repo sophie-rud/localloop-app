@@ -1,4 +1,4 @@
-import FilterBar from "../../../components/FilterBar/FilterBar.jsx";
+import FilterBar from "../../../components/ui/FilterBar/FilterBar.jsx";
 import {useEffect, useState} from "react";
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";

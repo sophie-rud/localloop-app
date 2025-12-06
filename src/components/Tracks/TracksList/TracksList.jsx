@@ -1,4 +1,4 @@
-import TrackCard from "../../TrackCard/TrackCard.jsx";
+import TrackCard from "../TrackCard/TrackCard.jsx";
 import classes from "./TracksList.module.css"
 
 function TracksList({ tracks, onEdit, onDelete }) {

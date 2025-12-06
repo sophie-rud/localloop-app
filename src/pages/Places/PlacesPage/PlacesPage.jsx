@@ -2,7 +2,7 @@
 import PlacesList from "../../../components/Places/PlacesList/PlacesList.jsx";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
-import Button from "../../../components/Button/Button.jsx";
+import Button from "../../../components/ui/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 
 function PlacesPage() {

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./StepsPreviewList.module.css";
-import Button from "../Button/Button.jsx";
-import useTracksStore from "../../stores/useTracksStore.jsx";
+import Button from "../../ui/Button/Button.jsx";
+import useTracksStore from "../../../stores/useTracksStore.jsx";
 
 function StepsPreviewList({ steps, onEdit }) {
 

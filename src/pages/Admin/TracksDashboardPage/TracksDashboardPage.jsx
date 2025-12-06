@@ -1,6 +1,6 @@
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
-import Button from "../../../components/Button/Button.jsx";
-import SearchBar from "../../../layouts/elements/SearchBar/SearchBar.jsx";
+import Button from "../../../components/ui/Button/Button.jsx";
+import SearchBar from "../../../components/ui/SearchBar/SearchBar.jsx";
 import TrackTable from "../../../components/Admin/Tables/TrackTable/TrackTable.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import {useNavigate, useParams} from "react-router-dom";

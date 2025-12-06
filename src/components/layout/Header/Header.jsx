@@ -1,11 +1,11 @@
 import classes from './Header.module.css';
-import SearchBar from "../SearchBar/SearchBar.jsx";
+import SearchBar from "../../ui/SearchBar/SearchBar.jsx";
 import {Link, useNavigate} from 'react-router-dom';
 import logo from "../../../assets/images/logo_localloop.png";
 import { LogOut } from 'lucide-react';
 import {useContext} from "react";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
-import Button from "../../../components/Button/Button.jsx";
+import Button from "../../ui/Button/Button.jsx";
 
 function Header({ onSearch }) {
 

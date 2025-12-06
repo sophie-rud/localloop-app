@@ -1,7 +1,7 @@
 import photo from "../../../../assets/images/image-colmar.jpg";
 import adminClasses from '../AdminCard.module.css';
 import { Pen, Trash2} from 'lucide-react';
-import Button from "../../../Button/Button.jsx";
+import Button from "../../../ui/Button/Button.jsx";
 
 function AdminTrackCard() {
     return (

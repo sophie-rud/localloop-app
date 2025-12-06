@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import formClasses from '../Forms.module.css';
-import Button from "../../Button/Button.jsx";
+import Button from "../../ui/Button/Button.jsx";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
 
 function UserForm({ onSubmit, onClose }) {

@@ -1,6 +1,6 @@
-import Navbar from '../elements/Navbar/Navbar.jsx';
-import Footer from '../elements/Footer/Footer.jsx';
-import Header from '../elements/Header/Header.jsx';
+import Navbar from '../../components/layout/Navbar/Navbar.jsx';
+import Footer from '../../components/layout/Footer/Footer.jsx';
+import Header from '../../components/layout/Header/Header.jsx';
 import {Outlet} from 'react-router-dom'
 
 function MainLayout({ searchTerm, onSearch }) {

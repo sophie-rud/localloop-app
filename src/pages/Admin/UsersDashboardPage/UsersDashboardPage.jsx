@@ -1,11 +1,11 @@
 import UserTable from "../../../components/Admin/Tables/UserTable/UserTable.jsx";
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
-import Button from "../../../components/Button/Button.jsx";
-import SearchBar from "../../../layouts/elements/SearchBar/SearchBar.jsx";
+import Button from "../../../components/ui/Button/Button.jsx";
+import SearchBar from "../../../components/ui/SearchBar/SearchBar.jsx";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
 import {useState} from "react";
 import UserForm from "../../../components/Forms/UserForm/UserForm.jsx";
-import CommonModal from "../../../components/Modals/CommonModal/CommonModal.jsx";
+import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 
 function UserDashboardPage() {
 

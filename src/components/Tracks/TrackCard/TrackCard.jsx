@@ -1,9 +1,9 @@
 import { Route, History, Triangle } from 'lucide-react';
 import classes from './TrackCard.module.css';
 import {useNavigate} from "react-router-dom";
-import { minutesToDurationString } from "../../utils/duration.js";
-import useTracksStore from "../../stores/useTracksStore.jsx";
-import Button from "../Button/Button.jsx";
+import { minutesToDurationString } from "../../../utils/duration.js";
+import useTracksStore from "../../../stores/useTracksStore.jsx";
+import Button from "../../ui/Button/Button.jsx";
 
 function TrackCard({ track, onEdit, onDelete }) {
     const navigate = useNavigate();

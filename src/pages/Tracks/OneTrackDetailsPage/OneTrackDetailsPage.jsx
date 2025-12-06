@@ -1,5 +1,5 @@
-import TrackPresentation from "../../../components/TrackPresentation/TrackPresentation.jsx";
-import StepOverview from "../../../components/StepOverview/StepOverview.jsx";
+import TrackPresentation from "../../../components/Tracks/TrackPresentation/TrackPresentation.jsx";
+import StepOverview from "../../../components/Steps/StepOverview/StepOverview.jsx";
 import MapTrackView from "../../../components/Map/MapTrackView/MapTrackView.jsx";
 import {useParams, Link} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";

@@ -1,6 +1,6 @@
 import MapSearch from "../../components/Map/MapSearch/MapSearch.jsx";
 import TracksList from "../../components/Tracks/TracksList/TracksList.jsx";
-import Button from "../../components/Button/Button.jsx";
+import Button from "../../components/ui/Button/Button.jsx";
 import useTracksStore from "../../stores/useTracksStore.jsx";
 import useStepsAndPlaces from "../../hooks/useStepsAndPlacesData.jsx";
 import useReferenceData from "../../hooks/useThemesAndDepartmentData.jsx";

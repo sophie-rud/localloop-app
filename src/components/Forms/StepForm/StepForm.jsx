@@ -1,5 +1,5 @@
 import formClasses from '../Forms.module.css';
-import Button from '../../Button/Button.jsx';
+import Button from '../../ui/Button/Button.jsx';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 

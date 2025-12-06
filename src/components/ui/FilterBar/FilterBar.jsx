@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./FilterBar.module.css";
 
-const FilterBar = ({ filters, setFilters, themes }) => {
+const FilterBar = ({ filters, setFilters }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });

@@ -3,7 +3,7 @@ import photo from "../../../assets/images/image-colmar.jpg";
 import {Users, Grid2x2, LocateFixed, Eye, ContactRound, LogOut} from 'lucide-react';
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import logo from "../../../assets/images/logo_localloop_green.png";
-import Button from "../../Button/Button.jsx";
+import Button from "../../ui/Button/Button.jsx";
 import {useContext} from "react";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
 

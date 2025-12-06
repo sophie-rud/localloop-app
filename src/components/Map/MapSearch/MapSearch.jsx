@@ -1,5 +1,5 @@
 import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
-import TrackOverview from "../../TrackOverview/TrackOverview.jsx";
+import TrackOverview from "../../Tracks/TrackOverview/TrackOverview.jsx";
 import L from 'leaflet';
 import blackMarker from '../../../assets/icons/marker-icon-2x-black.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';

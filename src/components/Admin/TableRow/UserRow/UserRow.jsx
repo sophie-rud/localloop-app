@@ -1,6 +1,6 @@
 import photo from "../../../../assets/images/image-colmar.jpg";
 import tableClasses from "../../Tables/Tables.module.css";
-import Button from "../../../Button/Button.jsx";
+import Button from "../../../ui/Button/Button.jsx";
 import {Ban, Pen, Trash2} from "lucide-react";
 
 function UserRow({ user, onEdit, onDelete, onBlock }) {

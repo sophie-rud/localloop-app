@@ -1,5 +1,5 @@
-import StepPresentation from "../../../components/StepPresentation/StepPresentation.jsx";
-import {useEffect, useState} from "react";
+import StepPresentation from "../../../components/Steps/StepPresentation/StepPresentation.jsx";
+import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 
