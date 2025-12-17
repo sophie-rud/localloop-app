@@ -3,18 +3,16 @@ import {useState} from "react";
 import StepModal from "../StepModal/StepModal.jsx";
 import Button from "../../ui/Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import useTrackDetails from "../../../hooks/useTrackDetails.jsx";
 import classes from "./StepsManager.module.css"
 
 function StepsManager({ trackId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
-    const { loadStepsForTrack, addStep, editStep } = useTracksStore();
-
-    const { steps, loading } = useTrackDetails(trackId);
+    const { steps, loadStepsForTrack, addStep, editStep, loading, error } = useTracksStore();
 
     if (loading) return <p>Chargement...</p>;
-    if (!steps) return <p>Aucune étape</p>;
+    if (error) return <p>Erreur : {error}</p>;
+    if (!steps.length) return <p>Aucune étape</p>;
 
     const openAddModal = () => {
         setStepToEdit(null);
@@ -52,7 +50,6 @@ function StepsManager({ trackId }) {
             <StepsPreviewList
                 steps={steps}
                 onEdit={(step) => openEditModal(step)}
-                // onDelete={stepId => removeStep(stepId)}
             />
 
              <StepModal
@@ -61,7 +58,6 @@ function StepsManager({ trackId }) {
                 step={stepToEdit}
                 onSave={handleSave}
                 onClose={closeModal}
-                // places={places}
             />
         </div>
     );

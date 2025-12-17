@@ -52,8 +52,8 @@ const useTracksStore = create((set, get) => {
             const steps = await getRequest(`tracks/${trackId}/steps`);
             set({ steps });
         }),
-        loadOneStep: (stepId) => withLoadingAndError(set, async () => {
-            const step = await getRequest(`/steps/${stepId}`);
+        loadOneStep: (trackId, stepId) => withLoadingAndError(set, async () => {
+            const step = await getRequest(`/tracks/${trackId}/steps/${stepId}`);
             set({ selectedStep: step });
             return step;
         }),

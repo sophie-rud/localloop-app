@@ -4,12 +4,12 @@ function StepOverview({step}) {
     return (
         <div className={classes['step-overview']}>
             <div className={classes['step-overview-photo']}>
-                <img src={step.photo} alt='Colmar' className={classes['image']} />
+                <img src={step.photo} alt={step.name} className={classes['image']} />
             </div>
             <div className={classes['overview-content']}>
                 <h4 className={classes['overview-title']}>{step.name}</h4>
                 <div className={classes['step-infos']}>
-                    <span className={classes['step-order']}>{step.step_order}</span>
+                    <span className={classes['step-order']}>{step.stepOrder}</span>
                 </div>
             </div>
         </div>
