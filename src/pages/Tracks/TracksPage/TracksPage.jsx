@@ -1,19 +1,15 @@
 import FilterBar from "../../../components/ui/FilterBar/FilterBar.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
-import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
-import enrichTracks from "../../../utils/enrichTracks.jsx";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function TracksPage() {
 
-    const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
-    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
-    const { themes, departments, loading: refLoading } = useReferenceData();
+    const { tracks, loadTracks, loading, error } = useTracksStore();
     const [params] = useSearchParams();
     const query = params.get("query");
+    const themes = [...new Map(tracks.map(track => [track.theme?.id, track.theme])).values()];
 
     useEffect(() => {
         if (query) {
@@ -30,24 +26,23 @@ function TracksPage() {
         theme_id: ""
     });
 
-    const loading = tracksLoading || stepsLoading || refLoading;
     if (loading) return <p>Chargement...</p>;
-
-    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
-        return <p>Pas de données disponibles</p>;
-    }
-
-    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
+    if (error) return <p>Erreur : {error}</p>;
+    if (!tracks.length) return <p>Aucun parcours</p>;
 
     // SEARCH BAR FILTER
-    const searchBarFilteredTracks = enrichedTracks.filter(track => {
+    const searchBarFilteredTracks = tracks.filter(track => {
         if (!query) return true;
         const term = query.toLowerCase();
+
+        const firstPlace = track.steps?.[0]?.place;
+        const department = firstPlace?.department;
+
         return (
-            track.title.toLowerCase().includes(term) ||
+            track.title?.toLowerCase().includes(term) ||
             track.presentation?.toLowerCase().includes(term) ||
-            track.place?.name.toLowerCase().includes(term) ||
-            track.department?.name.toLowerCase().includes(term)
+            firstPlace?.name?.toLowerCase().includes(term) ||
+            department?.name?.toLowerCase().includes(term)
         );
     });
 
@@ -82,6 +77,7 @@ function TracksPage() {
         return true;
     });
 
+    console.log(tracks)
     return (
         <main>
             <h1>Les Parcours</h1>
@@ -92,10 +88,13 @@ function TracksPage() {
                 {themes.map(theme => (
                     <div key={theme.id}>
                         <h2>{theme.name}</h2>
-                        <TracksList tracks={filteredTracks.filter(track => parseInt(track.theme_id) === parseInt(theme.id))}></TracksList>
+                        <TracksList
+                            tracks={filteredTracks.filter(track => parseInt(track.theme?.id) === parseInt(theme.id))}
+                        />
                     </div>
-            ))}
+                ))}
             </section>
+
         </main>
     )
 }

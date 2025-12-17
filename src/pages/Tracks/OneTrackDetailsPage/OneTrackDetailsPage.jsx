@@ -5,29 +5,28 @@ import {useParams, Link} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import {useEffect} from "react";
 import classes from "./OneTrackDetailsPage.module.css"
-import useTrackDetails from "../../../hooks/useTrackDetails.jsx";
 
 function OneTrackDetailsPage() {
     const { id } = useParams();
-    const trackId = Number(id);
-    const {tracks, setSelectedTrack} = useTracksStore()
+    const trackId = parseInt(id);
+    const { selectedTrack, loadTrackById, loading, error } = useTracksStore()
 
     useEffect(() => {
-        const track = tracks.find(t => Number(t.id) === trackId) || null;
-        setSelectedTrack(track);
-    }, [trackId, tracks, setSelectedTrack]);
+        if (trackId) {
+            loadTrackById(trackId);
+        }
+    }, [trackId, loadTrackById]);
 
-    const { steps, track, loading, error } = useTrackDetails(trackId);
-
-    if (loading) return <p>Chargement des étapes...</p>;
+    if (loading) return <p>Chargement du parcours...</p>;
     if (error) return <p>Erreur : {error}</p>;
-    if (!track) return <p>Parcours introuvable</p>;
+    if (!selectedTrack) return <p>Parcours introuvable</p>;
 
+    const steps = selectedTrack.steps || [];
 
     return (
         <main className={classes['one-track-page-main']}>
             <section className={classes['track-presentation-section']}>
-                <TrackPresentation track={track} steps={steps} />
+                <TrackPresentation track={selectedTrack} steps={steps} />
             </section>
             <div className={classes['display-manager']}>
                 <section className={classes['map-track-section']}>

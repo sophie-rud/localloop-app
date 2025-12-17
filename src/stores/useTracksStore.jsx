@@ -14,6 +14,12 @@ const useTracksStore = create((set, get) => {
             const tracks = await getRequest("/tracks");
             set({ tracks });
         }),
+        loadTrackById: (id) => withLoadingAndError(set, async () => {
+            if (!id) return;
+            const track = await getRequest(`/tracks/${id}`);
+            set({ selectedTrack: track });
+            return track;
+        }),
         addTrack: (track) => withLoadingAndError(set, async () => {
             const newTrack = await postRequest("/tracks", track);
             set((state) => ({ tracks: [...state.tracks, newTrack] }));
@@ -30,9 +36,10 @@ const useTracksStore = create((set, get) => {
             }));
             return updatedTrack;
         }),
-        getTrackById: (id) => {
-            return get().tracks.find((track) => parseInt(track.id) === parseInt(id)) || null;
+        getTrackFromListById: (id) => {
+            return get().tracks.find(t => t.id === Number(id)) || null;
         },
+
         // STEPS
         steps: [],
         // loadStepsForTrack: async (trackId) => {
@@ -42,7 +49,7 @@ const useTracksStore = create((set, get) => {
         //     return trackSteps;
         // },
         loadStepsForTrack: (trackId) => withLoadingAndError(set, async () => {
-            const steps = await getRequest(`/steps?track_id=${trackId}`);
+            const steps = await getRequest(`tracks/${trackId}/steps`);
             set({ steps });
         }),
         loadOneStep: (stepId) => withLoadingAndError(set, async () => {

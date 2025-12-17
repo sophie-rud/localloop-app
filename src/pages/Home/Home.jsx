@@ -2,33 +2,24 @@ import MapSearch from "../../components/Map/MapSearch/MapSearch.jsx";
 import TracksList from "../../components/Tracks/TracksList/TracksList.jsx";
 import Button from "../../components/ui/Button/Button.jsx";
 import useTracksStore from "../../stores/useTracksStore.jsx";
-import useStepsAndPlaces from "../../hooks/useStepsAndPlacesData.jsx";
-import useReferenceData from "../../hooks/useThemesAndDepartmentData.jsx";
 import {useEffect} from "react";
-import enrichTracks from "../../utils/enrichTracks.jsx";
 import {useNavigate} from "react-router-dom";
 import classes from "./Home.module.css";
 
 function Home() {
 
-    const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
-    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
-    const { themes, departments, loading: refLoading } = useReferenceData();
+    const { tracks, loadTracks, loading, error } = useTracksStore();
     const navigate = useNavigate();
 
     useEffect(() => {
         loadTracks();
     }, [loadTracks]);
 
-    const loading = tracksLoading || stepsLoading || refLoading;
-    if (loading) return <p>Chargement…</p>;
-
-    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
-        return <p>Pas de données disponibles</p>;
-    }
+    if (loading) return <p>Chargement...</p>;
+    if (error) return <p>Erreur : {error}</p>;
+    if (!tracks.length) return <p>Aucun parcours</p>;
 
     const tracksToDisplay = tracks.slice(0, 5);
-    const enrichedTracks = enrichTracks(tracksToDisplay, { steps, places, departments, themes });
 
     return (
         <main className={classes['main-home']}>
@@ -38,12 +29,12 @@ function Home() {
                 <p>Partagez vos coins secrets, découvrez ceux des autres !</p>
             </div>
             <section>
-                    <TracksList tracks={enrichedTracks} />
+                    <TracksList tracks={tracksToDisplay} />
                 <Button type="button" className={'blue-btn'} onClick={() => navigate("/tracks")}>Voir les parcours</Button>
             </section>
             <section>
                 <div>
-                    <MapSearch tracks={enrichedTracks} />
+                    <MapSearch tracks={tracks} />
                 </div>
                 <Button type="button" className={'blue-btn'} onClick={() => navigate("/map")}>Voir la carte</Button>
             </section>
