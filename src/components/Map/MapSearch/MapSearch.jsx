@@ -28,10 +28,15 @@ function MapSearch({tracks}) {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {tracks.map((track) => {
-                if (!track.positions) return null;
+                const firstStep = track?.steps[0];
+                const place = firstStep?.place;
+
+                if (!place?.latitude || !place?.longitude) return null;
+
+                const position = [place.latitude, place.longitude];
 
                 return (
-                    <Marker position={[track.positions.lat, track.positions.lng]}
+                    <Marker position={position}
                             key={track.id}
                             icon={blackIcon}
                             eventHandlers={{

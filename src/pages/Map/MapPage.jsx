@@ -1,28 +1,18 @@
 import MapSearch from '../../components/Map/MapSearch/MapSearch.jsx'
 import classes from "./MapPage.module.css";
 import useTracksStore from "../../stores/useTracksStore.jsx";
-import useStepsAndPlaces from "../../hooks/useStepsAndPlacesData.jsx";
-import useReferenceData from "../../hooks/useThemesAndDepartmentData.jsx";
 import {useEffect} from "react";
-import enrichTracks from "../../utils/enrichTracks.jsx";
 
 function MapPage() {
-    const { tracks, loadTracks, loading: tracksLoading } = useTracksStore();
-    const { steps, places, loading: stepsLoading } = useStepsAndPlaces();
-    const { themes, departments, loading: refLoading } = useReferenceData();
+    const { tracks, loadTracks, loading, error } = useTracksStore();
 
     useEffect(() => {
         loadTracks();
     }, [loadTracks]);
 
-    const loading = tracksLoading || stepsLoading || refLoading;
-    if (loading) return <p>Chargement…</p>;
-
-    if (!tracks.length || !steps.length || !places.length || !themes.length || !departments.length) {
-        return <p>Pas de données disponibles</p>;
-    }
-
-    const enrichedTracks = enrichTracks(tracks, { steps, places, departments, themes });
+    if (loading) return <p>Chargement...</p>;
+    if (error) return <p>Erreur : {error}</p>;
+    if (!tracks.length) return <p>Aucun parcours</p>;
 
     return (
         <main>
@@ -32,7 +22,7 @@ function MapPage() {
                 <p>Partagez vos coins secrets, découvrez ceux des autres !</p>
             </div>
             <section className={classes['map-search-section']} >
-                <MapSearch tracks={enrichedTracks} />
+                <MapSearch tracks={tracks} />
             </section>
         </main>
     )
