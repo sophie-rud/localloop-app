@@ -2,34 +2,33 @@ import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
 import {useEffect, useState} from "react";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import StepsManager from "../../Steps/StepsManager/StepsManager.jsx";
 import { durationStringToMinutes, minutesToDurationString } from "../../../utils/duration.js";
 import {useNavigate} from "react-router-dom";
 
-function TrackForm({ onSubmit }) {
+function TrackForm({ selectedTrack, themes, onSubmit }) {
 
-    const { selectedTrack, setSelectedTrack, loading, error } = useTracksStore()
+    const { setSelectedTrack, loading, error } = useTracksStore()
     const navigate = useNavigate();
 
     const [photo, setPhoto] = useState('');
     const [title, setTitle] = useState('');
-    const [theme, setTheme] = useState('');
+    const [themeId, setThemeId] = useState('');
     const [distance, setDistance] = useState('');
     const [duration, setDuration] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [presentation, setPresentation] = useState('');
-    const [isPublished, setIsPublished] = useState('');
+    const [isPublished, setIsPublished] = useState(false);
 
     useEffect(() => {
         if (selectedTrack) {
             setPhoto(selectedTrack.photo || "");
             setTitle(selectedTrack.title || "");
-            setTheme(selectedTrack.theme || "");
+            setThemeId(selectedTrack.themeId?.toString() ?? "");
             setDistance(selectedTrack.distance || "");
             setDuration(minutesToDurationString(selectedTrack.duration) || "");
             setDifficulty(selectedTrack.difficulty || "");
             setPresentation(selectedTrack.presentation || "");
-            setIsPublished(selectedTrack.isPublished ?? true);
+            setIsPublished(selectedTrack.isPublished || false);
         }
     }, [selectedTrack]);
 
@@ -39,12 +38,12 @@ function TrackForm({ onSubmit }) {
         const track = {
             photo,
             title,
-            theme,
+            themeId: parseInt(themeId),
             distance,
             duration: durationStringToMinutes(duration),
             difficulty,
             presentation,
-            isPublished
+            isPublished: Boolean(isPublished),
         };
         onSubmit(track)
     }
@@ -55,7 +54,7 @@ function TrackForm({ onSubmit }) {
 
     return (
         <form onSubmit={submitHandler} className={formClasses['track-form']}>
-            {loading && <p>Enregistrement...</p>}
+            {loading && <p>Chargement...</p>}
             {error && <p>Erreur {error}</p>}
 
             <label htmlFor="photoTrack" className={formClasses['file-upload-btn']}>
@@ -85,16 +84,15 @@ function TrackForm({ onSubmit }) {
             <select
                 id="theme"
                 className={formClasses['common-select-input']}
-                value = {theme}
-                onChange={handleInputChange(setTheme)}
+                value = {themeId}
+                onChange={handleInputChange(setThemeId)}
             >
                 <option value="">Sélectionner un thème</option>
-                <option value="1">Nature</option>
-                <option value="2">Urbain</option>
-                <option value="3">Culture</option>
-                <option value="4">Sport</option>
-                <option value="5">Gastronomie</option>
-                <option value="6">Histoire</option>
+                {themes.map(theme => (
+                    <option key={theme.id} value={theme.id?.toString()}>
+                        {theme.name}
+                    </option>
+                ))}
             </select>
 
             <label htmlFor="distance">Distance</label>
@@ -125,9 +123,10 @@ function TrackForm({ onSubmit }) {
                 onChange={handleInputChange(setDifficulty)}
             >
                 <option value="">Sélectionner un niveau de difficulté</option>
-                <option value="1">Facile</option>
-                <option value="2">Moyenne</option>
-                <option value="3">Difficile</option>
+                <option value="FACILE">Facile</option>
+                <option value="MOYEN">Moyen</option>
+                <option value="DIFFICILE">Difficile</option>
+                <option value="SPORTIF">Sportif</option>
             </select>
 
             <label htmlFor="presentation">Courte présentation du parcours</label>
@@ -149,13 +148,8 @@ function TrackForm({ onSubmit }) {
                 onChange={(e) => setIsPublished(e.target.checked)}
             />
 
-            <StepsManager
-                trackId={selectedTrack?.id}
-            />
-
             <Button type="submit"
-                    className={'blue-btn'}
-                    onClick={() => navigate(-1)}
+                className={'blue-btn'}
             >
                 Valider mon parcours
             </Button>
