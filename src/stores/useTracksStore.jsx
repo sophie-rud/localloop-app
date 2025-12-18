@@ -49,7 +49,7 @@ const useTracksStore = create((set, get) => {
         //     return trackSteps;
         // },
         loadStepsForTrack: (trackId) => withLoadingAndError(set, async () => {
-            const steps = await getRequest(`tracks/${trackId}/steps`);
+            const steps = await getRequest(`/tracks/${trackId}/steps`);
             set({ steps });
         }),
         loadOneStep: (trackId, stepId) => withLoadingAndError(set, async () => {
@@ -58,15 +58,15 @@ const useTracksStore = create((set, get) => {
             return step;
         }),
         addStep: async (trackId, stepData) => withLoadingAndError(set, async () => {
-            const newStep = await postRequest(`/steps`, { ...stepData, track_id: trackId });
+            const newStep = await postRequest(`/tracks/${trackId}/steps`, { ...stepData, trackId });
             set(state => ({
                 steps: [...state.steps, newStep]
             }));
             return newStep;
         }),
-        editStep: async (stepData) =>
+        editStep: async (trackId, stepData) =>
             withLoadingAndError(set, async () => {
-                const updatedStep = await putRequest(`/steps/${stepData.id}`, stepData);
+                const updatedStep = await putRequest(`/tracks/${trackId}/steps/${stepData.id}`, stepData);
                 set(state => ({
                     steps: state.steps.map(step =>
                         step.id === updatedStep.id ? updatedStep : step
@@ -74,15 +74,15 @@ const useTracksStore = create((set, get) => {
                 }));
                 return updatedStep;
             }),
-        removeStep: async (stepId) =>
+        removeStep: async (trackId, stepId) =>
             withLoadingAndError(set, async () => {
-                await deleteRequest(`/steps/${stepId}`);
+                await deleteRequest(`/tracks/${trackId}/steps/${stepId}`);
                 set(state => ({
                     steps: state.steps.filter(step => step.id !== stepId)
                 }));
             }),
         selectedStep: null,
-        setSelectedStep: (step) => set({ selectedTrack: step }),
+        setSelectedStep: (step) => set({ selectedStep: step }),
     }
 })
 
