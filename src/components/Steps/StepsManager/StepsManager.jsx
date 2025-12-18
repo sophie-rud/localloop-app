@@ -4,15 +4,17 @@ import StepModal from "../StepModal/StepModal.jsx";
 import Button from "../../ui/Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import classes from "./StepsManager.module.css"
+import usePlaces from "../../../hooks/usePlaces.jsx";
 
 function StepsManager({ trackId }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
     const { steps, loadStepsForTrack, addStep, editStep, loading, error } = useTracksStore();
+    const { places, loading: loadingPlaces, error: errorPlaces } = usePlaces();
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading || loadingPlaces) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
-    if (!steps.length) return <p>Aucune étape</p>;
+    if (errorPlaces) return <p>Erreur de chargement des lieux : {error}</p>;
 
     const openAddModal = () => {
         setStepToEdit(null);
@@ -29,9 +31,9 @@ function StepsManager({ trackId }) {
         setStepToEdit(null);
     };
 
-    const handleSave = async (data) => {
+    const handleStepSave = async (data) => {
         if (stepToEdit) {
-            await editStep({ ...stepToEdit, ...data });
+            await editStep(trackId, { ...stepToEdit, ...data });
         } else {
             await addStep(trackId, data);
         }
@@ -45,7 +47,8 @@ function StepsManager({ trackId }) {
         <div className={classes['steps-manager']}>
             <Button type="button" onClick={() => openAddModal()} className={'small-green-btn'}>+ Ajouter une étape</Button>
 
-            <h3>Étapes du parcours</h3>
+            <h2>Étapes du parcours</h2>
+            {(!steps.length) && <p>Ajoutez des étapes !</p>}
 
             <StepsPreviewList
                 steps={steps}
@@ -56,7 +59,8 @@ function StepsManager({ trackId }) {
                 isOpen={isModalOpen}
                 trackId={trackId}
                 step={stepToEdit}
-                onSave={handleSave}
+                places={places}
+                onStepSave={handleStepSave}
                 onClose={closeModal}
             />
         </div>
