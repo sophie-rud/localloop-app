@@ -35,7 +35,6 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
                     onSubmit={handleSubmit}
                     selectedTrack={selectedTrack}
                 />
-                <p>Debug selectedTrack: {selectedTrack ? selectedTrack.title : "undefined"}</p>
             </section>
             <section>
                 {isStepManagerDisplayed && selectedTrack?.id && (

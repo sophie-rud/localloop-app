@@ -26,7 +26,7 @@ function OneTrackDetailsPage() {
     return (
         <main className={classes['one-track-page-main']}>
             <section className={classes['track-presentation-section']}>
-                <TrackPresentation track={selectedTrack} steps={steps} />
+                <TrackPresentation track={selectedTrack} />
             </section>
             <div className={classes['display-manager']}>
                 <section className={classes['map-track-section']}>

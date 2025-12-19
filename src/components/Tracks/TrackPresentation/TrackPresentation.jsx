@@ -4,10 +4,14 @@ import Button from "../../ui/Button/Button.jsx";
 import { minutesToDurationString } from "../../../utils/duration.js";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
 
-function TrackPresentation({track, steps}) {
+function TrackPresentation({ track }) {
     const { currentUser, toggleFavorite } = useUsersStore();
 
     const isFavorite = currentUser.favorites?.includes(track.id);
+
+    const firstStep = track.steps?.[0];
+    const place = firstStep?.place;
+    const department = place?.department;
 
     return (
         <div className={classes['track-presentation']}>
@@ -20,8 +24,8 @@ function TrackPresentation({track, steps}) {
             <div className={classes['track-content']}>
                 <div className={classes['track-infos-header']}>
                     <div className={classes['info-location']}>
-                        <p>{steps?.[0].place?.city}</p>
-                        <p>( {steps?.[0].place?.department?.code} )</p>
+                        <p>{place?.city}</p>
+                        <p>( {department?.code} )</p>
                     </div>
                     <Button type="button" className={'small-green-btn'} onClick={() => toggleFavorite(track.id)} >
                         {isFavorite ? "Favori" : "+ Ajouter aux favoris"}
@@ -34,7 +38,7 @@ function TrackPresentation({track, steps}) {
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <MapPin /> </div>
-                        <p> <strong>Point de départ :</strong> {steps?.[0].name} </p>
+                        <p> <strong>Point de départ :</strong> {firstStep.name} </p>
                     </div>
                     <div className={classes['info']}>
                         <div className={classes['icon']}> <Route /> </div>
