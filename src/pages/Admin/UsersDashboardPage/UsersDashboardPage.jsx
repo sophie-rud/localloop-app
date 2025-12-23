@@ -3,15 +3,19 @@ import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
 import Button from "../../../components/ui/Button/Button.jsx";
 import SearchBar from "../../../components/ui/SearchBar/SearchBar.jsx";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import UserForm from "../../../components/Forms/UserForm/UserForm.jsx";
 import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 
 function UserDashboardPage() {
 
-    const { selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
+    const { loadUsers, selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
 
     const [isFormOpen, setIsFormOpen] = useState(false);
+
+    useEffect(() => {
+        loadUsers();
+    }, [loadUsers]);
 
     const openCreateForm = () => {
         setSelectedUser(null);

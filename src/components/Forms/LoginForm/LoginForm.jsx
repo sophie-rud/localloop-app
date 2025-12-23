@@ -3,21 +3,26 @@ import Button from '../../ui/Button/Button.jsx';
 import {useContext, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
+import {postRequest} from "../../../services/request.jsx";
 
 function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState("user");
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        login(role);
-        if (role === "admin") {
-            navigate("/admin/1/profile");
-        } else {
-            navigate("/user/2/profile");
+
+        const response = await postRequest("/login", { email, password });
+        const userData = response.user;
+
+        login(userData);
+
+        if (userData.roleId === 2) {
+            navigate('/admin/profile');
+        } else if (userData.roleId === 1) {
+            navigate('/user/profile');
         }
     };
 
@@ -32,7 +37,7 @@ function LoginForm() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="Email"
                 className={formClasses['common-input']}
-                // required
+                required
             />
 
             <label htmlFor="password">Mot de passe</label>
@@ -43,18 +48,8 @@ function LoginForm() {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Mot de passe"
                 className={formClasses['common-input']}
-                // required
+                required
             />
-
-            <label htmlFor="role">Role</label>
-            <select
-                value={role}
-                className={formClasses['common-select-input']}
-                onChange={(e) => setRole(e.target.value)}
-            >
-                <option value="user">Utilisateur</option>
-                <option value="admin">Admin</option>
-            </select>
 
             <Link to="">
                 <p>Mot de passe oublié</p>
