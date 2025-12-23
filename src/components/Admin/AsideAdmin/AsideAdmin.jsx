@@ -37,17 +37,17 @@ function AsideAdmin() {
 
             <div className={classes['sidebar-menu']}>
                 <h2 className={classes['sidebar-subtitle']}>Mon profil</h2>
-                <NavLink to="/admin/:id/profile" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
+                <NavLink to="/admin/profile" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
                     <ContactRound className={classes.icon} /> Mes infos & mes parcours
                 </NavLink>
             </div>
 
             <div className={classes['sidebar-menu']}>
                 <h2 className={classes['sidebar-subtitle']}>Dashboards</h2>
-                <NavLink to="/admin/:id/usersDashboard" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
+                <NavLink to="/admin/usersDashboard" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
                     <Users className={classes.icon} /> Utilisateurs
                 </NavLink>
-                <NavLink to="/admin/:id/tracksDashboard" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
+                <NavLink to="/admin/tracksDashboard" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
                     <Grid2x2 className={classes.icon} /> Parcours
                 </NavLink>
                 {/*<NavLink to="/admin/:id/steps" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>*/}
@@ -57,10 +57,10 @@ function AsideAdmin() {
 
             <div className={classes['sidebar-menu']}>
                 <h2 className={classes['sidebar-subtitle']}>Gestion des lieux</h2>
-                <NavLink to="/admin/:id/places" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
+                <NavLink to="/admin/places" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
                     <Eye className={classes.icon} /> Voir les lieux
                 </NavLink>
-                <NavLink to="/admin/:id/placesDashboard" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
+                <NavLink to="/admin/placesDashboard" className={({ isActive }) => isActive ? `${classes.link} ${classes.active}` : classes.link}>
                     <LocateFixed className={classes.icon} /> Dashboard
                 </NavLink>
             </div>
@@ -73,7 +73,7 @@ function AsideAdmin() {
                         </Button>
                     )}
                 </div>
-                <Link to="/admin/:id/profile">
+                <Link to="/admin/profile">
                     <div className={classes.logo}>
                         <img src={logo} alt="logo" />
                     </div>

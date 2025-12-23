@@ -61,7 +61,7 @@ export const router = createBrowserRouter ([
                 element: (<MapPage/>),
             },
             {
-                path: "user/:id",
+                path: "user/",
                 element: (
                     <PrivateRoute>
                         <Outlet />
@@ -89,7 +89,7 @@ export const router = createBrowserRouter ([
         ]
     },
     {
-        path: "admin/:id",
+        path: "admin/",
         element: (
             <AdminRoute>
                 <AdminLayout/>

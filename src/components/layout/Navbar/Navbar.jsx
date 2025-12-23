@@ -1,9 +1,8 @@
 import classes from './Navbar.module.css';
-import {NavLink, useParams} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import { Map, Grid2x2, Heart, CircleUserRound } from 'lucide-react';
 
 function Navbar() {
-    const { id } = useParams();
 
     return (
         <>
@@ -22,13 +21,13 @@ function Navbar() {
                         </NavLink>
                     </li>
                     <li className={classes['nav-item']}>
-                        <NavLink to={`/user/${id}/tracks/favorites`}
+                        <NavLink to={`/user/tracks/favorites`}
                                  className={({ isActive }) => isActive ? `${classes['nav-link']} ${classes.active}` : classes['nav-link']}>
                             <Heart className={classes['nav-icon']}/>
                         </NavLink>
                     </li>
                     <li className={classes['nav-item']}>
-                        <NavLink to={`/user/${id}/profile`}
+                        <NavLink to={`/user/profile`}
                                  className={({ isActive }) => isActive ? `${classes['nav-link']} ${classes.active}` : classes['nav-link']}>
                             <CircleUserRound className={classes['nav-icon']}/>
                         </NavLink>
@@ -53,14 +52,14 @@ function Navbar() {
                         </NavLink>
                     </li>
                     <li className={classes['nav-item-desktop']}>
-                        <NavLink to={`/user/${id}/tracks/favorites`}
+                        <NavLink to={`/user/tracks/favorites`}
                                  className={({ isActive }) => isActive ? `${classes['nav-link-desktop']} ${classes.active}` : classes['nav-link-desktop']}>
                             <div className={classes['nav-icon-desktop']}><Heart /></div>
                             <p>Favoris</p>
                         </NavLink>
                     </li>
                     <li className={classes['nav-item-desktop']}>
-                        <NavLink to={`/user/${id}/profile`}
+                        <NavLink to={`/user/profile`}
                                  className={({ isActive }) => isActive ? `${classes['nav-link-desktop']} ${classes.active}` : classes['nav-link-desktop']}>
                             <div  className={classes['nav-icon-desktop']}><CircleUserRound /></div>
                             <p>Profil</p>
