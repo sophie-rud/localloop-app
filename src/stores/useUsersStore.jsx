@@ -10,7 +10,7 @@ const useUsersStore = create((set, get) => {
         setSelectedUser: (user) => set({selectedUser: user}),
         loading: false,
         error: null,
-        getUsers: () => withLoadingAndError(set, async () => {
+        loadUsers: () => withLoadingAndError(set, async () => {
             const users = await getRequest("/users");
             set({ users });
         }),
@@ -30,7 +30,7 @@ const useUsersStore = create((set, get) => {
             }));
             return updatedUser;
         }),
-        getUserById: (id) => {
+        loadUserById: (id) => {
             return get().users.find((user) => user.id === id) || null;
         },
         currentUser: {
