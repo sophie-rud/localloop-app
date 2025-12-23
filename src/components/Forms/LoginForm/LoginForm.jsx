@@ -1,29 +1,15 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
-import {useContext, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {AuthContext} from "../../../contexts/auth-context.jsx";
-import {postRequest} from "../../../services/request.jsx";
+import {useState} from "react";
+import {Link} from "react-router-dom";
 
-function LoginForm() {
+function LoginForm({ onSubmit }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const response = await postRequest("/login", { email, password });
-        const userData = response.user;
-
-        login(userData);
-
-        if (userData.roleId === 2) {
-            navigate('/admin/profile');
-        } else if (userData.roleId === 1) {
-            navigate('/user/profile');
-        }
+        onSubmit({ email, password });
     };
 
     return (
