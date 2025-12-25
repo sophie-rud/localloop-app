@@ -3,21 +3,20 @@ import Button from "../../../components/ui/Button/Button.jsx";
 import SearchBar from "../../../components/ui/SearchBar/SearchBar.jsx";
 import TrackTable from "../../../components/Admin/Tables/TrackTable/TrackTable.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function TracksDashboardPage() {
 
     const { setSelectedTrack, removeTrack} = useTracksStore();
-    const { id } = useParams();
     const navigate = useNavigate();
 
     const handleCreate = () => {
-        navigate(`/admin/${id}/tracks/create`)
+        navigate(`/admin/tracks/create`)
     }
 
     const handleEdit = (track) => {
         setSelectedTrack(track);
-        navigate(`/admin/${id}/tracks/${track.id}/edit`);
+        navigate(`/admin/tracks/${track.id}/edit`);
     };
 
     const handleDelete = async (track) => {

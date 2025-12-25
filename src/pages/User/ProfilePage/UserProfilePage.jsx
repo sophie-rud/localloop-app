@@ -30,12 +30,12 @@ function UserProfilePage() {
     );
 
     const handleCreate = () => {
-        navigate(`/tracks/create`)
+        navigate(`/user/tracks/create`)
     }
 
     const handleEdit = (track) => {
         setSelectedTrack(track);
-        navigate(`/tracks/${track.id}/edit`);
+        navigate(`/user/tracks/${track.id}/edit`);
     };
 
     const handleDelete = async (track) => {

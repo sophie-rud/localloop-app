@@ -7,7 +7,7 @@ import enrichTracks from "../../../utils/enrichTracks.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Button from "../../../components/ui/Button/Button.jsx";
 
 function AdminProfilePage() {
@@ -15,7 +15,6 @@ function AdminProfilePage() {
     const { tracks, loadTracks, setSelectedTrack, removeTrack } = useTracksStore();
     const { steps, places } = useStepsAndPlaces();
     const { themes, departments} = useReferenceData();
-    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,12 +34,12 @@ function AdminProfilePage() {
 
 
     const handleCreate = () => {
-        navigate(`/user/${id}/tracks/create`)
+        navigate(`/admin/tracks/create`)
     }
 
     const handleEdit = (track) => {
         setSelectedTrack(track);
-        navigate(`/user/${id}/tracks/${track.id}/edit`);
+        navigate(`/admin/tracks/${track.id}/edit`);
     };
 
     const handleDelete = async (track) => {
