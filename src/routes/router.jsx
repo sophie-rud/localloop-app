@@ -10,7 +10,6 @@ import OneStepDetailsPage from "../pages/Steps/OneStepDetailsPage/OneStepDetails
 import UserProfilePage from "../pages/User/ProfilePage/UserProfilePage.jsx";
 import FavoriteTracksPage from "../pages/Tracks/FavoriteTracksPage/FavoriteTracksPage.jsx";
 import AdminLayout from "../layouts/AdminLayout/AdminLayout.jsx";
-import AdminProfilePage from "../pages/Admin/ProfilePage/AdminProfilePage.jsx";
 import CreateOrEditTrackPage from "../pages/Tracks/CreateTrackPage/CreateOrEditTrackPage.jsx";
 import UsersDashboardPage from "../pages/Admin/UsersDashboardPage/UsersDashboardPage.jsx";
 import TracksDashboardPage from "../pages/Admin/TracksDashboardPage/TracksDashboardPage.jsx";
@@ -98,7 +97,7 @@ export const router = createBrowserRouter ([
         children: [
             {
                 path: "profile",
-                element: (<AdminProfilePage />),
+                element: (<UserProfilePage />),
             },
             {
                 path: "usersDashboard",

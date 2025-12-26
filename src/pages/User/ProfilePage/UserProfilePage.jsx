@@ -3,39 +3,42 @@ import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import Button from "../../../components/ui/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import classes from "./UserProfilePage.module.css"
 import {AuthContext} from "../../../contexts/auth-context.jsx";
-import useUsersStore from "../../../stores/useUsersStore.jsx";
+import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
 
 function UserProfilePage() {
-    const { tracks, setSelectedTrack, removeTrack } = useTracksStore();
-    const { loadUserById } = useUsersStore();
+    const { setSelectedTrack, removeTrack } = useTracksStore();
     const navigate = useNavigate();
     const { user, isLogin } = useContext(AuthContext);
-    
-    useEffect(() => {
-        loadUserById(user.id);
-    }, [loadUserById, user.id]);
 
     if (isLogin === undefined) return <p>Chargement...</p>;
     if (!isLogin) return <p>Connectez-vous pour accéder à votre profil</p>;
 
-    const publishedTracks = tracks.filter(
-        (track) => track.userId === user.id && track.isPublished === true
+    const publishedTracks = (user?.createdTracks ?? []).filter(
+        (track) => track.isPublished === true
     );
 
-    const nonPublishedTracks = tracks.filter(
-        (track) => track.userId === user.id && track.isPublished === false
-    );
+    const nonPublishedTracks = user?.createdTracks?.filter(
+        (track) => track.isPublished === false
+    ) ?? [];
 
     const handleCreate = () => {
-        navigate(`/user/tracks/create`)
+        if (user.roleId === 1) {
+            navigate(`/user/tracks/create`)
+        } else if (user.roleId === 2) {
+            navigate(`/admin/tracks/create`)
+        }
     }
 
     const handleEdit = (track) => {
         setSelectedTrack(track);
-        navigate(`/user/tracks/${track.id}/edit`);
+        if (user.roleId === 1) {
+            navigate(`/user/tracks/${track.id}/edit`);
+        } else if (user.roleId === 2) {
+            navigate(`/admin/tracks/${track.id}/edit`);
+        }
     };
 
     const handleDelete = async (track) => {
@@ -43,7 +46,7 @@ function UserProfilePage() {
     };
 
     return (
-        <main>
+        <main className={user?.roleId === 2 ? adminClasses['main-admin'] : ''}>
             <h1>Hello {user.username} !</h1>
             <section>
                 <ProfileCard />
