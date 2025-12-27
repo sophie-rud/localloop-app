@@ -9,16 +9,17 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
     const { selectedTrack, setSelectedTrack, addTrack, editTrack } = useTracksStore();
     const { themes, loading: themesLoading, error: themesError } = useThemes()
 
-    const [isStepManagerDisplayed, setIsStepManagerDisplayed] = useState(false);
+    const [isStepsManagerDisplayed, setIsStepsManagerDisplayed] = useState(true);
 
     const handleSubmit = async (data) => {
         if(selectedTrack) {
-            await editTrack({ ...selectedTrack, ...data });
+            await editTrack(selectedTrack.id, { ...selectedTrack, ...data });
+            // setIsStepsManagerDisplayed(true);
         }
         else {
             const newTrack = await addTrack(data);
             setSelectedTrack(newTrack);
-            setIsStepManagerDisplayed(true);
+            setIsStepsManagerDisplayed(true);
         }
     };
 
@@ -37,8 +38,8 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
                 />
             </section>
             <section>
-                {isStepManagerDisplayed && selectedTrack?.id && (
-                    <StepsManager trackId={selectedTrack.id} />
+                {isStepsManagerDisplayed && selectedTrack?.id && (
+                    <StepsManager track={selectedTrack} />
                 )}
             </section>
         </main>

@@ -6,6 +6,7 @@ import useUsersStore from "../../../stores/useUsersStore.jsx";
 
 function TrackPresentation({ track }) {
     const { currentUser, toggleFavorite } = useUsersStore();
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     const isFavorite = currentUser.favorites?.includes(track.id);
 
@@ -17,7 +18,7 @@ function TrackPresentation({ track }) {
         <div className={classes['track-presentation']}>
             <div className={classes['track-header']}>
                 <div className={classes['track-presentation-photo']}>
-                    <img src={track.photo} alt={track.title} className={classes['image']} />
+                    <img src={`${baseUrl}${track.photo}`} alt={track.title} className={classes['image']} />
                 </div>
                 <h3 className={classes['track-title']}>{track.title}</h3>
             </div>

@@ -20,8 +20,8 @@ const useTracksStore = create((set, get) => {
             set({ selectedTrack: track });
             return track;
         }),
-        addTrack: (track) => withLoadingAndError(set, async () => {
-            const newTrack = await postRequest("/tracks", track);
+        addTrack: (formData) => withLoadingAndError(set, async () => {
+            const newTrack = await postRequest("/tracks", formData);
             set((state) => ({ tracks: [...state.tracks, newTrack] }));
             return newTrack;
         }),
@@ -29,8 +29,8 @@ const useTracksStore = create((set, get) => {
             await deleteRequest(`/tracks/${id}`);
             set((state) => ({ tracks: state.tracks.filter(t => t.id !== id) }));
         }),
-        editTrack: (track) => withLoadingAndError(set, async () => {
-            const updatedTrack = await putRequest(`/tracks/${track.id}`, track);
+        editTrack: (id, formData) => withLoadingAndError(set, async () => {
+            const updatedTrack = await putRequest(`/tracks/${id}`, formData);
             set((state) => ({
                 tracks: state.tracks.map(t => t.id === updatedTrack.id ? updatedTrack : t),
             }));

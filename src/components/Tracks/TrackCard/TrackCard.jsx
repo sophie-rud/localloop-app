@@ -5,6 +5,8 @@ import { minutesToDurationString } from "../../../utils/duration.js";
 import Button from "../../ui/Button/Button.jsx";
 
 function TrackCard({ track, onEdit, onDelete }) {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
     const navigate = useNavigate();
 
     const firstStep = track.steps?.[0];
@@ -14,7 +16,7 @@ function TrackCard({ track, onEdit, onDelete }) {
     return (
         <div className={classes['track-card']}>
             <div className={classes['track-card-photo']}>
-                <img src={track.photo} alt={track.title} className={classes['image']} />
+                <img src={`${baseUrl}${track.photo}`} alt={track.title} className={classes['image']} />
             </div>
             <h3 className={classes['card-title']}
                 style={{ cursor: 'pointer' }}
