@@ -61,19 +61,38 @@ async function getRequest(path) {
 }
 
 async function postRequest(path, item) {
-    return fetchRequest(path, {
+    const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item),
-    });
+    };
+
+    //FormData is required to manage uploads
+    // If it's FormData, let browser manage Content-Type (multipart/form-data)
+    if (item instanceof FormData) {
+        options.body = item;
+    } else {
+        // else, it's JSON
+        options.headers = { 'Content-Type': 'application/json' };
+        options.body = JSON.stringify(item);
+    }
+
+    return await fetchRequest(path, options);
 }
 
 async function putRequest(path, item) {
-    const data = await fetchRequest(path, {
+    const options = {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item),
-    });
+    };
+
+    // If it's FormData, let browser manage Content-Type (multipart/form-data)
+    if (item instanceof FormData) {
+        options.body = item;
+    } else {
+        // else, it's JSON
+        options.headers = { 'Content-Type': 'application/json' };
+        options.body = JSON.stringify(item);
+    }
+
+    const data = await fetchRequest(path, options);
     data.updatedAt = new Date();
     return data;
 }
