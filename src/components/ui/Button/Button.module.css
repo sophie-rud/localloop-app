@@ -40,12 +40,12 @@
     box-shadow: 0 4px 8px rgba(21, 70, 84, 0.2);
 }
 
-.blue-btn:hover {
+.blue-btn:hover, .small-blue-btn:hover {
     background-color: var(--color-off-white);
     color: var(--color-dark-blue);
 }
 
-.green-btn:hover, .logout-button:hover {
+.green-btn:hover, .small-green-btn:hover, .logout-button:hover {
     background-color: var(--color-dark-blue);
     color: var(--color-green);
 }
