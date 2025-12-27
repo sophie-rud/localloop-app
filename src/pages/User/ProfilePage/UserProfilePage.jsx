@@ -22,12 +22,22 @@ function UserProfilePage() {
 
     // Actions on current user data
     const editProfileHandler = async (userData) => {
-        const updatedUser = await putRequest("/me", userData);
+        const formData = new FormData();
+
+        formData.append('username', userData.username);
+        formData.append('email', userData.email);
+
+        // Add file if a new one has been selected
+        if (userData.avatar) {
+            formData.append('avatar', userData.avatar);
+        }
+
+        const updatedUser = await putRequest("/me", formData);
         setUser(updatedUser);
         setIsEditAccountOpen(false);
     };
 
-    const deleteProfilHandler = async () => {
+    const deleteProfileHandler = async () => {
         const confirmDelete = window.confirm("Voulez-vous supprimer votre compte ? Cette action est irréversible.");
         if (!confirmDelete) return;
 
@@ -80,7 +90,7 @@ function UserProfilePage() {
                         <UserEditForm
                             onSubmit={editProfileHandler}
                             onClose={() => setIsEditAccountOpen(false)}
-                            onDelete={deleteProfilHandler}
+                            onDelete={deleteProfileHandler}
                         />
                     </CommonModal>
                 }

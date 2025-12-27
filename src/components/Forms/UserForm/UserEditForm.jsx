@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import {useState, useContext} from "react";
 import formClasses from '../Forms.module.css';
 import classes from "./UserEditForm.module.css";
 import Button from "../../ui/Button/Button.jsx";
@@ -8,38 +8,28 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
 
     const { user } = useContext(AuthContext);
 
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [avatar, setAvatar] = useState("");
-
-    useEffect(() => {
-        if (user) {
-            setUsername(user.username || "");
-            setEmail(user.email || "");
-            setAvatar(user.avatar || "");
-        }
-    }, [user]);
+    const [formData, setFormData] = useState({
+        username: user?.username || '',
+        email: user?.email || '',
+        avatar: null
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const userData = {
-            username,
-            email,
-            avatar,
-        };
-
-        onSubmit(userData);
+        onSubmit(formData);
     };
 
-    const handleInputChange = (setter) => (e) => {
-        setter(e.target.value);
+    const handleInputChange = (field) => (e) => {
+        setFormData(prev => ({
+            ...prev,
+            [field]: e.target.value
+        }));
     };
 
     return (
         <form onSubmit={handleSubmit} className={formClasses['form']} >
             <div className={classes['delete-profile-btn']}>
-                <Button type="submit" onClick={onDelete} className={'small-green-btn'}>
+                <Button type="button" onClick={onDelete} className={'small-green-btn'}>
                     Supprimer mon profil
                 </Button>
             </div>
@@ -48,9 +38,9 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
             <input
                 type="text"
                 id="username"
-                value={username}
+                value={formData.username}
                 placeholder="Pseudo"
-                onChange={handleInputChange(setUsername)}
+                onChange={handleInputChange('username')}
                 className={formClasses['common-input']}
                 required
             />
@@ -58,20 +48,23 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
             <label htmlFor="email">Email</label>
             <input
                 type="email"
-                value={email}
+                value={formData.email}
                 placeholder="Email"
-                onChange={handleInputChange(setEmail)}
+                onChange={handleInputChange('email')}
                 className={formClasses['common-input']}
                 required
             />
 
             <label htmlFor="avatar">Avatar</label>
             <input
-                // type="file"
+                type="file"
                 id="avatar"
-                value={avatar}
-                className={formClasses['common-select-input']}
-                onChange={handleInputChange(setAvatar)}
+                accept="image/*"
+                className={formClasses['common-file-input']}
+                onChange={(e) => {
+                    const file = e.target.files[0];
+                    setFormData(prev => ({ ...prev, avatar: file }));
+                }}
             />
 
             <div>
