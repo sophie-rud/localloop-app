@@ -1,10 +1,7 @@
 import classes from './ProfileCard.module.css'
 import {Pencil} from "lucide-react";
-import {useContext} from "react";
-import {AuthContext} from "../../contexts/auth-context.jsx";
 
-function ProfileCard() {
-    const { user } = useContext(AuthContext);
+function ProfileCard({ user, onEditClick }) {
 
     return (
         <div className={classes['profile-card']}>
@@ -15,7 +12,9 @@ function ProfileCard() {
                 <p><strong> {user.username} </strong></p>
                 <p className={classes['user-mail']}> {user.email} </p>
             </div>
-            <div className={classes['user-edit-icon']}> <Pencil /> </div>
+            <div className={classes['user-edit-icon']} onClick={onEditClick} >
+                <Pencil />
+            </div>
         </div>
     )
 }

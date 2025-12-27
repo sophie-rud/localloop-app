@@ -30,6 +30,7 @@
 .user-edit-icon {
     width: 1.1rem;
     margin-bottom: auto;
+    cursor: pointer;
     /*margin-right: 1rem;*/
 }
 

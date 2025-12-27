@@ -3,19 +3,40 @@ import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import Button from "../../../components/ui/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import classes from "./UserProfilePage.module.css"
 import {AuthContext} from "../../../contexts/auth-context.jsx";
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
+import {deleteRequest, putRequest} from "../../../services/request.jsx";
+import UserEditForm from "../../../components/Forms/UserForm/UserEditForm.jsx";
+import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 
 function UserProfilePage() {
     const { setSelectedTrack, removeTrack } = useTracksStore();
     const navigate = useNavigate();
-    const { user, isLogin } = useContext(AuthContext);
+    const { user, setUser, isLogin } = useContext(AuthContext);
+    const [isEditAccountOpen, setIsEditAccountOpen] = useState(false);
 
     if (isLogin === undefined) return <p>Chargement...</p>;
     if (!isLogin) return <p>Connectez-vous pour accéder à votre profil</p>;
 
+    // Actions on current user data
+    const editProfileHandler = async (userData) => {
+        const updatedUser = await putRequest("/me", userData);
+        setUser(updatedUser);
+        setIsEditAccountOpen(false);
+    };
+
+    const deleteProfilHandler = async () => {
+        const confirmDelete = window.confirm("Voulez-vous supprimer votre compte ? Cette action est irréversible.");
+        if (!confirmDelete) return;
+
+        await deleteRequest("/me");
+        setUser(null);
+        navigate("/");
+    };
+
+    // Tracks display filters
     const publishedTracks = (user?.createdTracks ?? []).filter(
         (track) => track.isPublished === true
     );
@@ -24,7 +45,8 @@ function UserProfilePage() {
         (track) => track.isPublished === false
     ) ?? [];
 
-    const handleCreate = () => {
+    // Actions on user tracks
+    const createTrackHandler = () => {
         if (user.roleId === 1) {
             navigate(`/user/tracks/create`)
         } else if (user.roleId === 2) {
@@ -32,7 +54,7 @@ function UserProfilePage() {
         }
     }
 
-    const handleEdit = (track) => {
+    const editTrackHandler = (track) => {
         setSelectedTrack(track);
         if (user.roleId === 1) {
             navigate(`/user/tracks/${track.id}/edit`);
@@ -41,7 +63,7 @@ function UserProfilePage() {
         }
     };
 
-    const handleDelete = async (track) => {
+    const deleteTrackHandler = async (track) => {
         await removeTrack(track.id);
     };
 
@@ -49,17 +71,29 @@ function UserProfilePage() {
         <main className={user?.roleId === 2 ? adminClasses['main-admin'] : ''}>
             <h1>Hello {user.username} !</h1>
             <section>
-                <ProfileCard />
+                <ProfileCard
+                    user={user}
+                    onEditClick={() => setIsEditAccountOpen(true)}
+                />
+                {isEditAccountOpen &&
+                    <CommonModal onClose={() => setIsEditAccountOpen(false)}>
+                        <UserEditForm
+                            onSubmit={editProfileHandler}
+                            onClose={() => setIsEditAccountOpen(false)}
+                            onDelete={deleteProfilHandler}
+                        />
+                    </CommonModal>
+                }
             </section>
-            <Button type="button" onClick={handleCreate} className={'green-btn'}>+ Publier un parcours</Button>
+            <Button type="button" onClick={createTrackHandler} className={'green-btn'}>+ Publier un parcours</Button>
             <section className={classes['my-tracks-section']}>
                 <h2>Mes parcours</h2>
                 <div>
                     <h3>Parcours publiés</h3>
                     <TracksList
                         tracks={publishedTracks}
-                        onEdit={handleEdit}
-                        onDelete={handleDelete}
+                        onEdit={editTrackHandler}
+                        onDelete={deleteTrackHandler}
                         >
                     </TracksList>
                 </div>
@@ -67,8 +101,8 @@ function UserProfilePage() {
                     <h3>Parcours non publiés</h3>
                     <TracksList
                         tracks={nonPublishedTracks}
-                        onEdit={handleEdit}
-                        onDelete={handleDelete}
+                        onEdit={editTrackHandler}
+                        onDelete={deleteTrackHandler}
                     />
                 </div>
             </section>

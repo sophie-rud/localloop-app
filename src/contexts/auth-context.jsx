@@ -44,7 +44,8 @@ export const AuthProvider = ({children}) =>
             isLogin,
             user,
             login,
-            logout
+            logout,
+            setUser,
         }}>
             {children}
         </AuthContext.Provider>

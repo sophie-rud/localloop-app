@@ -1,6 +1,6 @@
 import classes from "./CommonModal.module.css";
 
-function Modal({children}) {
+function CommonModal({children}) {
     return (
         <section className={classes['modal']}>
             <div className={classes['modal-content']}>
@@ -10,4 +10,4 @@ function Modal({children}) {
     )
 }
 
-export default Modal;
+export default CommonModal;
