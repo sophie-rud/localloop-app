@@ -1,7 +1,7 @@
 import StepForm from "../../Forms/StepForm/StepForm.jsx";
 import classes from "../../ui/CommonModal/CommonModal.module.css"
 
-function StepModal({ isOpen, onClose, step, places, trackId, onStepSave }) {
+function StepModal({ isOpen, onClose, step, trackId, onStepSave }) {
     if (!isOpen) return null;
 
     const handleSave = (stepData) => {
@@ -15,7 +15,6 @@ function StepModal({ isOpen, onClose, step, places, trackId, onStepSave }) {
             <div className={classes['modal-content']}>
                 <StepForm
                     step={step}
-                    places={places}
                     onSubmit={handleSave}
                     onClose={onClose}
                 />

@@ -1,11 +1,13 @@
 import classes from './StepPresentation.module.css';
 
 function StepPresentation({step}) {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
     return (
         <div className={classes['step-presentation']}>
             <div className={classes['step-header']}>
                 <div className={classes['step-presentation-photo']}>
-                    <img src={step.photo} alt={step.name} className={classes['image']} />
+                    <img src={`${baseUrl}${step.photo}`} alt={step.name} className={classes['image']} />
                 </div>
                 <h3 className={classes['step-title']}>{step.name}</h3>
             </div>

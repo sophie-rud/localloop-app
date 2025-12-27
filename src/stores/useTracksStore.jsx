@@ -57,16 +57,16 @@ const useTracksStore = create((set, get) => {
             set({ selectedStep: step });
             return step;
         }),
-        addStep: async (trackId, stepData) => withLoadingAndError(set, async () => {
-            const newStep = await postRequest(`/tracks/${trackId}/steps`, { ...stepData, trackId });
+        addStep: async (trackId, formData) => withLoadingAndError(set, async () => {
+            const newStep = await postRequest(`/tracks/${trackId}/steps`, formData);
             set(state => ({
                 steps: [...state.steps, newStep]
             }));
             return newStep;
         }),
-        editStep: async (trackId, stepData) =>
+        editStep: async (trackId, stepId, formData) =>
             withLoadingAndError(set, async () => {
-                const updatedStep = await putRequest(`/tracks/${trackId}/steps/${stepData.id}`, stepData);
+                const updatedStep = await putRequest(`/tracks/${trackId}/steps/${stepId}`, formData);
                 set(state => ({
                     steps: state.steps.map(step =>
                         step.id === updatedStep.id ? updatedStep : step

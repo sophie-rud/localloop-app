@@ -39,7 +39,7 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
             </section>
             <section>
                 {isStepsManagerDisplayed && selectedTrack?.id && (
-                    <StepsManager track={selectedTrack} />
+                    <StepsManager />
                 )}
             </section>
         </main>

@@ -1,43 +1,46 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import usePlacesStore from "../../../stores/usePlacesStore.jsx";
 
-function StepForm({ step, places, onClose, onSubmit }) {
+function StepForm({ step, onClose, onSubmit }) {
+    const { places } = usePlacesStore();
 
-    const [placeId, setPlaceId] = useState('');
-    const [photo, setPhoto] = useState('');
-    const [name, setName] = useState('');
-    const [stepOrder, setStepOrder] = useState('');
-    const [anecdote, setAnecdote] = useState('');
-    const [advice, setAdvice] = useState('');
+    const [formData, setFormData] = useState({
+        photo: null,
+        placeId: step.placeId?.toString() ?? '',
+        name: step.name || '',
+        stepOrder: step.stepOrder?.toString() ?? '',
+        anecdote: step.anecdote || '',
+        advice: step.advice || '',
+    });
 
-    useEffect(() => {
-        if (step) {
-            setPlaceId(step.placeId?.toString() ?? "");
-            setPhoto(step.photo || "");
-            setName(step.name || "");
-            setStepOrder(step.stepOrder?.toString() ?? "");
-            setAnecdote(step.anecdote || "");
-            setAdvice(step.advice || "");
-        }
-    }, [step]);
-
-    const handleInputChange = (setter) => (e) => {
-        setter(e.target.value);
+    const handleInputChange = (field) => (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        setFormData(prev => ({
+            ...prev,
+            [field]: value
+        }));
     };
 
-        const submitHandler = (e) => {
-            e.preventDefault();
-            const step = {
-                placeId: parseInt(placeId),
-                photo: photo,
-                name,
-                stepOrder: parseInt(stepOrder),
-                anecdote,
-                advice,
-            };
-            onSubmit(step)
-        };
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        const formDataToSubmit = new FormData();
+
+        formDataToSubmit.append('placeId', parseInt(formData.placeId));
+        formDataToSubmit.append('name', formData.name);
+        formDataToSubmit.append('stepOrder', parseInt(formData.stepOrder));
+        formDataToSubmit.append('anecdote', formData.anecdote);
+        formDataToSubmit.append('advice', formData.advice);
+
+        // Add photo if a new one has been selected
+        if (formData.photo) {
+            formDataToSubmit.append('photo', formData.photo);
+        }
+
+        onSubmit(formDataToSubmit);
+    }
 
     return (
         <div className={formClasses['step-form']}>
@@ -47,8 +50,8 @@ function StepForm({ step, places, onClose, onSubmit }) {
                 <label htmlFor="placeId">Lieu</label>
                 <select id="placeId"
                         className={formClasses['common-select-input']}
-                        value = {placeId}
-                        onChange={handleInputChange(setPlaceId)}
+                        value = {formData.placeId}
+                        onChange={handleInputChange('placeId')}
                         >
                     <option value="">Sélectionner un lieu</option>
                     {places.map(place => (
@@ -58,17 +61,20 @@ function StepForm({ step, places, onClose, onSubmit }) {
                     ))}
                 </select>
 
-                <label htmlFor="photoStep" className={formClasses['file-upload-btn']}>
-                    Photo
+                <label htmlFor="photo" className={formClasses['file-upload-btn']}>
+                    Photo de l'étape
                 </label>
                 <input
-                    // type="file"
-                    type="text"
-                    id="photoStep"
-                    placeholder="photo"
+                    type="file"
+                    id="photo"
+                    accept="image/*"
                     className={formClasses['common-file-input']}
-                    value={photo}
-                    onChange={handleInputChange(setPhoto)}
+                    onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            setFormData(prev => ({ ...prev, photo: file }));
+                        }
+                    }}
                 />
 
                 <label htmlFor="name">Titre de l'étape</label>
@@ -77,8 +83,8 @@ function StepForm({ step, places, onClose, onSubmit }) {
                     id="name"
                     placeholder="Nom de l'étape"
                     className={formClasses['common-input']}
-                    value={name}
-                    onChange={handleInputChange(setName)}
+                    value={formData.name}
+                    onChange={handleInputChange('name')}
                 />
 
                 <label htmlFor="stepOrder">Ordre de l'étape</label>
@@ -87,8 +93,8 @@ function StepForm({ step, places, onClose, onSubmit }) {
                     id="stepOrder"
                     placeholder="Ordre de l'étape"
                     className={formClasses['common-input']}
-                    value={stepOrder}
-                    onChange={handleInputChange(setStepOrder)}
+                    value={formData.stepOrder}
+                    onChange={handleInputChange('stepOrder')}
                 />
 
                 <label htmlFor="anecdote">Anecdote</label>
@@ -96,8 +102,8 @@ function StepForm({ step, places, onClose, onSubmit }) {
                     id="anecdote"
                     placeholder="Anecdote"
                     className={formClasses['common-textarea']}
-                    value={anecdote}
-                    onChange={handleInputChange(setAnecdote)}
+                    value={formData.anecdote}
+                    onChange={handleInputChange('anecdote')}
                 />
 
                 <label htmlFor="advice">Conseil</label>
@@ -105,8 +111,8 @@ function StepForm({ step, places, onClose, onSubmit }) {
                     id="advice"
                     placeholder="Conseil"
                     className={formClasses['common-textarea']}
-                    value={advice}
-                    onChange={handleInputChange(setAdvice)}
+                    value={formData.advice}
+                    onChange={handleInputChange('advice')}
                 />
 
                 <Button type="submit" className={'small-blue-btn'} >Enregistrer mon étape</Button>

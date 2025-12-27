@@ -4,17 +4,17 @@ import StepModal from "../StepModal/StepModal.jsx";
 import Button from "../../ui/Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import classes from "./StepsManager.module.css"
-import usePlaces from "../../../hooks/usePlaces.jsx";
 
-function StepsManager({ trackId }) {
+function StepsManager() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
-    const { steps, loadStepsForTrack, addStep, editStep, loading, error } = useTracksStore();
-    const { places, loading: loadingPlaces, error: errorPlaces } = usePlaces();
+    const { selectedTrack, addStep, editStep, loading, error } = useTracksStore();
 
-    if (loading || loadingPlaces) return <p>Chargement...</p>;
+    if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
-    if (errorPlaces) return <p>Erreur de chargement des lieux : {error}</p>;
+
+    const track = selectedTrack;
+    const steps = track?.steps;
 
     const openAddModal = () => {
         setStepToEdit(null);
@@ -31,15 +31,13 @@ function StepsManager({ trackId }) {
         setStepToEdit(null);
     };
 
-    const handleStepSave = async (data) => {
+    const handleStepSave = async (formData) => {
         if (stepToEdit) {
-            await editStep(trackId, { ...stepToEdit, ...data });
+            await editStep(track.id, stepToEdit.id, { ...stepToEdit, ...formData });
         } else {
-            await addStep(trackId, data);
+            await addStep(track.id, formData);
         }
-        await loadStepsForTrack(trackId);
-        setIsModalOpen(false);
-        setStepToEdit(null);
+        closeModal();
     };
 
 
@@ -57,9 +55,8 @@ function StepsManager({ trackId }) {
 
              <StepModal
                 isOpen={isModalOpen}
-                trackId={trackId}
+                trackId={track.id}
                 step={stepToEdit}
-                places={places}
                 onStepSave={handleStepSave}
                 onClose={closeModal}
             />
