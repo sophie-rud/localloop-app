@@ -14,8 +14,8 @@ const usePlacesStore = create((set, get) => {
             const places = await getRequest("/places");
             set({ places });
         }),
-        addPlace: (place) => withLoadingAndError(set, async () => {
-            const newPlace = await postRequest("/places", place);
+        addPlace: (formData) => withLoadingAndError(set, async () => {
+            const newPlace = await postRequest("/places", formData);
             set((state) => ({ places: [...state.places, newPlace] }));
             return newPlace;
         }),
@@ -25,8 +25,8 @@ const usePlacesStore = create((set, get) => {
                 places: state.places.filter((place) => place.id !== id)
             }));
         }),
-        editPlace: (placeData) => withLoadingAndError(set, async () => {
-            const updatedPlace = await putRequest(`/places/${placeData.id}`, placeData);
+        editPlace: (id, formData) => withLoadingAndError(set, async () => {
+            const updatedPlace = await putRequest(`/places/${id}`, formData);
             set((state) => ({
             places: state.places.map((place) =>
                 place.id === updatedPlace.id ? updatedPlace : place),

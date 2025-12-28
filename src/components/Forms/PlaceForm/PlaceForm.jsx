@@ -1,54 +1,47 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import usePlacesStore from "../../../stores/usePlacesStore.jsx";
 
 function PlaceForm({ onSubmit, onClose }) {
-
     const { selectedPlace } = usePlacesStore()
 
-    const [name, setName] = useState('');
-    const [city, setCity] = useState('');
-    const [description, setDescription] = useState('');
-    const [photo, setPhoto] = useState('');
-    const [department, setDepartment] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-
-    useEffect(() => {
-        if (selectedPlace) {
-            setName(selectedPlace.name || '');
-            setCity(selectedPlace.city || '');
-            setDescription(selectedPlace.description || '');
-            setPhoto(selectedPlace.photo || '');
-            setDepartment(selectedPlace.department_id || '');
-            setLatitude(selectedPlace.latitude || '');
-            setLongitude(selectedPlace.longitude || '');
-        }
-    }, [selectedPlace]);
+    const [formData, setFormData] = useState({
+        photo: null,
+        name: selectedPlace.name || '',
+        city: selectedPlace.city || '',
+        description: selectedPlace.description || '',
+        departmentId: selectedPlace.departmentId?.toString() ?? '',
+        latitude: selectedPlace.latitude || '',
+        longitude: selectedPlace.longitude || '',
+    });
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        const place = {
-            name,
-            city,
-            description,
-            photo,
-            latitude,
-            longitude,
-        };
-        onSubmit(place);
+        const formDataToSubmit = new FormData();
+
+        formDataToSubmit.append('name', formData.name);
+        formDataToSubmit.append('city', formData.city);
+        formDataToSubmit.append('description', formData.description);
+        formDataToSubmit.append('departmentId', parseInt(formData.departmentId));
+        formDataToSubmit.append('latitude', formData.latitude);
+        formDataToSubmit.append('longitude', formData.longitude);
+
+        // Add photo if a new one has been selected
+        if (formData.photo) {
+            formDataToSubmit.append('photo', formData.photo);
+        }
+
+        onSubmit(formDataToSubmit);
     }
 
-
-    const handleInputChange = (setter) => (e) => {
-        setter(e.target.value);
+    const handleInputChange = (field) => (e) => {
+        setFormData(prev => ({ ...prev, [field]: e.target.value }));
     };
 
-
     return (
-        < form onSubmit={submitHandler} className={formClasses['step-form']}>
+        <form onSubmit={submitHandler} className={formClasses['step-form']}>
             <h3>{ selectedPlace ? "Modifier le lieu" : "Nouveau lieu"}</h3>
 
             <label htmlFor="name">Nom du lieu</label>
@@ -57,8 +50,8 @@ function PlaceForm({ onSubmit, onClose }) {
                 id="name"
                 placeholder="Nom du lieu"
                 className={formClasses['common-input']}
-                value={name}
-                onChange={handleInputChange(setName)}
+                value={formData.name}
+                onChange={handleInputChange('name')}
             />
 
             <label htmlFor="city">Ville</label>
@@ -67,8 +60,8 @@ function PlaceForm({ onSubmit, onClose }) {
                 id="city"
                 placeholder="Ville"
                 className={formClasses['common-input']}
-                value={city}
-                onChange={handleInputChange(setCity)}
+                value={formData.city}
+                onChange={handleInputChange('city')}
             />
 
             <label htmlFor="description">Description</label>
@@ -76,29 +69,32 @@ function PlaceForm({ onSubmit, onClose }) {
                 id="description"
                 placeholder="Description"
                 className={formClasses['common-textarea']}
-                value={description}
-                onChange={handleInputChange(setDescription)}
+                value={formData.description}
+                onChange={handleInputChange('description')}
             />
 
             <label htmlFor="photo" className={formClasses['file-upload-btn']}>
                 Photo
             </label>
             <input
-                // type="file"
-                type="text"
+                type="file"
                 id="photo"
-                placeholder="Photo"
+                accept="image/*"
                 className={formClasses['common-file-input']}
-                value={photo}
-                onChange={handleInputChange(setPhoto)}
+                onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        setFormData(prev => ({ ...prev, photo: file }));
+                    }
+                }}
             />
 
-            <label htmlFor="department">Rôle</label>
+            <label htmlFor="departmentId">Rôle</label>
             <select
-                id="department"
-                value={department}
+                id="departmentId"
+                value={formData.departmentId}
                 className={formClasses['common-select-input']}
-                onChange={handleInputChange(setDepartment)}
+                onChange={handleInputChange('departmentId')}
             >
                 <option value="">Sélectionner un département</option>
                 <option value="1">Bas-Rhin</option>
@@ -111,8 +107,8 @@ function PlaceForm({ onSubmit, onClose }) {
                 id="latitude"
                 placeholder="Latitude"
                 className={formClasses['common-input']}
-                value={latitude}
-                onChange={handleInputChange(setLatitude)}
+                value={formData.latitude}
+                onChange={handleInputChange('latitude')}
             />
 
             <label htmlFor="longitude">Longitude</label>
@@ -121,13 +117,12 @@ function PlaceForm({ onSubmit, onClose }) {
                 id="longitude"
                 placeholder="Longitude"
                 className={formClasses['common-input']}
-                value={longitude}
-                onChange={handleInputChange(setLongitude)}
+                value={formData.longitude}
+                onChange={handleInputChange('longitude')}
             />
 
             <Button type="submit" className={'blue-btn'}>Enregistrer mon lieu</Button>
             {onClose && <Button type="button" onClick={onClose} className={'green-btn'}>Annuler</Button>}
-
         </form>
     );
 }

@@ -2,11 +2,12 @@ import { MapPin } from 'lucide-react';
 import classes from './PlaceCard.module.css';
 
 function PlaceCard({ place }) {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     return (
         <div className={classes['place-card']}>
             <div className={classes['place-card-photo']}>
-                <img src={place.photo} alt={place.name} className={classes['image']} />
+                <img src={`${baseUrl}${place.photo}`} alt={place.name} className={classes['image']} />
             </div>
 
             <h3 className={classes['place-title']}>
