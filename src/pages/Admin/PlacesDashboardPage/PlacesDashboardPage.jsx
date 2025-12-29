@@ -26,11 +26,11 @@ function PlacesDashboardPage() {
         setIsFormOpen(true);
     };
 
-    const handleSubmit = async (formData) => {
+    const handleSubmit = async (data) => {
         if (selectedPlace) {
-            await editPlace(selectedPlace.id, {...selectedPlace, ...formData});
+            await editPlace(selectedPlace.id, data);
         } else {
-            await addPlace(formData);
+            await addPlace(data);
         }
         setIsFormOpen(false);
     };

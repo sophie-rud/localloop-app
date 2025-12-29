@@ -24,9 +24,9 @@ function PlaceForm({ onSubmit, onClose }) {
         formDataToSubmit.append('name', formData.name);
         formDataToSubmit.append('city', formData.city);
         formDataToSubmit.append('description', formData.description);
-        formDataToSubmit.append('departmentId', parseInt(formData.departmentId));
-        formDataToSubmit.append('latitude', formData.latitude);
-        formDataToSubmit.append('longitude', formData.longitude);
+        formDataToSubmit.append('departmentId', String(formData.departmentId));
+        formDataToSubmit.append('latitude', String(formData.latitude));
+        formDataToSubmit.append('longitude', String(formData.longitude));
 
         // Add photo if a new one has been selected
         if (formData.photo) {
