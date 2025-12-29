@@ -13,8 +13,7 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
 
     const handleSubmit = async (data) => {
         if(selectedTrack) {
-            await editTrack(selectedTrack.id, { ...selectedTrack, ...data });
-            // setIsStepsManagerDisplayed(true);
+            await editTrack(selectedTrack.id, data);
         }
         else {
             const newTrack = await addTrack(data);

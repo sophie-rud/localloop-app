@@ -27,12 +27,12 @@ function TrackForm({ selectedTrack, themes, onSubmit }) {
         const formDataToSubmit = new FormData();
 
         formDataToSubmit.append('title', formData.title);
-        formDataToSubmit.append('themeId', parseInt(formData.themeId));
+        formDataToSubmit.append('themeId', String(formData.themeId));
         formDataToSubmit.append('distance', formData.distance);
         formDataToSubmit.append('duration', durationStringToMinutes(formData.duration));
         formDataToSubmit.append('difficulty', formData.difficulty);
         formDataToSubmit.append('presentation', formData.presentation);
-        formDataToSubmit.append('isPublished', Boolean(formData.isPublished));
+        formDataToSubmit.append('isPublished', formData.isPublished ? 'true' : 'false');
 
         // Add photo if a new one has been selected
         if (formData.photo) {
@@ -55,8 +55,8 @@ function TrackForm({ selectedTrack, themes, onSubmit }) {
             {loading && <p>Chargement...</p>}
             {error && <p>Erreur {error}</p>}
 
-            <label htmlFor="photoTrack" className={formClasses['file-upload-btn']}>
-                Photo
+            <label htmlFor="photo" className={formClasses['file-upload-btn']}>
+                Photo de présentation
             </label>
             <input
                 type="file"
