@@ -28,9 +28,9 @@ function StepForm({ step, onClose, onSubmit }) {
 
         const formDataToSubmit = new FormData();
 
-        formDataToSubmit.append('placeId', parseInt(formData.placeId));
+        formDataToSubmit.append('placeId', String(formData.placeId));
         formDataToSubmit.append('name', formData.name);
-        formDataToSubmit.append('stepOrder', parseInt(formData.stepOrder));
+        formDataToSubmit.append('stepOrder', String(formData.stepOrder));
         formDataToSubmit.append('anecdote', formData.anecdote);
         formDataToSubmit.append('advice', formData.advice);
 

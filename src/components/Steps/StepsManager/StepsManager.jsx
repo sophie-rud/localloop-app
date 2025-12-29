@@ -31,11 +31,11 @@ function StepsManager() {
         setStepToEdit(null);
     };
 
-    const handleStepSave = async (formData) => {
+    const handleStepSave = async (data) => {
         if (stepToEdit) {
-            await editStep(track.id, stepToEdit.id, { ...stepToEdit, ...formData });
+            await editStep(track.id, stepToEdit.id, data);
         } else {
-            await addStep(track.id, formData);
+            await addStep(track.id, data);
         }
         closeModal();
     };
@@ -55,7 +55,6 @@ function StepsManager() {
 
              <StepModal
                 isOpen={isModalOpen}
-                trackId={track.id}
                 step={stepToEdit}
                 onStepSave={handleStepSave}
                 onClose={closeModal}
