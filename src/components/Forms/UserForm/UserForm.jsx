@@ -9,14 +9,14 @@ function UserForm({ onSubmit, onClose }) {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
-    const [role, setRole] = useState("user");
+    const [roleId, setRoleId] = useState(1);
     const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
         if (selectedUser) {
             setUsername(selectedUser.username || "");
             setEmail(selectedUser.email || "");
-            setRole(selectedUser.role || "user");
+            setRoleId(selectedUser.roleId ?? 1);
             setIsActive(selectedUser.isActive ?? true);
         }
     }, [selectedUser]);
@@ -27,7 +27,7 @@ function UserForm({ onSubmit, onClose }) {
         const userData = {
             username,
             email,
-            role,
+            roleId,
             isActive,
         };
 
@@ -35,7 +35,12 @@ function UserForm({ onSubmit, onClose }) {
     };
 
     const handleInputChange = (setter) => (e) => {
-        setter(e.target.value);
+        const value =
+            e.target.type === "checkbox"
+                ? e.target.checked
+                : e.target.value;
+
+        setter(value);
     };
 
     return (
@@ -61,15 +66,15 @@ function UserForm({ onSubmit, onClose }) {
                 required
             />
 
-            <label htmlFor="role">Rôle</label>
+            <label htmlFor="roleId">Rôle</label>
             <select
-                id="role"
-                value={role}
+                id="roleId"
+                value={roleId}
                 className={formClasses['common-select-input']}
-                onChange={handleInputChange(setRole)}
+                onChange={handleInputChange(setRoleId)}
             >
-                <option value="user">Utilisateur</option>
-                <option value="admin">Admin</option>
+                <option value="1">Utilisateur</option>
+                <option value="2">Admin</option>
             </select>
 
             <label>

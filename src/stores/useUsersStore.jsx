@@ -14,6 +14,11 @@ const useUsersStore = create((set, get) => {
             const users = await getRequest("/users");
             set({ users });
         }),
+        signup: (user) => withLoadingAndError(set, async () => {
+            const newUser = await postRequest("/signup", user);
+            set((state) => ({ users: [...state.users, newUser] }));
+            return newUser;
+        }),
         addUser: (user) => withLoadingAndError(set, async () => {
             const newUser = await postRequest("/users", user);
             set((state) => ({ users: [...state.users, newUser] }));
@@ -23,8 +28,8 @@ const useUsersStore = create((set, get) => {
             await deleteRequest(`/users/${id}`);
             set((state) => ({ users: state.users.filter(user => user.id !== id) }));
         }),
-        editUser: (userData) => withLoadingAndError(set, async () => {
-            const updatedUser = await putRequest(`/users/${userData.id}`, userData);
+        editUser: (id, userData) => withLoadingAndError(set, async () => {
+            const updatedUser = await putRequest(`/users/${id}`, userData);
             set((state) => ({
                 users: state.users.map((user) => user.id === updatedUser.id ? updatedUser : user)
             }));

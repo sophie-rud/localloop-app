@@ -2,17 +2,23 @@ import SignupForm from "../../../components/Forms/SignupForm/SignupForm.jsx";
 import classes from '../SignupAndLoginPage.module.css';
 import {Link, useNavigate} from "react-router-dom";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
+import {useState} from "react";
 
 function SignupPage() {
     const navigate = useNavigate();
-    const { addUser, loading, error } = useUsersStore();
+    const { signup, loading, error } = useUsersStore();
+    const [errors, setErrors] = useState({});
 
     const handleSignup = async (data) => {
-        if (data.password !== data.confirmedPassword) {
-            alert ("Les mots de passe ne correspondent pas");
-        }
-        if (!data.email || !data.username || !data.password || !data.confirmedPassword) {
-            alert("Tous les champs doivent être complétés");
+        const newErrors = {};
+
+        if (!data.email) newErrors.email = "Email obligatoire";
+        if (!data.username) newErrors.username = "Pseudo obligatoire";
+        if (!data.password) newErrors.password = "Mot de passe obligatoire";
+        if (data.password !== data.confirmPassword) newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
+
+        if (Object.keys(newErrors).length > 0) {
+            return setErrors(newErrors);
         }
 
         const newUser = {
@@ -22,8 +28,13 @@ function SignupPage() {
             avatar: null,
         }
 
-        await addUser(newUser);
-        navigate("/login");
+        try {
+            await signup(newUser);
+            navigate("/login");
+        } catch(error) {
+            setErrors({ erreur: error.message });
+        }
+
     }
 
     return (
@@ -36,7 +47,10 @@ function SignupPage() {
             <div>
                 {loading && <p>Création du compte…</p>}
                 {error && <p style={{ color: "red" }}>{error}</p>}
-                <SignupForm onSubmit={handleSignup} />
+                <SignupForm
+                    onSubmit={handleSignup}
+                    errors={errors}
+                />
                 <Link to="/login">
                     <span>Se connecter</span>
                 </Link>

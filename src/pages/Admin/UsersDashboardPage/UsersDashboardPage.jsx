@@ -29,7 +29,7 @@ function UserDashboardPage() {
 
     const handleSubmit = async (data) => {
         if (selectedUser) {
-            await editUser({...selectedUser, ...data});
+            await editUser(selectedUser.id, data);
         } else {
             await addUser(data);
         }

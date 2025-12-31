@@ -68,6 +68,13 @@ input::placeholder, textarea::placeholder {
     box-shadow: var(--shadow);
 }
 
+.error {
+    width: 130%;
+    text-align: center;
+    color: #77081e;
+    font-weight: bold;
+}
+
 /* RESPONSIVE */
 /* Desktop */
 @media (min-width: 1200px) {
