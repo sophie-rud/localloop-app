@@ -32,7 +32,7 @@ function TrackForm({ selectedTrack, themes, onSubmit }) {
         formDataToSubmit.append('duration', durationStringToMinutes(formData.duration));
         formDataToSubmit.append('difficulty', formData.difficulty);
         formDataToSubmit.append('presentation', formData.presentation);
-        formDataToSubmit.append('isPublished', formData.isPublished ? 'true' : 'false');
+        formDataToSubmit.append('isPublished', String(formData.isPublished));
 
         // Add photo if a new one has been selected
         if (formData.photo) {

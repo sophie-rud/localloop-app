@@ -18,7 +18,7 @@ function UserRow({ user, onEdit, onDelete, onBlock }) {
                 <Button type="submit" className={'small-blue-btn'} onClick={() => onBlock(user)} > {user.isActive ? "Bloquer" : <Ban /> } </Button>
             </td>
             <td data-label="Supprimer">
-                <Button type="submit" className={'small-green-btn'} onClick={() => onDelete(user.id)} > <Trash2 /> </Button>
+                <Button type="button" className={'small-green-btn'} onClick={() => onDelete(user.id)} > <Trash2 /> </Button>
             </td>
         </tr>
     )
