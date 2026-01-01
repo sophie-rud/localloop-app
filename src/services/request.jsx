@@ -22,7 +22,7 @@ async function fetchRequest(path, options = {}) {
 
         if (response.status === 401) {
             // Paths that should NOT attempt a refresh
-            const noRefreshRoutes = ['/login', '/signup', '/me', '/', '/tracks'];
+            const noRefreshRoutes = ['/login', '/signup', '/forgot-password', '/me', '/', '/tracks'];
 
             if (noRefreshRoutes.includes(path)) {
                 throw new Error("Non authentifié");
