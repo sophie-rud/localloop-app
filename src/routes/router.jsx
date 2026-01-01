@@ -18,6 +18,8 @@ import MapPage from "../pages/Map/MapPage.jsx";
 import PlacesPage from "../pages/Places/PlacesPage/PlacesPage.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
+import ForgotPasswordPage from "../pages/Password/ForgotPasswordPage/ForgotPasswordPage.jsx";
+import ResetPasswordPage from "../pages/Password/ResetPasswordPage/ResetPasswordPage.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -30,6 +32,14 @@ export const router = createBrowserRouter ([
             {
                 path: "signup",
                 element: <SignupPage/>
+            },
+            {
+                path: "forgot-password",
+                element: <ForgotPasswordPage/>
+            },
+            {
+                path: "reset-password/:token",
+                element: <ResetPasswordPage/>
             },
         ]
     },
