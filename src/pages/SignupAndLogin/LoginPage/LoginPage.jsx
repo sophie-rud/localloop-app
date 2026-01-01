@@ -1,6 +1,6 @@
 import LoginForm from "../../../components/Forms/LoginForm/LoginForm.jsx";
 import classes from '../SignupAndLoginPage.module.css';
-import {Link, useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {postRequest} from "../../../services/request.jsx";
 import {useContext} from "react";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
@@ -32,9 +32,9 @@ function LoginPage() {
             </div>
             <div>
                 <LoginForm onSubmit={handleLogin} />
-                <Link to="/signup">
+                <NavLink to="/signup">
                     <span>Créer un compte</span>
-                </Link>
+                </NavLink>
             </div>
         </main>
     )

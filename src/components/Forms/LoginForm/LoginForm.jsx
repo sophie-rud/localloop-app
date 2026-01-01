@@ -1,7 +1,7 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 function LoginForm({ onSubmit }) {
     const [email, setEmail] = useState('');
@@ -37,9 +37,9 @@ function LoginForm({ onSubmit }) {
                 required
             />
 
-            <Link to="">
-                <p>Mot de passe oublié</p>
-            </Link>
+            <NavLink to="/forgot-password">
+                <span>Mot de passe oublié</span>
+            </NavLink>
             <Button type="submit" className={'small-blue-btn'}>Connexion</Button>
         </form>
     );
