@@ -75,6 +75,18 @@ input::placeholder, textarea::placeholder {
     font-weight: bold;
 }
 
+.display-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.display-row label {
+    width: 25%;
+    font-size: var(--font-size-small);
+}
+
 /* RESPONSIVE */
 /* Desktop */
 @media (min-width: 1200px) {
@@ -85,5 +97,12 @@ input::placeholder, textarea::placeholder {
 
     .login-form, .signup-form {
         margin-top: 3rem;
+    }
+
+    .display-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 70%;
     }
 }
