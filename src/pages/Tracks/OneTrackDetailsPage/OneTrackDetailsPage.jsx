@@ -9,7 +9,7 @@ import classes from "./OneTrackDetailsPage.module.css"
 function OneTrackDetailsPage() {
     const { id } = useParams();
     const trackId = parseInt(id);
-    const { selectedTrack, loadTrackById, loading, error } = useTracksStore()
+    const { selectedTrack, loadTrackById, getStepsForSelectedTrack, loading, error } = useTracksStore()
 
     useEffect(() => {
         if (trackId) {
@@ -21,12 +21,12 @@ function OneTrackDetailsPage() {
     if (error) return <p>Erreur : {error}</p>;
     if (!selectedTrack) return <p>Parcours introuvable</p>;
 
-    const steps = selectedTrack.steps || [];
+    const steps = getStepsForSelectedTrack();
 
     return (
         <main className={classes['one-track-page-main']}>
             <section className={classes['track-presentation-section']}>
-                <TrackPresentation track={selectedTrack} />
+                <TrackPresentation track={selectedTrack} steps={steps} />
             </section>
             <div className={classes['display-manager']}>
                 <section className={classes['map-track-section']}>

@@ -4,13 +4,13 @@ import Button from "../../ui/Button/Button.jsx";
 import { minutesToDurationString } from "../../../utils/duration.js";
 import useUsersStore from "../../../stores/useUsersStore.jsx";
 
-function TrackPresentation({ track }) {
-    const { currentUser, toggleFavorite } = useUsersStore();
+function TrackPresentation({ track, steps }) {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const { currentUser, toggleFavorite } = useUsersStore();
 
     const isFavorite = currentUser.favorites?.includes(track.id);
 
-    const firstStep = track.steps?.[0];
+    const firstStep = steps?.[0];
     const place = firstStep?.place;
     const department = place?.department;
 
