@@ -1,5 +1,5 @@
 import StepsPreviewList from "../StepPreviewList/StepsPreviewList.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import StepModal from "../StepModal/StepModal.jsx";
 import Button from "../../ui/Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
@@ -8,13 +8,18 @@ import classes from "./StepsManager.module.css"
 function StepsManager() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
-    const { selectedTrack, addStep, editStep, loading, error } = useTracksStore();
+    const { selectedTrack: track, addStep, editStep, loadStepsForTrack, getStepsForSelectedTrack, loading, error } = useTracksStore();
+
+    useEffect(() => {
+        if (track?.id) {
+            loadStepsForTrack(track.id);
+        }
+    }, [loadStepsForTrack, track.id]);
+
+    const steps = getStepsForSelectedTrack();
 
     if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
-
-    const track = selectedTrack;
-    const steps = track?.steps;
 
     const openAddModal = () => {
         setStepToEdit(null);
@@ -34,6 +39,7 @@ function StepsManager() {
     const handleStepSave = async (data) => {
         if (stepToEdit) {
             await editStep(track.id, stepToEdit.id, data);
+            await loadStepsForTrack(track.id);
         } else {
             await addStep(track.id, data);
         }
@@ -50,6 +56,7 @@ function StepsManager() {
 
             <StepsPreviewList
                 steps={steps}
+                trackId={track.id}
                 onEdit={(step) => openEditModal(step)}
             />
 
