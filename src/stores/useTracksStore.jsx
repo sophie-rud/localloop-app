@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getRequest, postRequest, putRequest, deleteRequest } from "../services/request";
+import {getRequest, postRequest, putRequest, deleteRequest, patchRequest} from "../services/request";
 import withLoadingAndError from "../services/withLoadingAndError.jsx";
 
 const useTracksStore = create((set, get) => {
@@ -36,22 +36,43 @@ const useTracksStore = create((set, get) => {
             }));
             return updatedTrack;
         }),
-        getTrackFromListById: (id) => {
-            return get().tracks.find(t => t.id === Number(id)) || null;
-        },
+        // getTrackFromListById: (id) => {
+        //     return get().tracks.find(t => t.id === Number(id)) || null;
+        // },
 
         // STEPS
-        steps: [],
-        // loadStepsForTrack: async (trackId) => {
-        //     const allSteps = await getRequest("/steps");
-        //     const trackSteps = allSteps.filter(step => step.track_id === trackId);
-        //     set(state => ({ ...state, steps: trackSteps }));
-        //     return trackSteps;
-        // },
-        loadStepsForTrack: (trackId) => withLoadingAndError(set, async () => {
-            const steps = await getRequest(`/tracks/${trackId}/steps`);
-            set({ steps });
-        }),
+        selectedStep: null,
+        setSelectedStep: (step) => set({ selectedStep: step }),
+        updateTracksAndSelectedTrack: (trackId, updatedSteps) => {
+            set(state => {
+                const updatedTracks = state.tracks.map(track =>
+                    track.id === trackId
+                        ? { ...track, steps: updatedSteps }
+                        : track
+                );
+
+                const updatedSelectedTrack =
+                    state.selectedTrack?.id === trackId
+                        ? { ...state.selectedTrack, steps: updatedSteps }
+                        : state.selectedTrack;
+
+                return {
+                    tracks: updatedTracks,
+                    selectedTrack: updatedSelectedTrack
+                };
+            });
+        },
+        getStepsForSelectedTrack: () => {
+            const track = get().selectedTrack;
+            const steps = track?.steps || [];
+            return [...steps].sort((a, b) => a.stepOrder - b.stepOrder);
+        },
+        loadStepsForTrack: (trackId) =>
+            withLoadingAndError(set, async () => {
+                const steps = await getRequest(`/tracks/${trackId}/steps`);
+                get().updateTracksAndSelectedTrack(trackId, steps);
+                return steps;
+            }),
         loadOneStep: (trackId, stepId) => withLoadingAndError(set, async () => {
             const step = await getRequest(`/tracks/${trackId}/steps/${stepId}`);
             set({ selectedStep: step });
@@ -59,30 +80,44 @@ const useTracksStore = create((set, get) => {
         }),
         addStep: async (trackId, formData) => withLoadingAndError(set, async () => {
             const newStep = await postRequest(`/tracks/${trackId}/steps`, formData);
-            set(state => ({
-                steps: [...state.steps, newStep]
-            }));
+            const track = get().tracks.find(t => t.id === trackId);
+            const currentSteps = track?.steps || [];
+            const updatedSteps = [...currentSteps, newStep]
+
+            get().updateTracksAndSelectedTrack(trackId, updatedSteps);
             return newStep;
         }),
         editStep: async (trackId, stepId, formData) =>
             withLoadingAndError(set, async () => {
                 const updatedStep = await putRequest(`/tracks/${trackId}/steps/${stepId}`, formData);
-                set(state => ({
-                    steps: state.steps.map(step =>
-                        step.id === updatedStep.id ? updatedStep : step
-                    )
-                }));
+                const track = get().tracks.find(t => t.id === trackId);
+                const currentSteps = track?.steps || [];
+                const updatedSteps = currentSteps.map(step =>
+                    step.id === stepId ? updatedStep : step
+                );
+
+                get().updateTracksAndSelectedTrack(trackId, updatedSteps);
                 return updatedStep;
             }),
         removeStep: async (trackId, stepId) =>
             withLoadingAndError(set, async () => {
                 await deleteRequest(`/tracks/${trackId}/steps/${stepId}`);
-                set(state => ({
-                    steps: state.steps.filter(step => step.id !== stepId)
-                }));
+                const track = get().tracks.find(t => t.id === trackId);
+                const currentSteps = track?.steps || [];
+                const updatedSteps = currentSteps.filter(step => step.id !== stepId);
+
+                get().updateTracksAndSelectedTrack(trackId, updatedSteps);
             }),
-        selectedStep: null,
-        setSelectedStep: (step) => set({ selectedStep: step }),
+        reorderStep: (trackId, stepId, direction) =>
+            withLoadingAndError(set, async () => {
+                const response = await patchRequest(
+                    `/tracks/${trackId}/steps/${stepId}/reorder`,
+                    { direction }
+                );
+
+                get().updateTracksAndSelectedTrack(trackId, response.steps);
+                return response.steps;
+            }),
     }
 })
 
