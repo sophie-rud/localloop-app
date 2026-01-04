@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 
 function TracksPage() {
 
-    const { tracks, loadTracks, loading, error } = useTracksStore();
+    const { tracks, loadTracks, getStepsForSelectedTrack, loading, error } = useTracksStore();
     const [params] = useSearchParams();
     const query = params.get("query");
     const themes = [...new Map(tracks.map(track => [track.theme?.id, track.theme])).values()];
@@ -18,6 +18,8 @@ function TracksPage() {
             loadTracks();
         }
     }, [loadTracks, query]);
+
+    const steps = getStepsForSelectedTrack();
 
     const [filters, setFilters] = useState({
         difficulty: "",
@@ -35,7 +37,7 @@ function TracksPage() {
         if (!query) return true;
         const term = query.toLowerCase();
 
-        const firstPlace = track.steps?.[0]?.place;
+        const firstPlace = steps?.[0]?.place;
         const department = firstPlace?.department;
 
         return (
