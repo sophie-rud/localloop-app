@@ -8,7 +8,7 @@ import classes from "./StepsManager.module.css"
 function StepsManager() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
-    const { selectedTrack: track, addStep, editStep, loadStepsForTrack, getStepsForSelectedTrack, loading, error } = useTracksStore();
+    const { selectedTrack: track, addStep, editStep, loadStepsForTrack, getStepsForSelectedTrack, reorderStep, loading, error } = useTracksStore();
 
     useEffect(() => {
         if (track?.id) {
@@ -46,6 +46,13 @@ function StepsManager() {
         closeModal();
     };
 
+    const handleReorder = async (stepId, direction) => {
+        try {
+            await reorderStep(track.id, stepId, direction);
+        } catch (error) {
+            console.error('Erreur:', error);
+        }
+    };
 
     return (
         <div className={classes['steps-manager']}>
@@ -58,6 +65,7 @@ function StepsManager() {
                 steps={steps}
                 trackId={track.id}
                 onEdit={(step) => openEditModal(step)}
+                onReorder={handleReorder}
             />
 
              <StepModal
