@@ -104,4 +104,12 @@ async function deleteRequest(path) {
     return true;
 }
 
-export { fetchRequest, getRequest, postRequest, putRequest, deleteRequest };
+async function patchRequest(path, item) {
+    return await fetchRequest(path, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item),
+    });
+}
+
+export { fetchRequest, getRequest, postRequest, putRequest, deleteRequest, patchRequest };
