@@ -21,10 +21,11 @@ function OneTrackDetailsPage() {
         }
     }, [trackId, loadTrackById]);
 
-    useEffect(() => { 
-        loadFavoriteIds(); 
-    }, [loadFavoriteIds, user.id]);
-
+    // Load favorites only if a user is logged in
+    useEffect(() => {
+        if (!user?.id) return;
+        loadFavoriteIds();
+    }, [loadFavoriteIds, user?.id]);
 
     if (loading) return <p>Chargement du parcours...</p>;
     if (error) return <p>Erreur : {error}</p>;
