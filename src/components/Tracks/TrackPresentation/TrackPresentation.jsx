@@ -2,13 +2,13 @@ import { MapPin, Route, History, Triangle } from 'lucide-react';
 import classes from './TrackPresentation.module.css';
 import Button from "../../ui/Button/Button.jsx";
 import { minutesToDurationString } from "../../../utils/duration.js";
-import useUsersStore from "../../../stores/useUsersStore.jsx";
+import {useFavorites} from "../../../hooks/useFavorites.jsx";
 
-function TrackPresentation({ track, steps }) {
+function TrackPresentation({ track, steps, handleFavorite }) {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
-    const { currentUser, toggleFavorite } = useUsersStore();
+    const { isTrackFavorite } = useFavorites();
 
-    const isFavorite = currentUser.favorites?.includes(track.id);
+    const isFavorite = isTrackFavorite(track.id);
 
     const firstStep = steps?.[0];
     const place = firstStep?.place;
@@ -28,7 +28,7 @@ function TrackPresentation({ track, steps }) {
                         <p>{place?.city}</p>
                         <p>( {department?.code} )</p>
                     </div>
-                    <Button type="button" className={'small-green-btn'} onClick={() => toggleFavorite(track.id)} >
+                    <Button type="button" className={'small-green-btn'} onClick={() => handleFavorite(track.id)} >
                         {isFavorite ? "Favori" : "+ Ajouter aux favoris"}
                     </Button>
                 </div>

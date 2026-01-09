@@ -3,9 +3,11 @@ import classes from './TrackCard.module.css';
 import {useNavigate} from "react-router-dom";
 import { minutesToDurationString } from "../../../utils/duration.js";
 import Button from "../../ui/Button/Button.jsx";
+import useTracksStore from "../../../stores/useTracksStore.jsx";
 
 function TrackCard({ track, onEdit, onDelete }) {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const { setSelectedTrack } = useTracksStore();
 
     const navigate = useNavigate();
 
@@ -20,7 +22,10 @@ function TrackCard({ track, onEdit, onDelete }) {
             </div>
             <h3 className={classes['card-title']}
                 style={{ cursor: 'pointer' }}
-                onClick={() => navigate(`/tracks/${track.id}`)}
+                onClick={() => {
+                    setSelectedTrack(track);
+                    navigate(`/tracks/${track.id}`)
+                }}
             >
                 {track.title}
             </h3>

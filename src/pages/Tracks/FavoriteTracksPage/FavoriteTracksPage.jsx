@@ -1,41 +1,31 @@
 import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
-import useTracksStore from "../../../stores/useTracksStore.jsx";
-import useUsersStore from "../../../stores/useUsersStore.jsx";
-import {useEffect} from "react";
-import enrichTracks from "../../../utils/enrichTracks.jsx";
-import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
-import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
+import {useContext, useEffect} from "react";
+import {AuthContext} from "../../../contexts/auth-context.jsx";
+import {useFavorites} from "../../../hooks/useFavorites.jsx";
 
 function FavoriteTracksPage() {
-    const {tracks, loadTracks} = useTracksStore();
-    const {currentUser} = useUsersStore();
-    const { steps, places } = useStepsAndPlaces();
-    const { themes, departments} = useReferenceData();
+    const { user, isLogin } = useContext(AuthContext);
+    const { favorites, loadFavorites } = useFavorites();
 
     useEffect(() => {
-        loadTracks();
-    }, [loadTracks]);
-    
-    const favoriteTracks = tracks.filter((track) =>
-        currentUser.favorites.includes(track.id)
-    );
+        if (user?.id) {
+            loadFavorites();
+        }
+    }, [user?.id]);
 
-    const enrichedFavoriteTracks = enrichTracks(favoriteTracks, { steps, places, departments, themes });
+    if (isLogin === undefined) return <p>Chargement...</p>;
+    if (!isLogin) return <p>Connectez-vous pour voir vos favoris</p>;
 
-    if (tracks.length === 0) {
-        return <p>Pas de parcours</p>
-    }
-    if (favoriteTracks.length === 0) {
-        return <p>Vous n'avez pas encore de favoris</p>
+    if (favorites.length === 0) {
+        return <p>Vous n'avez pas encore de favoris</p>;
     }
 
     return (
         <main>
             <h1>Mes parcours favoris</h1>
             <div>
-                <TracksList tracks={enrichedFavoriteTracks} />
+                <TracksList tracks={favorites} />
             </div>
-
         </main>
     )
 }
