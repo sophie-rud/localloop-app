@@ -4,7 +4,7 @@ import classes from "./FilterBar.module.css";
 const FilterBar = ({ filters, setFilters }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });
+    setFilters({ ...filters, [name]: value || null });
   };
 
   return (
@@ -14,10 +14,10 @@ const FilterBar = ({ filters, setFilters }) => {
         <label>Difficulté:</label>
         <select name="difficulty" value={filters.difficulty} onChange={handleChange}>
           <option value="">Toutes</option>
-          <option value="Facile">Facile</option>
-          <option value="Intermédiaire">Intermédiaire</option>
-          <option value="Difficile">Difficile</option>
-          <option value="Sportif">Sportif</option>
+          <option value="FACILE">Facile</option>
+          <option value="MOYENNE">Moyenne</option>
+          <option value="DIFFICILE">Difficile</option>
+          <option value="SPORTIF">Sportif</option>
         </select>
       </div>
 

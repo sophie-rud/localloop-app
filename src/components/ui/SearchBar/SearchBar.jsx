@@ -5,7 +5,7 @@ import {useState} from "react";
 
 function SearchBar() {
     const navigate = useNavigate();
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -13,6 +13,8 @@ function SearchBar() {
 
         if (query) {
             navigate(`/tracks?query=${encodeURIComponent(query)}`);
+        } else {
+            navigate('/tracks');
         }
     }
 
