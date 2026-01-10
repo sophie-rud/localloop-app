@@ -5,14 +5,28 @@ import withLoadingAndError from "../services/withLoadingAndError.jsx";
 const useTracksStore = create((set, get) => {
     return {
         tracks: [],
+        filteredTracks: [],
         selectedTrack: null,
         loading: false,
         error: null,
         setSelectedTrack: (track) => set({ selectedTrack: track }),
         setTracks: (tracks) => set({ tracks }),
         loadTracks: () => withLoadingAndError(set, async () => {
-            const tracks = await getRequest("/tracks");
+            const tracks = await getRequest('/tracks');
             set({ tracks });
+        }),
+        loadFilteredTracks: (filters = {}) => withLoadingAndError(set, async () => {
+            const params = new URLSearchParams();
+            if (filters.query !== null) params.append('query', filters.query);
+            if (filters.difficulty !== null) params.append('difficulty', filters.difficulty);
+            if (filters.duration !== null) params.append('duration', filters.duration);
+            if (filters.distance != null) params.append('distance', filters.distance);
+
+            const queryString = params.toString();
+            const url = queryString ? `/tracks?${queryString}` : '/tracks';
+
+            const filteredTracks = await getRequest(url);
+            set({ filteredTracks });
         }),
         loadTrackById: (id) => withLoadingAndError(set, async () => {
             if (!id) return;
@@ -36,9 +50,6 @@ const useTracksStore = create((set, get) => {
             }));
             return updatedTrack;
         }),
-        // getTrackFromListById: (id) => {
-        //     return get().tracks.find(t => t.id === Number(id)) || null;
-        // },
 
         // STEPS
         selectedStep: null,
