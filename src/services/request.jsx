@@ -1,12 +1,5 @@
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-// async function fetchRequest(path, options = {}) {
-//     const response = await fetch(`${baseUrl}${path}`, options);
-//     if (!response.ok) throw new Error(`${response.status} Erreur lors de la récupération des données : ${path}`);
-//     if (response.status === 204) return null;
-//     return response.json();
-// }
-
 async function fetchRequest(path, options = {}) {
     try {
         let response = await fetch(`${baseUrl}${path}`, {
@@ -14,43 +7,62 @@ async function fetchRequest(path, options = {}) {
             credentials: "include",
         });
 
-        if (response.status !== 401) {
-            if (!response.ok) throw new Error(`${response.status} Erreur lors de la récupération des données : ${path}`);
-            if (response.status === 204) return null;
-            return response.json();
+        let data = null;
+        try {
+            data = await response.json();
+        } catch {
+            // No response body
         }
 
-        if (response.status === 401) {
-            // Paths that should NOT attempt a refresh
-            const noRefreshRoutes = ['/login', '/signup', '/forgot-password', '/me', '/', '/tracks'];
-
-            if (noRefreshRoutes.includes(path)) {
-                throw new Error("Non authentifié");
+        // NON 401 Status
+        if (response.status !== 401) {
+            if (!response.ok) {
+                throw new Error(data?.error || `${response.status} Erreur lors de la récupération des données : ${path}`);
             }
+            if (response.status === 204) return null;
 
-            // Try to refresh the page
-            const refreshResponse = await fetch(`/refresh`, {
-                method: "POST",
-                credentials: "include",
-            });
-
-            if (!refreshResponse.ok) {
-                throw new Error("Session expirée, veuillez vous reconnecter.");
-            }
-
-            // Retry the initial request after refresh
-            response = await fetch(`${baseUrl}${path}`, {
-                ...options,
-                credentials: "include",
-            });
-
-            const data = await response.json();
-            if (!response.ok) throw new Error(`${response.status} Erreur lors de la récupération des données : ${path}`);
             return data;
         }
+
+        // 401 Status -> REFRESH
+        // Paths that should NOT attempt a refresh
+        const noRefreshRoutes = ['/login', '/signup', '/forgot-password', '/reset-password', '/me', '/'];
+
+        if (noRefreshRoutes.includes(path)) {
+            throw new Error(data?.error || "Non authentifié");
+        }
+
+        // Try to refresh the page
+        const refreshResponse = await fetch(`/refresh`, {
+            method: "POST",
+            credentials: "include",
+        });
+
+        if (!refreshResponse.ok) {
+            throw new Error("Session expirée, veuillez vous reconnecter.");
+        }
+
+        // Retry the initial request after refresh
+        response = await fetch(`${baseUrl}${path}`, {
+            ...options,
+            credentials: "include",
+        });
+
+        let retryData = null;
+        try {
+            retryData = await response.json();
+        } catch {
+            // No response body
+        }
+
+        if (!response.ok) {
+            throw new Error(retryData?.error || `${response.status} Erreur lors de la récupération des données : ${path}`);
+        }
+        return retryData;
+
     } catch (error) {
-        console.error("Erreur : ", error);
-        throw new Error(error);
+        console.error("Erreur fetchRequest : ", error);
+        throw error;
     }
 }
 
