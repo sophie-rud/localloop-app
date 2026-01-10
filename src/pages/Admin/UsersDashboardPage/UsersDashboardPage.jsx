@@ -6,11 +6,10 @@ import useUsersStore from "../../../stores/useUsersStore.jsx";
 import {useEffect, useState} from "react";
 import UserForm from "../../../components/Forms/UserForm/UserForm.jsx";
 import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
+import {postRequest} from "../../../services/request.jsx";
 
 function UserDashboardPage() {
-
     const { loadUsers, selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
-
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     useEffect(() => {
@@ -34,6 +33,7 @@ function UserDashboardPage() {
             await addUser(data);
         }
         setIsFormOpen(false);
+        loadUsers();
     };
 
     const handleDelete = async (user) => {
@@ -43,8 +43,9 @@ function UserDashboardPage() {
     const handleToggleBlock = async (user) => {
         const action = user.isActive ? "Bloquer" : "Débloquer";
         if (window.confirm(`${action} ${user.username} ?`)) {
-            await editUser({...user, isActive: !user.isActive});
+            await postRequest(`/users/${user.id}/toggle-block`)
         }
+        loadUsers();
     };
 
 
