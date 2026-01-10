@@ -1,6 +1,6 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import { durationStringToMinutes, minutesToDurationString } from "../../../utils/duration.js";
 import {useNavigate} from "react-router-dom";
@@ -12,14 +12,30 @@ function TrackForm({ selectedTrack, themes, onSubmit }) {
 
     const [formData, setFormData] = useState({
         photo: null,
-        title: selectedTrack?.title || '',
-        themeId: selectedTrack?.themeId?.toString() ?? '',
-        distance: selectedTrack?.distance || '',
-        duration: minutesToDurationString(selectedTrack?.duration) || '',
-        difficulty: selectedTrack?.difficulty || '',
-        presentation: selectedTrack?.presentation || '',
-        isPublished: selectedTrack?.isPublished || false,
+        title: '',
+        themeId: '',
+        distance: '',
+        duration: '',
+        difficulty: '',
+        presentation: '',
+        isPublished: false,
     });
+
+    useEffect(() => {
+        if (selectedTrack) {
+            setFormData({
+                photo: null,
+                title: selectedTrack.title || '',
+                themeId: selectedTrack.themeId?.toString() ?? '',
+                distance: selectedTrack.distance || '',
+                duration: minutesToDurationString(selectedTrack.duration) || '',
+                difficulty: selectedTrack.difficulty || '',
+                presentation: selectedTrack.presentation || '',
+                isPublished: selectedTrack.isPublished || false,
+            });
+        }
+    }, [selectedTrack]);
+
 
     const submitHandler = async (e) => {
         e.preventDefault();

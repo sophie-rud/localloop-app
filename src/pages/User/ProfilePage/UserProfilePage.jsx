@@ -12,7 +12,7 @@ import UserEditForm from "../../../components/Forms/UserForm/UserEditForm.jsx";
 import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 
 function UserProfilePage() {
-    const { setSelectedTrack, removeTrack } = useTracksStore();
+    const { removeTrack } = useTracksStore();
     const navigate = useNavigate();
     const { user, setUser, isLogin } = useContext(AuthContext);
     const [isEditAccountOpen, setIsEditAccountOpen] = useState(false);
@@ -65,7 +65,6 @@ function UserProfilePage() {
     }
 
     const editTrackHandler = (track) => {
-        setSelectedTrack(track);
         if (user.roleId === 1) {
             navigate(`/user/tracks/${track.id}/edit`);
         } else if (user.roleId === 2) {

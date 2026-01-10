@@ -3,23 +3,32 @@ import useTracksStore from "../../../stores/useTracksStore.jsx";
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
 import useThemes from "../../../hooks/useThemes.jsx";
 import StepsManager from "../../../components/Steps/StepsManager/StepsManager.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 
 function CreateOrEditTrackPage({ isAdminPage = false }) {
-    const { selectedTrack, setSelectedTrack, addTrack, editTrack } = useTracksStore();
+    const { selectedTrack, setSelectedTrack, loadTrackById, addTrack, editTrack } = useTracksStore();
     const { themes, loading: themesLoading, error: themesError } = useThemes()
-
+    const navigate = useNavigate();
+    const { trackId } = useParams();
     const [isStepsManagerDisplayed, setIsStepsManagerDisplayed] = useState(true);
 
+    useEffect(() => {
+        loadTrackById(trackId);
+    }, [trackId, loadTrackById]);
+
     const handleSubmit = async (data) => {
-        if(selectedTrack) {
-            await editTrack(selectedTrack.id, data);
-        }
-        else {
-            const newTrack = await addTrack(data);
-            setSelectedTrack(newTrack);
+        let updatedTrack;
+
+        if (selectedTrack) {
+            updatedTrack = await editTrack(selectedTrack.id, data);
+        } else {
+            updatedTrack = await addTrack(data);
             setIsStepsManagerDisplayed(true);
         }
+
+        setSelectedTrack(updatedTrack);
+        navigate(-1);
     };
 
     if (themesLoading) return <p>Chargement des thèmes...</p>;

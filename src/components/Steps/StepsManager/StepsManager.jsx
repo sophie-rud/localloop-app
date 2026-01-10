@@ -39,11 +39,11 @@ function StepsManager() {
     const handleStepSave = async (data) => {
         if (stepToEdit) {
             await editStep(track.id, stepToEdit.id, data);
-            await loadStepsForTrack(track.id);
         } else {
             await addStep(track.id, data);
         }
         closeModal();
+        await loadStepsForTrack(track.id);
     };
 
     const handleReorder = async (stepId, direction) => {

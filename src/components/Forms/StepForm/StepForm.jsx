@@ -1,18 +1,22 @@
 import formClasses from '../Forms.module.css';
 import Button from '../../ui/Button/Button.jsx';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import usePlacesStore from "../../../stores/usePlacesStore.jsx";
 
 function StepForm({ step, onClose, onSubmit }) {
-    const { places } = usePlacesStore();
+    const { places, getPlaces } = usePlacesStore();
+
+    useEffect(() => {
+        getPlaces();
+    }, [getPlaces]);
 
     const [formData, setFormData] = useState({
         photo: null,
-        placeId: step.placeId?.toString() ?? '',
-        name: step.name || '',
-        stepOrder: step.stepOrder?.toString() ?? '',
-        anecdote: step.anecdote || '',
-        advice: step.advice || '',
+        placeId: step?.placeId?.toString() ?? '',
+        name: step?.name || '',
+        stepOrder: step?.stepOrder?.toString() ?? '',
+        anecdote: step?.anecdote || '',
+        advice: step?.advice || '',
     });
 
     const handleInputChange = (field) => (e) => {
