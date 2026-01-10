@@ -50,6 +50,15 @@ h2 {
     font-size: 0.85rem;
 }
 
+/* Error */
+.error {
+    width: 130%;
+    text-align: center;
+    color: #77081e;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
 /* RESPONSIVE */
 /* Tablette */
 @media (min-width: 640px) {

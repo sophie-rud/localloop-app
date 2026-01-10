@@ -2,25 +2,36 @@ import LoginForm from "../../../components/Forms/LoginForm/LoginForm.jsx";
 import classes from '../SignupAndLoginPage.module.css';
 import {NavLink, useNavigate} from 'react-router-dom';
 import {postRequest} from "../../../services/request.jsx";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
 
 function LoginPage() {
-    const { login } = useContext(AuthContext);
+    const { user, login } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
-    const handleLogin = async ({ email, password }) => {
+    useEffect(() => {
+        if (!user) return;
 
-        const response = await postRequest("/login", { email, password });
-        const userData = response.user;
-
-        login(userData);
-
-        if (userData.roleId === 2) {
+        if (user.roleId === 2) {
             navigate('/admin/profile');
-        } else if (userData.roleId === 1) {
+        } else {
             navigate('/user/profile');
         }
+    }, [navigate, user]);
+
+    const handleLogin = async ({ email, password }) => {
+        setError(null);
+
+        let response;
+        try {
+            response = await postRequest('/login', { email, password });
+        } catch (error) {
+            setError(error.message);
+            return;
+        }
+
+        login(response.user);
     };
 
     return (
@@ -36,6 +47,7 @@ function LoginPage() {
                     <span>Créer un compte</span>
                 </NavLink>
             </div>
+            {error && <p className="error">{error}</p>}
         </main>
     )
 }
