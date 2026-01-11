@@ -68,8 +68,13 @@ input::placeholder, textarea::placeholder {
     box-shadow: var(--shadow);
 }
 
+.input-container {
+    width: 100%;
+    text-align: center;
+}
+
 .error {
-    width: 130%;
+    width: 100%;
     text-align: center;
     color: #77081e;
     font-weight: bold;

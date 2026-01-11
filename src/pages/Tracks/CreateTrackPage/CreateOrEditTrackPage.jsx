@@ -17,18 +17,17 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
         loadTrackById(trackId);
     }, [trackId, loadTrackById]);
 
-    const handleSubmit = async (data) => {
+    const handleValidFormSubmit = async (data) => {
         let updatedTrack;
 
         if (selectedTrack) {
-            updatedTrack = await editTrack(selectedTrack.id, data);
+            await editTrack(selectedTrack.id, data);
+            navigate(-1);
         } else {
             updatedTrack = await addTrack(data);
             setIsStepsManagerDisplayed(true);
+            setSelectedTrack(updatedTrack);
         }
-
-        setSelectedTrack(updatedTrack);
-        navigate(-1);
     };
 
     if (themesLoading) return <p>Chargement des thèmes...</p>;
@@ -41,7 +40,7 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
             <section>
                 <TrackForm
                     themes={themes}
-                    onSubmit={handleSubmit}
+                    onSubmitValidForm={handleValidFormSubmit}
                     selectedTrack={selectedTrack}
                 />
             </section>
