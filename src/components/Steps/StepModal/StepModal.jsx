@@ -14,7 +14,7 @@ function StepModal({ isOpen, onClose, step, onStepSave }) {
             <div className={classes['modal-content']}>
                 <StepForm
                     step={step}
-                    onSubmit={handleSave}
+                    onSubmitValidForm={handleSave}
                     onClose={onClose}
                 />
             </div>
