@@ -1,33 +1,21 @@
-// import useReferenceData from "../../../hooks/useThemesAndDepartmentData.jsx";
 import PlacesList from "../../../components/Places/PlacesList/PlacesList.jsx";
-import useStepsAndPlaces from "../../../hooks/useStepsAndPlacesData.jsx";
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
-import Button from "../../../components/ui/Button/Button.jsx";
-import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import usePlacesStore from "../../../stores/usePlacesStore.jsx";
 
 function PlacesPage() {
+    const { places, getPlaces } = usePlacesStore();
 
-    const { places } = useStepsAndPlaces();
-    // const { departments } = useReferenceData();
-    const navigate = useNavigate();
-
-    const handleClickCreate = () => {
-        navigate(`/admin/:id/places/create`)
-    }
+    useEffect(() => {
+        getPlaces();
+    }, [getPlaces]);
 
     return (
         <main className={adminClasses['main-admin']}>
             <h1>Les Lieux</h1>
-            <div>
-                {/*<FilterBar filters={filters} setFilters={setFilters} />*/}
-            </div>
-            <Button type="button" className={'green-btn'} onClick={() => handleClickCreate()}>
-                + Ajouter un lieu
-            </Button>
             <section>
                     <PlacesList places={places}></PlacesList>
             </section>
-
         </main>
     )
 }
