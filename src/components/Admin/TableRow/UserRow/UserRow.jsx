@@ -1,8 +1,12 @@
 import tableClasses from "../../Tables/Tables.module.css";
 import Button from "../../../ui/Button/Button.jsx";
 import {Ban, Pen, Trash2} from "lucide-react";
+import DeletionModal from "../../../ui/DeletionModal/DeletionModal.jsx";
+import React, {useState} from "react";
 
 function UserRow({ user, onEdit, onDelete, onBlock }) {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
         <tr key={user.id}>
             <td data-label="Photo"><img src={user.avatar} className={tableClasses['avatar']} alt="avatar"/>
@@ -18,7 +22,16 @@ function UserRow({ user, onEdit, onDelete, onBlock }) {
                 <Button type="submit" className={'small-blue-btn'} onClick={() => onBlock(user)} > {user.isActive ? "Bloquer" : <Ban /> } </Button>
             </td>
             <td data-label="Supprimer">
-                <Button type="button" className={'small-green-btn'} onClick={() => onDelete(user.id)} > <Trash2 /> </Button>
+                <Button type="button" className={'small-green-btn'} onClick={() => setModalOpen(true)} > <Trash2 /> </Button>
+                <DeletionModal
+                    isOpen={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onConfirm={() => {
+                        onDelete(user.id);
+                        setModalOpen(false);
+                    }}
+                    itemName={`le profil ${user.username}`}
+                />
             </td>
         </tr>
     )

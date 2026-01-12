@@ -4,10 +4,13 @@ import {useNavigate} from "react-router-dom";
 import { minutesToDurationString } from "../../../utils/duration.js";
 import Button from "../../ui/Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
+import {useState} from "react";
+import DeletionModal from "../../ui/DeletionModal/DeletionModal.jsx";
 
 function TrackCard({ track, onEdit, onDelete }) {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const { setSelectedTrack } = useTracksStore();
+    const [modalOpen, setModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -52,9 +55,9 @@ function TrackCard({ track, onEdit, onDelete }) {
                     </div>
                 </div>
             </div>
-            { (onEdit || onDelete) && (
+            {(onEdit || onDelete) && (
                 <div className={classes['actions']}>
-                    { onEdit && (
+                    {onEdit && (
                         <Button
                             type="button"
                             className="small-green-btn"
@@ -64,15 +67,24 @@ function TrackCard({ track, onEdit, onDelete }) {
                         </Button>
                     )}
 
-                    { onDelete && (
+                    {onDelete && (
                         <Button
                             type="button"
                             className="small-blue-btn"
-                            onClick={() => onDelete(track)}
+                            onClick={() => setModalOpen(true)}
                         >
                             Supprimer
                         </Button>
                     )}
+                    <DeletionModal
+                        isOpen={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                        onConfirm={() => {
+                            onDelete(track);
+                            setModalOpen(false);
+                        }}
+                        itemName={track.title}
+                    />
                 </div>
             )}
         </div>

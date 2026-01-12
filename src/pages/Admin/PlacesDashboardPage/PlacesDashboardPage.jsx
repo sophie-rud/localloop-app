@@ -35,8 +35,8 @@ function PlacesDashboardPage() {
         setIsFormOpen(false);
     };
 
-    const handleDelete = async (place) => {
-        await removePlace(place);
+    const handleDelete = async (placeId) => {
+        await removePlace(placeId);
     };
 
     return (

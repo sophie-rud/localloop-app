@@ -4,11 +4,15 @@ import SearchBar from "../../../components/ui/SearchBar/SearchBar.jsx";
 import TrackTable from "../../../components/Admin/Tables/TrackTable/TrackTable.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 function TracksDashboardPage() {
-
-    const { setSelectedTrack, removeTrack} = useTracksStore();
+    const { tracks, loadTracks, setSelectedTrack, removeTrack} = useTracksStore();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        loadTracks();
+    }, [loadTracks]);
 
     const handleCreate = () => {
         navigate(`/admin/tracks/create`)
@@ -19,8 +23,8 @@ function TracksDashboardPage() {
         navigate(`/admin/tracks/${track.id}/edit`);
     };
 
-    const handleDelete = async (track) => {
-        await removeTrack(track);
+    const handleDelete = async (trackId) => {
+        await removeTrack(trackId);
     };
 
     return (
@@ -33,7 +37,7 @@ function TracksDashboardPage() {
                 </Button>
             </div>
             <section>
-                <TrackTable onEdit={handleEdit} onDelete={handleDelete} />
+                <TrackTable tracks={tracks} onEdit={handleEdit} onDelete={handleDelete} />
             </section>
         </main>
     )

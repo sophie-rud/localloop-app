@@ -1,10 +1,6 @@
 import UserRow from "../../TableRow/UserRow/UserRow.jsx";
-import useUsersStore from "../../../../stores/useUsersStore.jsx";
 
-function UserTable({ onEdit, onDelete, onBlock }) {
-
-    const { users } = useUsersStore();
-
+function UserTable({ users, onEdit, onDelete, onBlock }) {
     return (
         <table>
             <thead>

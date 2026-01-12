@@ -1,15 +1,6 @@
 import TrackRow from "../../TableRow/TrackRow/TrackRow.jsx";
-import {useEffect} from "react";
-import useTracksStore from "../../../../stores/useTracksStore.jsx";
 
-function TrackTable({ onEdit, onDelete }) {
-
-    const { tracks, loadTracks } = useTracksStore();
-
-    useEffect(() => {
-        loadTracks();
-    }, [loadTracks]);
-
+function TrackTable({ tracks, onEdit, onDelete }) {
     return (
         <table>
             <thead>

@@ -38,8 +38,8 @@ function UserProfilePage() {
     };
 
     const deleteProfileHandler = async () => {
-        const confirmDelete = window.confirm("Voulez-vous supprimer votre compte ? Cette action est irréversible.");
-        if (!confirmDelete) return;
+        // const confirmDelete = window.confirm("Voulez-vous supprimer votre compte ? Cette action est irréversible.");
+        // if (!confirmDelete) return;
 
         await deleteRequest("/me");
         setUser(null);

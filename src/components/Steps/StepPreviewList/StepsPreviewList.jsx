@@ -1,11 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./StepsPreviewList.module.css";
 import Button from "../../ui/Button/Button.jsx";
-import useTracksStore from "../../../stores/useTracksStore.jsx";
+import DeletionModal from "../../ui/DeletionModal/DeletionModal.jsx";
 
-function StepsPreviewList({ steps, trackId, onEdit, onReorder }) {
-
-    const { removeStep } = useTracksStore();
+function StepsPreviewList({ steps, trackId, onEdit, onReorder, onDelete }) {
+    const [modalOpen, setModalOpen] = useState(false);
 
     const isFirstStep = (stepOrder) => stepOrder === 1;
     const isLastStep = (stepOrder) => stepOrder === steps.length;
@@ -34,13 +33,24 @@ return (
                     <Button type='button'
                             className={'small-green-btn'}
                             onClick={() => onEdit(step)}
-                    >Modifier
+                    >
+                        Modifier
                     </Button>
                     <Button type='submit'
                             className={'small-blue-btn'}
-                            onClick={() => removeStep(trackId, step.id)}
-                    >Supprimer
+                            onClick={() => setModalOpen(true)}
+                    >
+                        Supprimer
                     </Button>
+                    <DeletionModal
+                        isOpen={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                        onConfirm={() => {
+                            onDelete(trackId, step.id);
+                            setModalOpen(false);
+                        }}
+                        itemName={step.name}
+                    />
                 </div>
             </li>
         ))}

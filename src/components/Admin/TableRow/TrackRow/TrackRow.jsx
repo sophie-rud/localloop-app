@@ -1,8 +1,12 @@
 import tableClasses from "../../Tables/Tables.module.css";
 import Button from "../../../ui/Button/Button.jsx";
 import {Pen, Trash2} from "lucide-react";
+import DeletionModal from "../../../ui/DeletionModal/DeletionModal.jsx";
+import {useState} from "react";
 
 function TrackRow({ track, onEdit, onDelete }) {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
         <tr>
             <td data-label="Photo"><img src={track.photo} className={tableClasses['avatar']} alt={track.title}/>
@@ -12,12 +16,21 @@ function TrackRow({ track, onEdit, onDelete }) {
             <td data-label="distance"> {track.distance} km</td>
             <td data-label="difficulty"> {track.difficulty} </td>
             <td data-label="author"> Lily </td>
-            <td data-label="update"> {track.updated_at} </td>
+            <td data-label="update"> {track.updatedAt} </td>
             <td data-label="edit">
                 <Button type="submit" className={'small-blue-btn'} onClick={() => onEdit(track)} > <Pen /> </Button>
             </td>
             <td data-label="Supprimer">
-                <Button type="submit" className={'small-green-btn'} onClick={() => onDelete(track.id)} > <Trash2 /> </Button>
+                <Button type="submit" className={'small-green-btn'} onClick={() => setModalOpen(true)} > <Trash2 /> </Button>
+                <DeletionModal
+                    isOpen={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onConfirm={() => {
+                        onDelete(track.id);
+                        setModalOpen(false);
+                    }}
+                    itemName={track.title}
+                />
             </td>
         </tr>
     )

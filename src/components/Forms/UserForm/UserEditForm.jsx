@@ -1,13 +1,15 @@
-import {useState, useContext} from "react";
+import React, {useState, useContext} from "react";
 import formClasses from '../Forms.module.css';
 import classes from "./UserEditForm.module.css";
 import Button from "../../ui/Button/Button.jsx";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
 import {hasErrors, validateForm, validators} from "../../../utils/validators.js";
+import DeletionModal from "../../ui/DeletionModal/DeletionModal.jsx";
 
 function UserEditForm({ onSubmit, onClose, onDelete }) {
     const { user } = useContext(AuthContext);
     const [errors, setErrors] = useState({});
+    const [modalOpen, setModalOpen] = useState(false);
 
     const [formData, setFormData] = useState({
         username: user?.username || '',
@@ -56,9 +58,18 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
     return (
         <form onSubmit={handleSubmit} className={formClasses['form']} >
             <div className={classes['delete-profile-btn']}>
-                <Button type="button" onClick={onDelete} className={'small-green-btn'}>
+                <Button type="button" onClick={() => setModalOpen(true)} className={'small-green-btn'}>
                     Supprimer mon profil
                 </Button>
+                <DeletionModal
+                    isOpen={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    onConfirm={() => {
+                        onDelete();
+                        setModalOpen(false);
+                    }}
+                    itemName={`votre profil ${user.username}`}
+                />
             </div>
 
             <div className={formClasses['input-container']}>

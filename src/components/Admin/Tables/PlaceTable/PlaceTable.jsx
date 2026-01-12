@@ -1,14 +1,6 @@
 import PlaceRow from "../../TableRow/PlaceRow/PlaceRow.jsx";
-import {useEffect} from "react";
-import usePlacesStore from "../../../../stores/usePlacesStore.jsx";
 
-function PlaceTable({ onEdit, onDelete }) {
-    const { places, getPlaces } = usePlacesStore();
-
-    useEffect(() => {
-        getPlaces();
-    }, [getPlaces]);
-
+function PlaceTable({ places, onEdit, onDelete }) {
     return (
         <table>
             <thead>

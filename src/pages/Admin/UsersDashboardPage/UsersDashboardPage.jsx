@@ -9,7 +9,7 @@ import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 import {postRequest} from "../../../services/request.jsx";
 
 function UserDashboardPage() {
-    const { loadUsers, selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
+    const { users, loadUsers, selectedUser, setSelectedUser, addUser, editUser, removeUser } = useUsersStore();
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     useEffect(() => {
@@ -36,8 +36,8 @@ function UserDashboardPage() {
         loadUsers();
     };
 
-    const handleDelete = async (user) => {
-        await removeUser(user);
+    const handleDelete = async (userId) => {
+        await removeUser(userId);
     };
 
     const handleToggleBlock = async (user) => {
@@ -59,7 +59,7 @@ function UserDashboardPage() {
                 </Button>
             </div>
             <section>
-                <UserTable onEdit={openEditForm} onDelete={handleDelete} onBlock={handleToggleBlock} />
+                <UserTable users={users} onEdit={openEditForm} onDelete={handleDelete} onBlock={handleToggleBlock} />
             </section>
 
             {isFormOpen && (
