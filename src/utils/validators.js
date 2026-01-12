@@ -123,6 +123,44 @@ export const validators = {
         return null;
     },
 
+    // DepartmentId validation
+    departmentId: (value) => {
+        if (!value) {
+            return "Le département est obligatoire";
+        }
+        const num = Number(value);
+        if (isNaN(num) || num < 1) {
+            return "Département invalide";
+        }
+        return null;
+    },
+
+    // Latitude validation
+    latitude:(value) => {
+        if (value === "" || value === null || value === undefined) {
+            return "Indiquer une latitude";
+        }
+
+        const num = Number(value);
+        if (!isNaN(num) && num >= -90 && num <= 90) {
+            return "Latitude invalide (doit être entre -90 et 90)";
+        }
+        return null;
+    },
+
+    // Longitude validation
+    longitude: (value) => {
+        if (value === "" || value === null || value === undefined) {
+            return "La longitude est obligatoire";
+        }
+
+        const num = Number(value);
+        if (!isNaN(num) && num >= -180 && num <= 180) {
+            return "Longitude invalide (doit être entre -180 et 180)";
+        }
+        return null;
+    },
+
     // Photo validation
     photo: (file) => {
         if (!file) {
