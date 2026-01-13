@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 function CreateOrEditTrackPage({ isAdminPage = false }) {
-    const { selectedTrack, setSelectedTrack, loadTrackById, addTrack, editTrack } = useTracksStore();
+    const { selectedTrack, setSelectedTrack, loadUserTracks, loadTrackById, addTrack, editTrack } = useTracksStore();
     const { themes, loading: themesLoading, error: themesError } = useThemes()
     const navigate = useNavigate();
     const { trackId } = useParams();
@@ -18,15 +18,14 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
     }, [trackId, loadTrackById]);
 
     const handleValidFormSubmit = async (data) => {
-        let updatedTrack;
-
         if (selectedTrack) {
             await editTrack(selectedTrack.id, data);
+            loadUserTracks();
             navigate(-1);
         } else {
-            updatedTrack = await addTrack(data);
+            const newTrack = await addTrack(data);
             setIsStepsManagerDisplayed(true);
-            setSelectedTrack(updatedTrack);
+            setSelectedTrack(newTrack);
         }
     };
 

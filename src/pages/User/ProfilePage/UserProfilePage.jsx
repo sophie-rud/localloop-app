@@ -3,7 +3,7 @@ import TracksList from "../../../components/Tracks/TracksList/TracksList.jsx";
 import Button from "../../../components/ui/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import classes from "./UserProfilePage.module.css"
 import {AuthContext} from "../../../contexts/auth-context.jsx";
 import adminClasses from "../../../layouts/AdminLayout/AdminLayout.module.css";
@@ -12,10 +12,14 @@ import UserEditForm from "../../../components/Forms/UserForm/UserEditForm.jsx";
 import CommonModal from "../../../components/ui/CommonModal/CommonModal.jsx";
 
 function UserProfilePage() {
-    const { removeTrack } = useTracksStore();
+    const { userTracks, setSelectedTrack, loadUserTracks, removeTrack } = useTracksStore();
     const navigate = useNavigate();
     const { user, setUser, isLogin } = useContext(AuthContext);
     const [isEditAccountOpen, setIsEditAccountOpen] = useState(false);
+
+    useEffect(() => {
+        loadUserTracks();
+    }, [loadUserTracks]);
 
     if (isLogin === undefined) return <p>Chargement...</p>;
     if (!isLogin) return <p>Connectez-vous pour accéder à votre profil</p>;
@@ -38,27 +42,16 @@ function UserProfilePage() {
     };
 
     const deleteProfileHandler = async () => {
-        // const confirmDelete = window.confirm("Voulez-vous supprimer votre compte ? Cette action est irréversible.");
-        // if (!confirmDelete) return;
-
         await deleteRequest("/me");
         setUser(null);
         navigate("/");
     };
 
-    // Tracks display filters
-    const publishedTracks = (user?.createdTracks ?? []).filter(
-        (track) => track.isPublished === true
-    );
-
-    const nonPublishedTracks = user?.createdTracks?.filter(
-        (track) => track.isPublished === false
-    ) ?? [];
-
     // Actions on user tracks
     const createTrackHandler = () => {
+        setSelectedTrack(null);
         if (user.roleId === 1) {
-            navigate(`/user/tracks/create`)
+            navigate(`/user/tracks/create`);
         } else if (user.roleId === 2) {
             navigate(`/admin/tracks/create`)
         }
@@ -75,6 +68,16 @@ function UserProfilePage() {
     const deleteTrackHandler = async (track) => {
         await removeTrack(track.id);
     };
+
+    // Tracks display filters
+    const publishedTracks = userTracks.filter(
+        (track) => track.isPublished === true
+    );
+
+    const nonPublishedTracks = userTracks.filter(
+        (track) => track.isPublished === false
+    ) ?? [];
+
 
     return (
         <main className={user?.roleId === 2 ? adminClasses['main-admin'] : ''}>

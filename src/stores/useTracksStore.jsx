@@ -6,6 +6,7 @@ const useTracksStore = create((set, get) => {
     return {
         tracks: [],
         filteredTracks: [],
+        userTracks: [],
         selectedTrack: null,
         loading: false,
         error: null,
@@ -33,6 +34,10 @@ const useTracksStore = create((set, get) => {
             const track = await getRequest(`/tracks/${id}`);
             set({ selectedTrack: track });
             return track;
+        }),
+        loadUserTracks: () => withLoadingAndError(set, async () => {
+            const userTracks = await getRequest('/me/tracks/');
+            set({ userTracks });
         }),
         addTrack: (formData) => withLoadingAndError(set, async () => {
             const newTrack = await postRequest("/tracks", formData);

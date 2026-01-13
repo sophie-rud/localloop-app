@@ -220,7 +220,8 @@ function TrackForm({ selectedTrack, themes, onSubmitValidForm }) {
             <Button type="button"
                     onClick={() => {setSelectedTrack(null); navigate(-1)}}
                     className={'green-btn'}
-            > Annuler
+            >
+                Retour
             </Button>
         </form>
     );
