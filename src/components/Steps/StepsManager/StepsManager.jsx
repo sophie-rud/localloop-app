@@ -5,7 +5,7 @@ import Button from "../../ui/Button/Button.jsx";
 import useTracksStore from "../../../stores/useTracksStore.jsx";
 import classes from "./StepsManager.module.css"
 
-function StepsManager() {
+function StepsManager({ onPublish, onUnpublish }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
     const { selectedTrack: track, addStep, editStep, loadStepsForTrack, getStepsForSelectedTrack, reorderStep, removeStep, loading, error } = useTracksStore();
@@ -60,6 +60,24 @@ function StepsManager() {
 
     return (
         <div className={classes['steps-manager']}>
+            <div>
+                {steps.length >= 3 && !track.isPublished && (
+                    <Button onClick={onPublish} className={'small-blue-btn'}>
+                        Publier le parcours
+                    </Button>
+                )}
+
+                {track.isPublished && (
+                    <Button onClick={onUnpublish} className={'small-blue-btn'}>
+                        Dépublier
+                    </Button>
+                )}
+
+                {steps.length < 3 && (
+                    <p>Ajoutez au moins 3 étapes pour pouvoir publier ce parcours.</p>
+                )}
+            </div>
+
             <Button type="button" onClick={() => openAddModal()} className={'small-green-btn'}>+ Ajouter une étape</Button>
 
             <h2>Étapes du parcours</h2>

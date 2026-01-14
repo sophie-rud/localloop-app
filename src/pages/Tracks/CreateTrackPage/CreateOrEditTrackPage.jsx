@@ -5,6 +5,7 @@ import useThemes from "../../../hooks/useThemes.jsx";
 import StepsManager from "../../../components/Steps/StepsManager/StepsManager.jsx";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import {patchRequest} from "../../../services/request.jsx";
 
 function CreateOrEditTrackPage({ isAdminPage = false }) {
     const { selectedTrack, setSelectedTrack, loadUserTracks, loadTrackById, addTrack, editTrack } = useTracksStore();
@@ -29,6 +30,17 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
         }
     };
 
+    // Publish / unpublish track
+    async function handlePublish() {
+        await patchRequest(`/tracks/${selectedTrack.id}/publish`);
+        loadTrackById(trackId)
+    }
+
+    async function handleUnpublish() {
+        await patchRequest(`/tracks/${selectedTrack.id}/unpublish`);
+        loadTrackById();
+    }
+
     if (themesLoading) return <p>Chargement des thèmes...</p>;
     if (themesError) return <p>Erreur lors du chargement des thèmes : {themesError}</p>;
 
@@ -45,7 +57,10 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
             </section>
             <section>
                 {isStepsManagerDisplayed && selectedTrack?.id && (
-                    <StepsManager />
+                    <StepsManager
+                        onPublish={handlePublish}
+                        onUnpublish={handleUnpublish}
+                    />
                 )}
             </section>
         </main>

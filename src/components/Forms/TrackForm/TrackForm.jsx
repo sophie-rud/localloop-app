@@ -203,17 +203,6 @@ function TrackForm({ selectedTrack, themes, onSubmitValidForm }) {
                 />
             </div>
 
-            <div>
-                <label htmlFor="isPublished">Publier ce parcours</label>
-                <input
-                    type="checkbox"
-                    id="isPublished"
-                    className={formClasses['common-checkbox']}
-                    checked={formData.isPublished}
-                    onChange={handleInputChange('isPublished')}
-                />
-            </div>
-
             <Button type="submit" className={'blue-btn'} >
                 Valider mon parcours
             </Button>
