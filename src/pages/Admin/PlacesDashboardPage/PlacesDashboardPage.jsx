@@ -33,6 +33,7 @@ function PlacesDashboardPage() {
             await addPlace(data);
         }
         setIsFormOpen(false);
+        getPlaces();
     };
 
     const handleDelete = async (placeId) => {

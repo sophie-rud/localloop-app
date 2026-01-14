@@ -15,6 +15,7 @@ function TracksDashboardPage() {
     }, [loadTracks]);
 
     const handleCreate = () => {
+        setSelectedTrack(null);
         navigate(`/admin/tracks/create`)
     }
 
