@@ -142,7 +142,7 @@ export const validators = {
         }
 
         const num = Number(value);
-        if (!isNaN(num) && num >= -90 && num <= 90) {
+        if (isNaN(num) || num < -90 || num > 90) {
             return "Latitude invalide (doit être entre -90 et 90)";
         }
         return null;
@@ -155,7 +155,7 @@ export const validators = {
         }
 
         const num = Number(value);
-        if (!isNaN(num) && num >= -180 && num <= 180) {
+        if (isNaN(num) || num < -180 || num > 180) {
             return "Longitude invalide (doit être entre -180 et 180)";
         }
         return null;
