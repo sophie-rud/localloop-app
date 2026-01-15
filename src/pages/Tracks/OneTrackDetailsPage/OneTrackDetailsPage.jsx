@@ -11,21 +11,15 @@ import {AuthContext} from "../../../contexts/auth-context.jsx";
 function OneTrackDetailsPage() {
     const { id } = useParams();
     const trackId = parseInt(id);
-    const { selectedTrack, loadTrackById, getStepsForSelectedTrack, loading, error } = useTracksStore()
-    const { loadFavoriteIds, addFavorite, removeFavorite, isTrackFavorite } = useFavorites();
+    const { selectedTrack, getStepsForSelectedTrack, loading, error } = useTracksStore()
+    const { favoriteIds, loadFavoriteIds, addFavorite, removeFavorite, isTrackFavorite } = useFavorites();
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        if (trackId) {
-            loadTrackById(trackId);
-        }
-    }, [trackId, loadTrackById]);
-
-    // Load favorites only if a user is logged in
-    useEffect(() => {
         if (!user?.id) return;
+        if (favoriteIds) return;
         loadFavoriteIds();
-    }, [loadFavoriteIds, user?.id]);
+    }, [user?.id]);
 
     if (loading) return <p>Chargement du parcours...</p>;
     if (error) return <p>Erreur : {error}</p>;
@@ -41,12 +35,18 @@ function OneTrackDetailsPage() {
         } else {
             await addFavorite(selectedTrack.id);
         }
+        loadFavoriteIds();
     };
 
     return (
         <main className={classes['one-track-page-main']}>
             <section className={classes['track-presentation-section']}>
-                <TrackPresentation track={selectedTrack} steps={steps} handleFavorite={handleFavoriteClick} isFavorite={isFavorite} />
+                <TrackPresentation
+                    track={selectedTrack}
+                    steps={steps}
+                    handleFavorite={handleFavoriteClick}
+                    isFavorite={isFavorite}
+                />
             </section>
             <div className={classes['display-manager']}>
                 <section className={classes['map-track-section']}>

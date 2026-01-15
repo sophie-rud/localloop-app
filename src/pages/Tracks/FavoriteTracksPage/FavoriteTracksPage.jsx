@@ -8,15 +8,13 @@ function FavoriteTracksPage() {
     const { favorites, loadFavorites } = useFavorites();
 
     useEffect(() => {
-        if (user?.id) {
-            loadFavorites();
-        }
+        loadFavorites();
     }, [user?.id]);
 
     if (isLogin === undefined) return <p>Chargement...</p>;
     if (!isLogin) return <p>Connectez-vous pour voir vos favoris</p>;
 
-    if (favorites.length === 0) {
+    if (favorites?.length === 0) {
         return <p>Vous n'avez pas encore de favoris</p>;
     }
 

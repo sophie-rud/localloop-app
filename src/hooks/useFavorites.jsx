@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import {deleteRequest, getRequest, postRequest} from "../services/request.jsx";
 import {AuthContext} from "../contexts/auth-context.jsx";
 
@@ -43,7 +43,7 @@ export function useFavorites() {
 
             setUser(prevUser => ({
                 ...prevUser,
-                favorites: [...(prevUser.favorites || []), trackId],
+                favoritesIds: [...(prevUser.favorites || []), Number(trackId)],
             }));
 
             return data;
@@ -59,7 +59,7 @@ export function useFavorites() {
 
             setUser(prevUser => ({
                 ...prevUser,
-                favorites: prevUser.favorites?.filter(id => id !== trackId) || [],
+                favoritesIds: prevUser.favorites?.filter(id => id !== Number(trackId)) || [],
             }));
         } catch (error) {
             console.error('Erreur removeFavorite:', error);

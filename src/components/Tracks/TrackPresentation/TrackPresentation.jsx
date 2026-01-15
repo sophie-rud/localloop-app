@@ -3,10 +3,15 @@ import classes from './TrackPresentation.module.css';
 import Button from "../../ui/Button/Button.jsx";
 import { minutesToDurationString } from "../../../utils/duration.js";
 import {useFavorites} from "../../../hooks/useFavorites.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../../contexts/auth-context.jsx";
+import {useNavigate} from "react-router-dom";
 
 function TrackPresentation({ track, steps, handleFavorite }) {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const { isTrackFavorite } = useFavorites();
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const isFavorite = isTrackFavorite(track.id);
 
@@ -28,9 +33,12 @@ function TrackPresentation({ track, steps, handleFavorite }) {
                         <p>{place?.city}</p>
                         <p>( {department?.code} )</p>
                     </div>
-                    <Button type="button" className={'small-green-btn'} onClick={() => handleFavorite(track.id)} >
+                    {!user && <Button type="button" className={'small-green-btn'} onClick={() => navigate("/login")}>
+                        {"Connectez-vous pour ajouter des favoris"}
+                    </Button>}
+                    {user && <Button type="button" className={'small-green-btn'} onClick={() => handleFavorite(track.id)}>
                         {isFavorite ? "Favori" : "+ Ajouter aux favoris"}
-                    </Button>
+                    </Button>}
                 </div>
                 <div className={classes['track-infos']}>
                     <div className={classes['info']}>
