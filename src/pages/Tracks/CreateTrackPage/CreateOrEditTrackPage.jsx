@@ -13,20 +13,28 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
     const navigate = useNavigate();
     const { trackId } = useParams();
     const [isStepsManagerDisplayed, setIsStepsManagerDisplayed] = useState(true);
+    const [message, setMessage] = useState(null);
 
     useEffect(() => {
         loadTrackById(trackId);
     }, [trackId, loadTrackById]);
 
-    const handleValidFormSubmit = async (data) => {
+    const handleValidFormSubmit = async (formData) => {
         if (selectedTrack) {
-            await editTrack(selectedTrack.id, data);
-            loadUserTracks();
-            navigate(-1);
+            const data = await editTrack(selectedTrack.id, formData);
+            setMessage(data.message);
+            setTimeout(() => {
+                loadUserTracks();
+                navigate(-1);
+            }, 1500);
         } else {
-            const newTrack = await addTrack(data);
+            const data = await addTrack(formData);
+            setSelectedTrack(data);
             setIsStepsManagerDisplayed(true);
-            setSelectedTrack(newTrack);
+            setMessage('Parcours créé avec succès !');
+            setTimeout(() => {
+                setMessage(null);
+            }, 1500);
         }
     };
 
@@ -48,6 +56,7 @@ function CreateOrEditTrackPage({ isAdminPage = false }) {
     return (
         <main className={isAdminPage ? adminClasses['main-admin'] : "" }>
             <h1>{selectedTrack ? "Modifier un parcours" : "Créer un parcours"}</h1>
+            {message && (<p className="success">{message}</p>)}
             <section>
                 <TrackForm
                     themes={themes}

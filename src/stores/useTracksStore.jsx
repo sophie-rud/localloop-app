@@ -49,11 +49,11 @@ const useTracksStore = create((set, get) => {
             set((state) => ({ tracks: state.tracks.filter(t => t.id !== id) }));
         }),
         editTrack: (id, formData) => withLoadingAndError(set, async () => {
-            const updatedTrack = await putRequest(`/tracks/${id}`, formData);
+            const result = await putRequest(`/tracks/${id}`, formData);
             set((state) => ({
-                tracks: state.tracks.map(t => t.id === updatedTrack.id ? updatedTrack : t),
+                tracks: state.tracks.map(t => t.id === result.updatedTrack.id ? result.updatedTrack : t),
             }));
-            return updatedTrack;
+            return result;
         }),
 
         // STEPS

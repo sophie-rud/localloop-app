@@ -29,7 +29,7 @@ async function fetchRequest(path, options = {}) {
         const noRefreshRoutes = ['/login', '/signup', '/forgot-password', '/reset-password', '/me', '/'];
 
         if (noRefreshRoutes.includes(path)) {
-            throw new Error(data?.error || "Non authentifié");
+            throw new Error(data?.message || "Non authentifié");
         }
 
         // Try to refresh the page
@@ -56,7 +56,7 @@ async function fetchRequest(path, options = {}) {
         }
 
         if (!response.ok) {
-            throw new Error(retryData?.error || `${response.status} Erreur lors de la récupération des données : ${path}`);
+            throw new Error(retryData?.message || `${response.status} Erreur lors de la récupération des données : ${path}`);
         }
         return retryData;
 

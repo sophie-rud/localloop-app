@@ -4,6 +4,7 @@ async function withLoadingAndError(setState, asyncFunction) {
         return await asyncFunction();
     } catch (err) {
         setState((state) => ({...state, error: err.message || err}));
+        throw err;
     } finally {
         setState((state) => ({...state, loading: false}));
     }
