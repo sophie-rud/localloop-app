@@ -7,7 +7,7 @@ function StepPresentation({step}) {
         <div className={classes['step-presentation']}>
             <div className={classes['step-header']}>
                 <div className={classes['step-presentation-photo']}>
-                    <img src={`${baseUrl}${step.photo}`} alt={step.name} className={classes['image']} />
+                    <img src={`${baseUrl}${step.photo}`} alt={step.name} crossOrigin='anonymous' className={classes['image']} />
                 </div>
                 <h3 className={classes['step-title']}>{step.name}</h3>
             </div>

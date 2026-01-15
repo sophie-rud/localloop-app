@@ -5,11 +5,12 @@ import {useState} from "react";
 import DeletionModal from "../../../ui/DeletionModal/DeletionModal.jsx";
 
 function PlaceRow({ place, onEdit, onDelete }) {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
         <tr>
-            <td data-label="Photo"><img src={place.photo} className={tableClasses['avatar']} alt={place.name} />
+            <td data-label="Photo"><img src={`${baseUrl}${place.photo}`} crossOrigin='anonymous' className={tableClasses['avatar']} alt={place.name} />
             </td>
             <td data-label="name">{place.name}</td>
             <td data-label="city">{place.city}</td>

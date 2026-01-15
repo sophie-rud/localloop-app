@@ -7,7 +7,7 @@ function PlaceCard({ place }) {
     return (
         <div className={classes['place-card']}>
             <div className={classes['place-card-photo']}>
-                <img src={`${baseUrl}${place.photo}`} alt={place.name} className={classes['image']} />
+                <img src={`${baseUrl}${place.photo}`} alt={place.name} crossOrigin='anonymous' className={classes['image']} />
             </div>
 
             <h3 className={classes['place-title']}>

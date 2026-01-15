@@ -21,7 +21,7 @@ function TrackCard({ track, onEdit, onDelete }) {
     return (
         <div className={classes['track-card']}>
             <div className={classes['track-card-photo']}>
-                <img src={`${baseUrl}${track.photo}`} alt={track.title} className={classes['image']} />
+                <img src={`${baseUrl}${track.photo}`} alt={track.title} crossOrigin='anonymous' className={classes['image']} />
             </div>
             <h3 className={classes['card-title']}
                 style={{ cursor: 'pointer' }}

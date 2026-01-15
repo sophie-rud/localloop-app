@@ -6,10 +6,11 @@ import {useState} from "react";
 
 function TrackRow({ track, onEdit, onDelete }) {
     const [modalOpen, setModalOpen] = useState(false);
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     return (
         <tr>
-            <td data-label="Photo"><img src={track.photo} className={tableClasses['avatar']} alt={track.title}/>
+            <td data-label="Photo"><img src={`${baseUrl}${track.photo}`} crossOrigin='anonymous' className={tableClasses['avatar']} alt={track.title}/>
             </td>
             <td data-label="title">{track.title}</td>
             <td data-label="duration"> {track.duration} </td>

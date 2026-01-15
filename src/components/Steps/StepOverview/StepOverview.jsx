@@ -6,7 +6,7 @@ function StepOverview({step}) {
     return (
         <div className={classes['step-overview']}>
             <div className={classes['step-overview-photo']}>
-                <img src={`${baseUrl}${step.photo}`} alt={step.name} className={classes['image']} />
+                <img src={`${baseUrl}${step.photo}`} alt={step.name} crossOrigin='anonymous' className={classes['image']} />
             </div>
             <div className={classes['overview-content']}>
                 <h4 className={classes['overview-title']}>{step.name}</h4>

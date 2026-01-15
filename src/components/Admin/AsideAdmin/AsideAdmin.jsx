@@ -1,5 +1,4 @@
 import classes from './AsideAdmin.module.css';
-import photo from "../../../assets/images/image-colmar.jpg";
 import {Users, Grid2x2, LocateFixed, Eye, ContactRound, LogOut} from 'lucide-react';
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import logo from "../../../assets/images/logo_localloop_green.png";
@@ -8,8 +7,8 @@ import {useContext} from "react";
 import {AuthContext} from "../../../contexts/auth-context.jsx";
 
 function AsideAdmin() {
-
-    const { isLogin, logout } = useContext(AuthContext);
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const { user, isLogin, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -22,14 +21,15 @@ function AsideAdmin() {
             <div className={classes['sidebar-header']}>
                 <div className={classes['sidebar-avatar']}>
                     <img
-                        src={photo}
-                        alt="Avatar"
+                        src={`${baseUrl}${user.avatar}`}
+                        alt={user.username}
+                        crossOrigin='anonymous'
                         className={classes['image']}
                     />
                 </div>
                 <div className={classes['welcome']}>
                     <p>Bienvenue,</p>
-                    <span>Admin</span>
+                    <span>{user.username}</span>
                 </div>
             </div>
 

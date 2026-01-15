@@ -7,7 +7,7 @@ function ProfileCard({ user, onEditClick }) {
     return (
         <div className={classes['profile-card']}>
             <div className={classes['profile-card-photo']}>
-                <img src={`${baseUrl}${user.avatar}`} alt={user.username} className={classes['image']} />
+                <img src={`${baseUrl}${user.avatar}`} alt={user.username} crossOrigin='anonymous' className={classes['image']} />
             </div>
             <div className={classes['user-infos']}>
                 <p><strong> {user.username} </strong></p>

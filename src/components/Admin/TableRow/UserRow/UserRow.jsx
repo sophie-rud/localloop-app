@@ -6,10 +6,11 @@ import React, {useState} from "react";
 
 function UserRow({ user, onEdit, onDelete, onBlock }) {
     const [modalOpen, setModalOpen] = useState(false);
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     return (
         <tr key={user.id}>
-            <td data-label="Photo"><img src={user.avatar} className={tableClasses['avatar']} alt="avatar"/>
+            <td data-label="Photo"><img src={`${baseUrl}${user.avatar}`} alt={user.username} crossOrigin='anonymous' className={tableClasses['avatar']} />
             </td>
             <td data-label="Username">{user.username}</td>
             <td data-label="Email">{user.email}</td>

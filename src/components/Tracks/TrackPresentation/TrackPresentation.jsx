@@ -23,7 +23,7 @@ function TrackPresentation({ track, steps, handleFavorite }) {
         <div className={classes['track-presentation']}>
             <div className={classes['track-header']}>
                 <div className={classes['track-presentation-photo']}>
-                    <img src={`${baseUrl}${track.photo}`} alt={track.title} className={classes['image']} />
+                    <img src={`${baseUrl}${track.photo}`} alt={track.title} crossOrigin='anonymous' className={classes['image']} />
                 </div>
                 <h3 className={classes['track-title']}>{track.title}</h3>
             </div>
