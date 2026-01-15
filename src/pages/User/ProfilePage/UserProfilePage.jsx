@@ -67,6 +67,7 @@ function UserProfilePage() {
 
     const deleteTrackHandler = async (track) => {
         await removeTrack(track.id);
+        loadUserTracks();
     };
 
     // Tracks display filters
