@@ -59,34 +59,28 @@ const useTracksStore = create((set, get) => {
         // STEPS
         selectedStep: null,
         setSelectedStep: (step) => set({ selectedStep: step }),
-        updateTracksAndSelectedTrack: (trackId, updatedSteps) => {
-            set(state => {
-                const updatedTracks = state.tracks.map(track =>
-                    track.id === trackId
-                        ? { ...track, steps: updatedSteps }
-                        : track
-                );
-
-                const updatedSelectedTrack =
-                    state.selectedTrack?.id === trackId
-                        ? { ...state.selectedTrack, steps: updatedSteps }
-                        : state.selectedTrack;
-
-                return {
-                    tracks: updatedTracks,
-                    selectedTrack: updatedSelectedTrack
-                };
-            });
-        },
         getStepsForSelectedTrack: () => {
-            const track = get().selectedTrack;
-            const steps = track?.steps || [];
-            return [...steps].sort((a, b) => a.stepOrder - b.stepOrder);
+            return get().selectedTrack?.steps || [];
         },
         loadStepsForTrack: (trackId) =>
             withLoadingAndError(set, async () => {
                 const steps = await getRequest(`/tracks/${trackId}/steps`);
-                get().updateTracksAndSelectedTrack(trackId, steps);
+
+                set(state => {
+                    const sortedSteps = [...steps].sort((a, b) => a.stepOrder - b.stepOrder);
+
+                    return {
+                        tracks: state.tracks.map(track =>
+                            track.id === trackId
+                                ? { ...track, steps: sortedSteps }
+                                : track
+                        ),
+                        selectedTrack: state.selectedTrack?.id === trackId
+                            ? { ...state.selectedTrack, steps: sortedSteps }
+                            : state.selectedTrack
+                    };
+                });
+
                 return steps;
             }),
         loadOneStep: (trackId, stepId) => withLoadingAndError(set, async () => {
@@ -96,33 +90,66 @@ const useTracksStore = create((set, get) => {
         }),
         addStep: async (trackId, formData) => withLoadingAndError(set, async () => {
             const newStep = await postRequest(`/tracks/${trackId}/steps`, formData);
-            const track = get().tracks.find(t => t.id === trackId);
-            const currentSteps = track?.steps || [];
-            const updatedSteps = [...currentSteps, newStep]
 
-            get().updateTracksAndSelectedTrack(trackId, updatedSteps);
+            set(state => {
+                const track = state.tracks.find(t => t.id === trackId);
+                if (!track) return state;
+
+                const updatedSteps = [...track.steps, newStep];
+                const sortedSteps = updatedSteps.sort((a, b) => a.stepOrder - b.stepOrder);
+
+                return {
+                    tracks: state.tracks.map(t => t.id === trackId ? { ...t, steps: sortedSteps } : t),
+                    selectedTrack: state.selectedTrack?.id === trackId
+                        ? { ...state.selectedTrack, steps: sortedSteps }
+                        : state.selectedTrack
+                };
+            });
+
             return newStep;
         }),
         editStep: async (trackId, stepId, formData) =>
             withLoadingAndError(set, async () => {
                 const updatedStep = await putRequest(`/tracks/${trackId}/steps/${stepId}`, formData);
-                const track = get().tracks.find(t => t.id === trackId);
-                const currentSteps = track?.steps || [];
-                const updatedSteps = currentSteps.map(step =>
-                    step.id === stepId ? updatedStep : step
-                );
 
-                get().updateTracksAndSelectedTrack(trackId, updatedSteps);
+                set(state => {
+                    const track = state.tracks.find(t => t.id === trackId);
+                    if (!track) return state;
+
+                    const updatedSteps = track.steps.map(step =>
+                        step.id === stepId ? updatedStep : step
+                    );
+                    return {
+                        tracks: state.tracks.map(t =>
+                            t.id === trackId ? { ...t, steps: updatedSteps } : t
+                        ),
+                        selectedTrack: state.selectedTrack?.id === trackId
+                            ? { ...state.selectedTrack, steps: updatedSteps }
+                            : state.selectedTrack
+                    };
+                });
+
                 return updatedStep;
             }),
         removeStep: async (trackId, stepId) =>
             withLoadingAndError(set, async () => {
                 await deleteRequest(`/tracks/${trackId}/steps/${stepId}`);
-                const track = get().tracks.find(t => t.id === trackId);
-                const currentSteps = track?.steps || [];
-                const updatedSteps = currentSteps.filter(step => step.id !== stepId);
 
-                get().updateTracksAndSelectedTrack(trackId, updatedSteps);
+                set(state => {
+                    const track = state.tracks.find(t => t.id === trackId);
+                    if (!track) return state;
+
+                    const updatedSteps = track.steps.filter(step => step.id !== stepId);
+
+                    return {
+                        tracks: state.tracks.map(t =>
+                            t.id === trackId ? { ...t, steps: updatedSteps } : t
+                        ),
+                        selectedTrack: state.selectedTrack?.id === trackId
+                            ? { ...state.selectedTrack, steps: updatedSteps }
+                            : state.selectedTrack
+                    };
+                });
             }),
         reorderStep: (trackId, stepId, direction) =>
             withLoadingAndError(set, async () => {
@@ -130,8 +157,22 @@ const useTracksStore = create((set, get) => {
                     `/tracks/${trackId}/steps/${stepId}/reorder`,
                     { direction }
                 );
+                set(state => {
+                    const updatedTracks = state.tracks.map(track =>
+                        track.id === trackId
+                            ? { ...track, steps: response.steps }
+                            : track
+                    );
+                    const updatedSelectedTrack =
+                        state.selectedTrack?.id === trackId
+                            ? { ...state.selectedTrack, steps: response.steps }
+                            : state.selectedTrack;
+                    return {
+                        tracks: updatedTracks,
+                        selectedTrack: updatedSelectedTrack
+                    };
+                });
 
-                get().updateTracksAndSelectedTrack(trackId, response.steps);
                 return response.steps;
             }),
     }

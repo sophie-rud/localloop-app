@@ -8,15 +8,15 @@ import classes from "./StepsManager.module.css"
 function StepsManager({ onPublish, onUnpublish }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [stepToEdit, setStepToEdit] = useState(null);
-    const { selectedTrack: track, addStep, editStep, loadStepsForTrack, getStepsForSelectedTrack, reorderStep, removeStep, loading, error } = useTracksStore();
+    const { selectedTrack: track, addStep, editStep, loadStepsForTrack, reorderStep, removeStep, loading, error } = useTracksStore();
 
     useEffect(() => {
         if (track?.id) {
             loadStepsForTrack(track.id);
         }
-    }, [loadStepsForTrack, track.id]);
+    }, [loadStepsForTrack, track?.id]);
 
-    const steps = getStepsForSelectedTrack();
+    const steps = track?.steps || [];
 
     if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
@@ -43,7 +43,7 @@ function StepsManager({ onPublish, onUnpublish }) {
             await addStep(track.id, data);
         }
         closeModal();
-        await loadStepsForTrack(track.id);
+        loadStepsForTrack(track.id);
     };
 
     const handleReorder = async (stepId, direction) => {
@@ -55,13 +55,14 @@ function StepsManager({ onPublish, onUnpublish }) {
     };
     const handleDelete = async (trackId, stepId) => {
         await removeStep(trackId, stepId);
+        loadStepsForTrack(track.id);
     };
 
 
     return (
         <div className={classes['steps-manager']}>
             <div>
-                {steps.length >= 3 && !track.isPublished && (
+                {steps?.length >= 3 && !track.isPublished && (
                     <Button onClick={onPublish} className={'small-blue-btn'}>
                         Publier le parcours
                     </Button>
@@ -69,11 +70,11 @@ function StepsManager({ onPublish, onUnpublish }) {
 
                 {track.isPublished && (
                     <Button onClick={onUnpublish} className={'small-blue-btn'}>
-                        Dépublier
+                        Rendre privé
                     </Button>
                 )}
 
-                {steps.length < 3 && (
+                {steps?.length < 3 && (
                     <p>Ajoutez au moins 3 étapes pour pouvoir publier ce parcours.</p>
                 )}
             </div>
@@ -81,7 +82,7 @@ function StepsManager({ onPublish, onUnpublish }) {
             <Button type="button" onClick={() => openAddModal()} className={'small-green-btn'}>+ Ajouter une étape</Button>
 
             <h2>Étapes du parcours</h2>
-            {(!steps.length) && <p>Ajoutez des étapes !</p>}
+            {(!steps?.length) && <p>Ajoutez des étapes !</p>}
 
             <StepsPreviewList
                 steps={steps}
