@@ -26,17 +26,22 @@ function UserProfilePage() {
 
     // Actions on current user data
     const editProfileHandler = async (userData) => {
-        const formData = new FormData();
+        let updatedUser;
 
-        formData.append('username', userData.username);
-        formData.append('email', userData.email);
-
-        // Add file if a new one has been selected
         if (userData.avatar) {
-            formData.append('avatar', userData.avatar);
+            const formData = new FormData();
+            formData.append("username", userData.username);
+            formData.append("email", userData.email);
+            formData.append("avatar", userData.avatar);
+
+            updatedUser = await putRequest("/me", formData);
+        } else {
+            updatedUser = await putRequest("/me", {
+                username: userData.username,
+                email: userData.email,
+            });
         }
 
-        const updatedUser = await putRequest("/me", formData);
         setUser(updatedUser);
         setIsEditAccountOpen(false);
     };

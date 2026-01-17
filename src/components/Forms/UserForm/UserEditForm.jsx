@@ -11,44 +11,35 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
     const [errors, setErrors] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
 
-    const [formData, setFormData] = useState({
+    const [data, setData] = useState({
         username: user?.username || '',
         email: user?.email || '',
         avatar: null
     });
 
+    const isEditMode = true;
     const validationRules = {
         email: validators.email,
         username: validators.username,
-        avatar: validators.photo,
+        ...(isEditMode ? {} : { avatar: validators.photo })
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setErrors({});
-        const formErrors = validateForm(formData, validationRules);
+        const formErrors = validateForm(data, validationRules);
         setErrors(formErrors);
 
         if(hasErrors(formErrors)) {
             return;
         }
 
-        const formDataToSubmit = new FormData();
-
-        formDataToSubmit.append('username', formData.username);
-        formDataToSubmit.append('email', formData.email);
-
-        // Add photo if a new one has been selected
-        if (formData.avatar) {
-            formDataToSubmit.append('photo', formData.photo);
-        }
-
-        onSubmit(formDataToSubmit);
+        onSubmit(data);
     };
 
     const handleInputChange = (field) => (e) => {
-        setFormData(prev => ({
+        setData(prev => ({
             ...prev,
             [field]: e.target.value
         }));
@@ -78,7 +69,7 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
                 <input
                     type="text"
                     id="username"
-                    value={formData.username}
+                    value={data.username}
                     placeholder="Pseudo"
                     onChange={handleInputChange('username')}
                     className={formClasses['common-input']}
@@ -91,7 +82,7 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
                 <label htmlFor="email">Email</label>
                 <input
                     type="email"
-                    value={formData.email}
+                    value={data.email}
                     placeholder="Email"
                     onChange={handleInputChange('email')}
                     className={formClasses['common-input']}
@@ -109,7 +100,9 @@ function UserEditForm({ onSubmit, onClose, onDelete }) {
                     className={formClasses['common-file-input']}
                     onChange={(e) => {
                         const file = e.target.files[0];
-                        setFormData(prev => ({ ...prev, avatar: file }));
+                        if (file) {
+                            setData(prev => ({ ...prev, avatar: file }));
+                        }
                     }}
                 />
             </div>
