@@ -50,6 +50,13 @@
     color: var(--color-green);
 }
 
+.small-green-btn:disabled {
+    background-color: #b5b5b5;
+    color: #eee;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 /* RESPONSIVE */
 /* Responsive tablette */
 @media (min-width: 640px) {
