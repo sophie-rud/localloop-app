@@ -15,6 +15,7 @@ L’objectif est de favoriser la **découverte** et l’**échange d’expérien
 - [Structure du projet](#structure-du-projet)
 - [Spécifications de l'API REST](#spécifications-de-lapi-rest)
 - [Fonctionnement général](#fonctionnement-général)
+- [Déploiement](#déploiement)
 
 ---
 
@@ -156,5 +157,14 @@ La documentation complète de l’API se trouve dans le repository, dans le fich
     - Utilisateurs, parcours et lieux
     - Création, modification et suppression des contenus
     - Consultation de leur profil et de leurs parcours publiés
+
+---
+
+## Déploiement
+
+Le projet a été déployé sur un serveur public.
+
+À la date du rendu, la version déployée est en cours de validation en raison d’un problème de configuration serveur (SSL).
+L’application est fonctionnelle en environnement local.
 
 ---
