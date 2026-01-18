@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     font-family: var(--font-family);
+    text-decoration: none;
 }
 
 html, body {
@@ -48,6 +49,10 @@ h2 {
 }
 .title-block p {
     font-size: 0.85rem;
+}
+
+.link {
+    text-decoration: none;
 }
 
 /* Error */

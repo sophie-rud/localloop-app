@@ -1,0 +1,37 @@
+.legal-page {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+.legal-page h1 {
+    margin-bottom: 2rem;
+}
+
+.legal-page section {
+    margin-bottom: 2rem;
+}
+
+.legal-page h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.legal-page a {
+    text-decoration: none;
+}
+
+.home-link {
+    display: block;
+    text-align: center;
+    color: var(--color-dark-blue);
+    font-weight: 100;
+    cursor: pointer;
+    margin-top: 4rem;
+}
+
+.home-link:hover {
+    color: var(--color-green);
+}

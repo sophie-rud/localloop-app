@@ -6,5 +6,10 @@
     z-index: 1;
     margin-top: 4rem;
     margin-bottom: 60px;
+}
+
+.footer-link {
+    color: var(--color-dark-blue);
     text-decoration: none;
+    cursor: pointer;
 }

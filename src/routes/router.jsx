@@ -20,6 +20,8 @@ import AdminRoute from "./AdminRoute.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import ForgotPasswordPage from "../pages/Password/ForgotPasswordPage/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "../pages/Password/ResetPasswordPage/ResetPasswordPage.jsx";
+import PageNotFound from "../pages/PageNotFound/PageNotFound.jsx";
+import LegalNoticesPage from "../pages/LegalNoticesPage/LegalNoticesPage.jsx";
 
 export const router = createBrowserRouter ([
     {
@@ -68,6 +70,10 @@ export const router = createBrowserRouter ([
             {
                 path: "map",
                 element: (<MapPage/>),
+            },
+            {
+                path: "legal-notices",
+                element: (<LegalNoticesPage/>),
             },
             {
                 path: "user/",
@@ -134,5 +140,11 @@ export const router = createBrowserRouter ([
                 element: (<PlacesPage />),
             },
         ]
+    },
+    {
+        path: "*",
+        element: (
+            <PageNotFound />
+        ),
     }
 ])

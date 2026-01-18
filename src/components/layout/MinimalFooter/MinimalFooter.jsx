@@ -1,10 +1,12 @@
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import classes from './MinimalFooter.module.css';
 
 function MinimalFooter() {
     return (
         <footer className={classes['minimal-footer']}>
-                <Link to="/mentions-legales">Mentions légales</Link>
+            <NavLink to={'/legal-notices'} className={classes['footer-link']} >
+                Mentions légales
+            </NavLink>
         </footer>
     )
 }
