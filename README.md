@@ -7,11 +7,42 @@ L’objectif est de favoriser la **découverte** et l’**échange d’expérien
 
 ---
 
+## Table des matières
+- [Technologies](#technologies)
+- [Variables d'environnement](#variables-denvironnement)
+- [Installation et lancement](#installation-et-lancement)
+- [Fonctionnalités](#fonctionnalités)
+- [Structure du projet](#structure-du-projet)
+- [Spécifications de l'API REST](#spécifications-de-lapi-rest)
+- [Fonctionnement général](#fonctionnement-général)
+
+---
+
 ## Technologies
 
 - **Frontend :** React, React Router, Zustand, Leaflet, Lucide Icons
-- **Backend :** pour le moment, le backend est simulé avec JSON Server
+- **Backend :** Node.js, Express, PostgreSQL, Prisma, JWT
 - **UI / Styles :** modules CSS
+
+
+  Ce frontend consomme une API développée dans un repository backend séparé, disponible à ce lien :
+
+  ```bash
+   https://github.com/sophie-rud/localloop-backend.git
+   ```
+
+---
+
+## Variables d'environnement
+
+VITE_API_BASE_URL=http://localhost:<PORT>  
+VITE_API_URL=http://localhost:<PORT>/api
+
+Remplacer `<PORT>` par le port sur lequel le backend est lancé (3000 par défaut).
+
+
+- VITE_API_URL : pour les requêtes vers le backend avec /api
+- VITE_API_BASE_URL : pour les requêtes sans préfixe /api
 
 ---
 
@@ -32,23 +63,23 @@ Installer les dépendances :
 npm install
 ```
 
-Lancer le backend simulé :
-```bash
-npm run api
-```
-
 Lancer le frontend :
 ```bash
 npm run dev
 ```
-Le site sera accessible sur http://localhost:5173
+Le site sera accessible sur http://localhost:5173 (ou sur le port indiqué par le terminal)
 
-Authentification :
+### Authentification :
 
-Pour l’instant l’interface est simplifiée : pas de login par email/password nécessaires.
-Il suffit de sélectionner le rôle et de cliquer sur **Se connecter** :
-- utilisateur → accès aux fonctionnalités standard
-- admin → accès à l’interface d’administration
+Les utilisateurs peuvent créer un compte et se connecter via un formulaire d’authentification.
+
+L’accès à certaines fonctionnalités dépend du rôle de l’utilisateur :
+- **Utilisateur** : accès aux fonctionnalités standard (consultation et publication de parcours)
+- **Administrateur** : accès aux fonctionnalités d’administration
+
+Fonctionnalité “mot de passe oublié” avec envoi d’un email de réinitialisation sécurisé.
+
+L’authentification est gérée côté backend via des tokens JWT.
 
 ---
 
@@ -61,7 +92,7 @@ Il suffit de sélectionner le rôle et de cliquer sur **Se connecter** :
 ### Pour les utilisateurs
 - Explorer les parcours créés par la communauté.
 - Créer, consulter et sauvegarder des parcours.
-- Ajouter, modifier des étapes à un des ses parcours, avec texte, photos, informations pratiques, localisation...
+- Ajouter, modifier des étapes à un de ses parcours, avec texte, photos, informations pratiques, localisation...
 - Gérer ses parcours favoris et son profil.
 
 ### Pour l’admin
@@ -71,6 +102,26 @@ Il suffit de sélectionner le rôle et de cliquer sur **Se connecter** :
 - Les admins sont les seuls gestionnaires des lieux (points géographique précis) sur lesquels se basent les étapes.
 
 ---
+
+## Structure du projet
+
+```bash
+src/
+  ├─ assets/       # Ressources statiques (images, icônes, etc.)
+  ├─ contexts/     # Contextes React (authentification)
+  ├─ components/   # Composants réutilisables
+  ├─ hooks/        # Hooks personnalisés
+  ├─ layouts/      # Layouts généraux de l’application
+  ├─ pages/        # Pages React correspondant aux routes
+  ├─ routes/       # Configuration du router
+  ├─ services/     # Méthodes pour les appels API
+  ├─ stores/       # Stores Zustand
+  ├─ styles/       # Variables CSS
+  ├─ utils/        # Fonctions utilitaires
+  └─ App.jsx       # Point d’entrée de l’application
+```
+
+ ---
 
 ## Spécifications de l'API REST
 
@@ -82,14 +133,17 @@ La documentation complète de l’API se trouve dans le repository, dans le fich
 
 - Les utilisateurs explorent et créent des **parcours de découverte**, composés d’une série d’étapes.
 
+
 - Un **parcours** peut contenir :
     - Une photo et une présentation
     - Informations pratiques : durée, distance, difficulté
     - Un thème
     - Plusieurs étapes, chacune avec : texte (conseils, anecdotes), photo et ordre dans le parcours
 
+
 - Chaque **étape** est toujours liée à un **lieu**, centralisant les informations géographiques et descriptives.
     - Les **lieux sont gérés par les administrateurs** ; les utilisateurs ne peuvent pas en créer.
+
 
 - Chaque utilisateur dispose d’un **espace personnel** pour consulter :
     - Ses parcours créés
@@ -97,33 +151,10 @@ La documentation complète de l’API se trouve dans le repository, dans le fich
     - L’ajout aux favoris est actuellement simulé de manière simplifiée via le store Zustand.
     - Dans une version future avec backend complet, les favoris seront stockés dans une table dédiée pour gérer la relation utilisateur ↔ parcours.
 
+
 - Les **administrateurs** disposent de dashboards pour superviser :
     - Utilisateurs, parcours et lieux
     - Création, modification et suppression des contenus
     - Consultation de leur profil et de leurs parcours publiés
 
 ---
-
-## Améliorations et prochaines étapes
-
-#### Interface, UX, ergonomie :
-- Rendre l’interface admin et les dashboards responsive mobile, ajouter une barre de recherche aux dashboards
-- Ajouter les modales de confirmation pour les suppressions.
-- Améliorer les icônes des thèmes pour plus de lisibilité.
-- Ajouter les pages Contact et Mentions légales.
-
-#### Gestion des utilisateurs :
-- Ajouter le formulaire de modification sur le profil utilisateur, 
-- Ajouter la fonctionnalité “mot de passe oublié”.
-
-#### Fonctionnalités et cohérence des données :
-- Améliorer le système de filtres, 
-- Affiner la relation lieu → étape, ajouter la possibilité de modifier l’ordre des étapes (steps).
-- Calcul de la distance selon les étapes renseignées (actuellement saisie par l’utilisateur). 
-- Objets incomplets : compléter les champs renvoyés via les formulaires.
-- À terme, les villes pourront devenir une table dédiée.
-
-#### Code et organisation :
-- Fonctionnalité "upload de fichier" : pour l'instant "photo" est un simple champ texte.
-- Refactor des dossiers, nettoyage et optimisation du code, 
-- Uniformisation des noms de propriétés en camelCase.
