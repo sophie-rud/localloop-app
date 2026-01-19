@@ -14,7 +14,7 @@ function UserDashboardPage() {
 
     useEffect(() => {
         loadUsers();
-    }, [loadUsers]);
+    }, []);
 
     const openCreateForm = () => {
         setSelectedUser(null);
