@@ -69,3 +69,11 @@
         margin: auto;
     }
 }
+
+/* Desktop */
+@media (min-width: 1200px) {
+    .step-overview-photo {
+        height: 100%;
+        max-width: 35%;
+    }
+}

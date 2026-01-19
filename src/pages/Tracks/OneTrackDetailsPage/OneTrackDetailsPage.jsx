@@ -40,24 +40,24 @@ function OneTrackDetailsPage() {
 
     return (
         <main className={classes['one-track-page-main']}>
-            <section className={classes['track-presentation-section']}>
-                <TrackPresentation
-                    track={selectedTrack}
-                    steps={steps}
-                    handleFavorite={handleFavoriteClick}
-                    isFavorite={isFavorite}
-                />
-            </section>
             <div className={classes['display-manager']}>
+                <section className={classes['track-presentation-section']}>
+                    <TrackPresentation
+                        track={selectedTrack}
+                        steps={steps}
+                        handleFavorite={handleFavoriteClick}
+                        isFavorite={isFavorite}
+                    />
+                    <div className={classes['track-steps-section']}>
+                        {steps && steps.map(step =>(
+                            <NavLink to={`/tracks/${trackId}/steps/${step.id}`} key={step.id}>
+                                <StepOverview key={step.id} step={step} />
+                            </NavLink>
+                        )) }
+                    </div>
+                </section>
                 <section className={classes['map-track-section']}>
                     {steps && <MapTrackView steps={steps} />}
-                </section>
-                <section className={classes['track-steps-section']}>
-                    {steps && steps.map(step =>(
-                        <NavLink to={`/tracks/${trackId}/steps/${step.id}`} key={step.id}>
-                            <StepOverview key={step.id} step={step} />
-                        </NavLink>
-                    )) }
                 </section>
             </div>
         </main>

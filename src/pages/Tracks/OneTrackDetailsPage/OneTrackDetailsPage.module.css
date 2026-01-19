@@ -1,14 +1,18 @@
 .one-track-page-main {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    height: 100vh;
 }
 
-.map-track-section {
-    height: 50vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.display-manager {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.track-presentation-section {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    gap: 3rem;
 }
 
 .track-steps-section {
@@ -17,18 +21,31 @@
     gap: 2rem;
 }
 
-.display-manager {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+.map-track-section {
+    height: 50vh;
 }
 
 /* RESPONSIVE */
 /* Desktop */
 @media (min-width: 1200px) {
     .display-manager {
-        display: flex;
         flex-direction: row;
-        gap: 3rem;
+    }
+
+    .track-presentation-section {
+        flex: 2;
+        overflow-y: auto;
+        padding-right: 1rem;
+    }
+
+    .track-steps-section {
+        max-height: 10vh;
+    }
+
+    .map-track-section {
+        flex: 1;
+        height: 70vh;
+        position: sticky;
+        top: 0;
     }
 }
