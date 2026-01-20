@@ -36,11 +36,13 @@ function StepsManager({ onPublish, onUnpublish }) {
         setStepToEdit(null);
     };
 
-    const handleStepSave = async (data) => {
+    const handleStepSave = async (formDataToSubmit) => {
+        console.log('Data being sent:', formDataToSubmit)
         if (stepToEdit) {
-            await editStep(track.id, stepToEdit.id, data);
+            await editStep(track.id, stepToEdit.id, formDataToSubmit);
         } else {
-            await addStep(track.id, data);
+            console.log(track.id, formDataToSubmit);
+            await addStep(track.id, formDataToSubmit);
         }
         closeModal();
         loadStepsForTrack(track.id);
