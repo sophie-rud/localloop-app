@@ -4,8 +4,8 @@ import classes from "../../ui/CommonModal/CommonModal.module.css"
 function StepModal({ isOpen, onClose, step, onStepSave }) {
     if (!isOpen) return null;
 
-    const handleSave = (stepData) => {
-        onStepSave(stepData);
+    const handleSave = (formDataToSubmit) => {
+        onStepSave(formDataToSubmit);
         onClose();
     };
 

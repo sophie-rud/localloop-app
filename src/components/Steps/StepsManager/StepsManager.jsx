@@ -14,7 +14,7 @@ function StepsManager({ onPublish, onUnpublish }) {
         if (track?.id) {
             loadStepsForTrack(track.id);
         }
-    }, [loadStepsForTrack, track?.id]);
+    }, [track?.id]);
 
     const steps = track?.steps || [];
 
@@ -37,7 +37,6 @@ function StepsManager({ onPublish, onUnpublish }) {
     };
 
     const handleStepSave = async (formDataToSubmit) => {
-        console.log('Data being sent:', formDataToSubmit)
         if (stepToEdit) {
             await editStep(track.id, stepToEdit.id, formDataToSubmit);
         } else {
@@ -45,7 +44,7 @@ function StepsManager({ onPublish, onUnpublish }) {
             await addStep(track.id, formDataToSubmit);
         }
         closeModal();
-        loadStepsForTrack(track.id);
+        await loadStepsForTrack(track.id);
     };
 
     const handleReorder = async (stepId, direction) => {
@@ -57,7 +56,7 @@ function StepsManager({ onPublish, onUnpublish }) {
     };
     const handleDelete = async (trackId, stepId) => {
         await removeStep(trackId, stepId);
-        loadStepsForTrack(track.id);
+        await loadStepsForTrack(track.id);
     };
 
 
