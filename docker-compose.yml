@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+      context: .
+    env_file:
+      - .env
+    ports:
+      - "8000:80"
+      - "8080:443"
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - localloop
+
+networks:
+  localloop:
+    external: true
