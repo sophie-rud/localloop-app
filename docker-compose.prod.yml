@@ -1,0 +1,12 @@
+services:
+  app:
+    image: ghcr.io/sophie-rud/localloop-app:latest
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    networks:
+      - localloop
+
+networks:
+  localloop:
+    external: true
